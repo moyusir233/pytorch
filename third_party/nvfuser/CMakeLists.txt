@@ -128,7 +128,6 @@ list(APPEND NVFUSER_SRCS
     ${NVFUSER_SRCS_DIR}/scheduler/mma_utils.cpp
 )
 
-message(FATAL_WARNING "IONUT" ${BUILD_SHARED_LIBS})
 if(${BUILD_SHARED_LIBS})
   add_library(${NVFUSER_CODEGEN} SHARED ${NVFUSER_SRCS})
 else()
