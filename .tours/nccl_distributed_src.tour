@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "nccl_distributed_src",
+  "steps": [
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "通信进程组初始化的python函数",
+      "line": 766
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "初始化进程组初始化时所需要的Store的python代码，可以照这个流程来进行实现基于tcp的nccl通信进程组的创建的rust binding",
+      "line": 896
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/PrefixStore.hpp",
+      "description": "PrefixStore定义的地方",
+      "line": 8
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/init.cpp",
+      "description": "PrefixStore的py binding的定义",
+      "line": 1150
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "python中用于创建PrefixStore所需要包装的Store的函数，返回的是一个py迭代器",
+      "line": 92
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}

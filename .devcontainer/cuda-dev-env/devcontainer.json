@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/devcontainer.json. 
+{
+	// 在pytorch开发镜像的基础上配置了rust的编译工具
+	"name": "tch-rs-dev-env",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel",
+	"runArgs": [
+		"--gpus=all",
+		"--ipc=host"
+	],
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"hostRequirements": {
+		"gpu": true
+	},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		// c++以及开发相关的插件,rust相关的插件已通过上面的feature进行了添加
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"go2sh.cmake-integration-vscode",
+				"albert.TabOut",
+				"redjue.git-commit-plugin",
+				"Gruntfuggly.todo-tree",
+				"ms-python.vscode-pylance",
+				"ms-python.python",
+				"vsls-contrib.codetour"
+			]
+		}
+	}
+}
