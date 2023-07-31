@@ -13,9 +13,109 @@
       "line": 896
     },
     {
-      "file": "torch/csrc/distributed/c10d/PrefixStore.hpp",
-      "description": "PrefixStore定义的地方",
-      "line": 8
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "python中用于创建PrefixStore所需要包装的Store的函数，返回的是一个py迭代器",
+      "line": 92
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "对url、rank、work_size等信息进行处理的函数",
+      "line": 59
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "解析传入的url字符串，详见urlparse函数的注释",
+      "line": 60
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "用处理好后的信息来查询map，获得相应的迭代器",
+      "line": 89
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "_rendezvous_handlers就是一个map，这里定义了注册不同url scheme所对应的不同迭代器handler",
+      "line": 22
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "将tcp相关的Store迭代器注册到map中",
+      "line": 253
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "用于创建Store的Tcp迭代器",
+      "line": 181
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "在这里调用了创建c10d::Store的函数",
+      "line": 200
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "创建c10d::Store的函数",
+      "line": 150
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
+      "description": "依据环境变量来创建不同的Store，看起来默认这个环境变量是没有设置的，因此为false",
+      "line": 170
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "这里将默认进程组default_pg进行创建，并保存到了全局变量中，后续的集合通信调用默认都使用该默认进程组",
+      "line": 907
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "实际创建进程组的函数",
+      "line": 935
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "嵌套创建了新的PrefixStore，并且依据传入的参数，创建了cpp中的类实例ProcessGroupOptions",
+      "line": 981
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "创建了NcclProcessGroup的基类ProcessGroup的实例",
+      "line": 984
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "创建关于设备与其使用的通信库后端的配置，默认是cpu为gloo后端、gpu为nccl后端，并以在BackendConfig实例中map的形式保存",
+      "line": 985
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "nccl后端的配置",
+      "line": 1011
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "这里调用了c10d::ProcessGroup::setSequenceNumberForGroup函数，详见ProcessGroup binding的定义",
+      "line": 1058
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": " 实际创建nccl进程组的地方",
+      "line": 1024
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "创建的后端是nccl进程组是，这里直接停止循环",
+      "line": 1062
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "这里进行了进程组中各个进程的同步",
+      "line": 932
+    },
+    {
+      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/distributed_c10d.py",
+      "description": "利用store来同步进程组中所有进程的函数",
+      "line": 434
     },
     {
       "file": "torch/csrc/distributed/c10d/init.cpp",
@@ -23,9 +123,19 @@
       "line": 1150
     },
     {
-      "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
-      "description": "python中用于创建PrefixStore所需要包装的Store的函数，返回的是一个py迭代器",
-      "line": 92
+      "file": "torch/csrc/distributed/c10d/PrefixStore.hpp",
+      "description": "PrefixStore定义的地方",
+      "line": 8
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroup.hpp",
+      "description": "ProcessGroup以及其Options定义的地方",
+      "line": 49
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/TCPStore.hpp",
+      "description": "TCPStore的定义",
+      "line": 39
     }
   ],
   "ref": "torchv2.0.1_dev"
