@@ -24,13 +24,13 @@
     },
     {
       "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
-      "description": "解析传入的url字符串，详见urlparse函数的注释",
-      "line": 60
+      "description": "用处理好后的信息来查询map，获得相应的迭代器",
+      "line": 89
     },
     {
       "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
-      "description": "用处理好后的信息来查询map，获得相应的迭代器",
-      "line": 89
+      "description": "解析传入的url字符串，详见urlparse函数的注释",
+      "line": 60
     },
     {
       "file": "../../opt/conda/lib/python3.10/site-packages/torch/distributed/rendezvous.py",
