@@ -1,0 +1,72 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "ProcessGroupNCCL::collective",
+  "steps": [
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "完成nccl集合通信的通用包装函数",
+      "line": 1527
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "依据输入的张量来获得进行集合通信的设备，并依据这些设备去创建或者重用nccl communicator",
+      "line": 1555
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "创建底层ncclComms的函数",
+      "line": 1169
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "记录已经参与过集合通信的设备",
+      "line": 1184
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "对于已经参与过集合通信的设备组，会重用已经创建过的ncclComms，devicesKey就是设备组的索引拼接而成的字符串，可见getKeyFromDevices函数",
+      "line": 1190
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "进行ncclComms的创建，详细的过程描述还可见nccl的开发者文档",
+      "line": 1195
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "在allgather与reduce_scatter函数调用时会依据条件启用该标志位",
+      "line": 1557
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "在getNCCLComm函数中创建的nccl stream进行重用",
+      "line": 1562
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "让nccl流上的操作等待输入张量创建完毕后才开始通信操作",
+      "line": 1565
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "创建表示异步返回结果的Future类型Work",
+      "line": 1569
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "work中保存了输出张量的rc指针",
+      "line": 1578
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "设置同步的event来确保参与集合通信的输入张量不会在集合通信操作结束之前就被回收掉所占有的内存",
+      "line": 1609
+    },
+    {
+      "file": "torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp",
+      "description": "执行传入的、实际执行集合通信操作的函数指针",
+      "line": 1611
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}
