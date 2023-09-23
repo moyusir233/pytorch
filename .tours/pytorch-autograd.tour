@@ -1,0 +1,222 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "pytorch-autograd",
+  "steps": [
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "在张量上调用.backward时，实际负责反向传播的函数入口",
+      "line": 153
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "利用_make_grads函数构造输入反向传播计算图的起点输入梯度张量",
+      "line": 159
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "如果反向传播时没有显式指定root张量的梯度张量，则该函数将张量上保存的.grad梯度提取出来作为输入反向传播计算图的起点梯度张量",
+      "line": 27
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "标量关于自己本身的梯度即1，可以隐式的直接创建",
+      "line": 40
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "检查直接传入的而不是隐式构建的，作为反向传播计算图输入的起点梯度张量是否有问题",
+      "line": 44
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "执行backward的函数",
+      "line": 83
+    },
+    {
+      "file": "torch/csrc/autograd/function_hook.h",
+      "description": "Variable就是at::Tensor",
+      "line": 12
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "将反向传播图的根节点，即反向传播的起点张量，转换为torch::autograd::Edge，保存在roots中",
+      "line": 94
+    },
+    {
+      "file": "torch/csrc/autograd/variable.cpp",
+      "description": "将张量转换为Edge",
+      "line": 288
+    },
+    {
+      "file": "torch/csrc/autograd/variable.cpp",
+      "description": "如果张量上存在grad_fn，则利用它创建Edge，即创建在Node上的Edge(grad_fn即torch::autograd::Node)，否则默认利用进行梯度累加的函数来创建Edge。每个张量上的grad_fn表示利用当前张量的.grad去计算其他张量的函数，即张量的.grad梯度张量是指向其.grad_fn Node的Edge",
+      "line": 295
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "保存张量传播的终点Edge，即输入的inputs，将inputs中的张量转换为Edge的过程与上面处理root张量的过程类似",
+      "line": 105
+    },
+    {
+      "file": "torch/csrc/autograd/autograd.cpp",
+      "description": "利用Engine完成图的遍历与梯度计算，这里可以看到grad_outputs即传入backward函数的grad_tensors直接作为inputs即root Nodes的输入传入到的execute的函数，即root张量的梯度(.grad)为反向传播计算的起点输入张量",
+      "line": 131
+    },
+    {
+      "file": "torch/csrc/autograd/edge.h",
+      "description": "torch::autograd::Edge的定义，表示着函数的输入，可以理解为算子的输入张量",
+      "line": 15
+    },
+    {
+      "file": "torch/csrc/autograd/edge.h",
+      "description": "Node为函数，Edge为函数的输入，该构造函数创建给定Node上的Edge",
+      "line": 18
+    },
+    {
+      "file": "torch/csrc/autograd/edge.h",
+      "description": "Edge指向的函数",
+      "line": 36
+    },
+    {
+      "file": "torch/csrc/autograd/edge.h",
+      "description": "标记当前Edge的标识符，比如是Edge指向的函数的第几个输入",
+      "line": 39
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "表示函数的Node的定义，类似计算图中的算子，每个张量都通过grad_fn函数与一个Node相关联",
+      "line": 63
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "一个Node是一个函数，它输入若干的变量，操作后输出若干的变量(这里的变量往往即张量)。",
+      "line": 66
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "在autograd的计算图中，Edge表示Noded的输入或者输出的变量。在Edge的定义中，它指向将其作为输入的函数Node",
+      "line": 72
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "通常Node就表示一个可导、求梯度的函数，但它也可以表示其他的操作，比如梯度累加，它接收一个梯度张量然后进行累加，不产生输出；比如对于图的根节点，它可能不需要输入，但产生多个输出",
+      "line": 82
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "Node的call方法用于执行Node所表示的函数，它输入一系列变量，并产生一系列变量，输入的变量个数与输出的变量个数可以利用相应的方法来获得",
+      "line": 95
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "节点可以通过next_edge等一系列方法，来获得表示Node输出的出边，这些出边又指向一系列相应的Node。另外也可以利用add_next_edge方法来添加Node的出边",
+      "line": 98
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "每个Node拥有一个自增的序列号作为标识符，但注意该序列号是thread_local自增的",
+      "line": 102
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "操作node出边的一系列函数",
+      "line": 272
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "获得指定输入的metadata",
+      "line": 229
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "Node序列号的作用",
+      "line": 308
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "Node拓扑顺序号的作用",
+      "line": 330
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "Node相关的钩子api",
+      "line": 455
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "Node的字段",
+      "line": 555
+    },
+    {
+      "file": "torch/csrc/autograd/function.h",
+      "description": "钩子的调用顺序",
+      "line": 633
+    },
+    {
+      "file": "torch/csrc/autograd/engine.h",
+      "description": "实际遍历计算图，完成反向传播计算的虚函数",
+      "line": 144
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "执行反向传播的入口函数",
+      "line": 1138
+    },
+    {
+      "file": "torch/csrc/autograd/graph_task.h",
+      "description": "对一次遍历计算图的反向传播执行过程的包装",
+      "line": 23
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "遍历整个计算图，将需要进行计算的Node的数量信息保存到GraphTask的map中",
+      "line": 1100
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "执行GraphTask的函数",
+      "line": 1239
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "开始执行graph_task的入口",
+      "line": 1268
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "执行GraphTask的主要函数",
+      "line": 497
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "实际执行Node对应的函数",
+      "line": 550
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "执行Node对应的函数",
+      "line": 939
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "调用Node对应的函数",
+      "line": 989
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "检查计算结果",
+      "line": 1007
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "利用计算的输出来构造之后Node的输入",
+      "line": 1024
+    },
+    {
+      "file": "torch/csrc/autograd/engine.cpp",
+      "description": "调用Node对应的函数以及相应的钩子函数",
+      "line": 888
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}
