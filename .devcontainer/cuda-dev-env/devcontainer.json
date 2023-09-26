@@ -3,7 +3,8 @@
 	// 在pytorch开发镜像的基础上配置了rust的编译工具
 	"name": "tch-rs-dev-env",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel",
+	// "image": "pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel",
+	"image": "my-dev-env:latest",
 	"runArgs": [
 		"--gpus=all",
 		"--ipc=host"
@@ -26,7 +27,8 @@
 				"Gruntfuggly.todo-tree",
 				"ms-python.vscode-pylance",
 				"ms-python.python",
-				"vsls-contrib.codetour"
+				"vsls-contrib.codetour",
+				"charliermarsh.ruff"
 			]
 		}
 	}

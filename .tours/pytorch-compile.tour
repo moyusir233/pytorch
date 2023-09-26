@@ -17,6 +17,16 @@
       "file": "torch/_functorch/aot_autograd.py",
       "description": "aot_autograd完成编译的主要函数",
       "line": 2733
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "大致来看，是将Module中的所有参数与buffer展平",
+      "line": 2775
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "利用Interpreter来执行了torch.fx.GraphModule中的Node，并利用torch.autograd.detect_anomaly context manager来记录了反向传播的过程",
+      "line": 2793
     }
   ],
   "ref": "torchv2.0.1_dev"
