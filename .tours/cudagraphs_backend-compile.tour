@@ -1,0 +1,28 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "cudagraphs_backend compile",
+  "steps": [
+    {
+      "file": "torch/_dynamo/backends/cudagraphs.py",
+      "description": "注册cudagraphs后端的入口",
+      "line": 145,
+      "title": "注册cudagraphs后端的入口"
+    },
+    {
+      "file": "torch/_dynamo/backends/cudagraphs.py",
+      "description": "进行cugagraphs编译的函数",
+      "line": 134
+    },
+    {
+      "file": "torch/fx/passes/backends/cudagraphs.py",
+      "description": "将fx graph划分为若干可以在cuda graph下运行的子graph modules",
+      "line": 42
+    },
+    {
+      "file": "torch/fx/passes/fake_tensor_prop.py",
+      "description": "继承了fx.Interpreter，并在遍历fx graphs的过程中利用FakeTensor来记录Node的元信息",
+      "line": 11
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}

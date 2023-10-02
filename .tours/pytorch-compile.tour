@@ -1,6 +1,6 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "pytorch-compile",
+  "title": "aot_autograd compile",
   "steps": [
     {
       "file": "torch/_dynamo/backends/common.py",
@@ -27,6 +27,28 @@
       "file": "torch/_functorch/aot_autograd.py",
       "description": "利用Interpreter来执行了torch.fx.GraphModule中的Node，并利用torch.autograd.detect_anomaly context manager来记录了反向传播的过程",
       "line": 2793
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "创建aot_autograd编译函数的入口",
+      "line": 2822
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "产生aot_autograd编译函数的入口",
+      "line": 2409,
+      "title": "create_aot_dispatcher_function:trace前向传播与反向传播的计算图以生成联合计算图,并进行编译优化的函数"
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "编译计算图函数的入口",
+      "line": 2508
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "进行前向传播计算图与反向传播计算图的联合编译",
+      "line": 2050,
+      "title": "aot_dispatch_autograd:进行前向传播计算图与反向传播计算图的联合编译"
     }
   ],
   "ref": "torchv2.0.1_dev"
