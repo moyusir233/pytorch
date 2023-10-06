@@ -1,0 +1,916 @@
+resnet_152:-------------------------------------------
+opcode         name                              target                                                      args                                                         kwargs
+-------------  --------------------------------  ----------------------------------------------------------  -----------------------------------------------------------  --------
+placeholder    data                              data                                                        ()                                                           {}
+placeholder    label                             label                                                       ()                                                           {}
+call_module    self_model_conv1                  self_model_conv1                                            (data,)                                                      {}
+call_module    self_model_bn1                    self_model_bn1                                              (self_model_conv1,)                                          {}
+call_module    self_model_relu                   self_model_relu                                             (self_model_bn1,)                                            {}
+call_module    self_model_maxpool                self_model_maxpool                                          (self_model_relu,)                                           {}
+call_module    self_model_layer1_0_conv1         self_model_layer1_0_conv1                                   (self_model_maxpool,)                                        {}
+call_module    self_model_layer1_0_bn1           self_model_layer1_0_bn1                                     (self_model_layer1_0_conv1,)                                 {}
+call_module    self_model_layer1_0_relu          self_model_layer1_0_relu                                    (self_model_layer1_0_bn1,)                                   {}
+call_module    self_model_layer1_0_conv2         self_model_layer1_0_conv2                                   (self_model_layer1_0_relu,)                                  {}
+call_module    self_model_layer1_0_bn2           self_model_layer1_0_bn2                                     (self_model_layer1_0_conv2,)                                 {}
+call_module    self_model_layer1_0_relu_1        self_model_layer1_0_relu                                    (self_model_layer1_0_bn2,)                                   {}
+call_module    self_model_layer1_0_conv3         self_model_layer1_0_conv3                                   (self_model_layer1_0_relu_1,)                                {}
+call_module    self_model_layer1_0_bn3           self_model_layer1_0_bn3                                     (self_model_layer1_0_conv3,)                                 {}
+call_module    self_model_layer1_0_downsample_0  self_model_layer1_0_downsample_0                            (self_model_maxpool,)                                        {}
+call_module    self_model_layer1_0_downsample_1  self_model_layer1_0_downsample_1                            (self_model_layer1_0_downsample_0,)                          {}
+call_function  iadd                              <built-in function iadd>                                    (self_model_layer1_0_bn3, self_model_layer1_0_downsample_1)  {}
+call_module    self_model_layer1_0_relu_2        self_model_layer1_0_relu                                    (iadd,)                                                      {}
+call_module    self_model_layer1_1_conv1         self_model_layer1_1_conv1                                   (self_model_layer1_0_relu_2,)                                {}
+call_module    self_model_layer1_1_bn1           self_model_layer1_1_bn1                                     (self_model_layer1_1_conv1,)                                 {}
+call_module    self_model_layer1_1_relu          self_model_layer1_1_relu                                    (self_model_layer1_1_bn1,)                                   {}
+call_module    self_model_layer1_1_conv2         self_model_layer1_1_conv2                                   (self_model_layer1_1_relu,)                                  {}
+call_module    self_model_layer1_1_bn2           self_model_layer1_1_bn2                                     (self_model_layer1_1_conv2,)                                 {}
+call_module    self_model_layer1_1_relu_1        self_model_layer1_1_relu                                    (self_model_layer1_1_bn2,)                                   {}
+call_module    self_model_layer1_1_conv3         self_model_layer1_1_conv3                                   (self_model_layer1_1_relu_1,)                                {}
+call_module    self_model_layer1_1_bn3           self_model_layer1_1_bn3                                     (self_model_layer1_1_conv3,)                                 {}
+call_function  iadd_1                            <built-in function iadd>                                    (self_model_layer1_1_bn3, self_model_layer1_0_relu_2)        {}
+call_module    self_model_layer1_1_relu_2        self_model_layer1_1_relu                                    (iadd_1,)                                                    {}
+call_module    self_model_layer1_2_conv1         self_model_layer1_2_conv1                                   (self_model_layer1_1_relu_2,)                                {}
+call_module    self_model_layer1_2_bn1           self_model_layer1_2_bn1                                     (self_model_layer1_2_conv1,)                                 {}
+call_module    self_model_layer1_2_relu          self_model_layer1_2_relu                                    (self_model_layer1_2_bn1,)                                   {}
+call_module    self_model_layer1_2_conv2         self_model_layer1_2_conv2                                   (self_model_layer1_2_relu,)                                  {}
+call_module    self_model_layer1_2_bn2           self_model_layer1_2_bn2                                     (self_model_layer1_2_conv2,)                                 {}
+call_module    self_model_layer1_2_relu_1        self_model_layer1_2_relu                                    (self_model_layer1_2_bn2,)                                   {}
+call_module    self_model_layer1_2_conv3         self_model_layer1_2_conv3                                   (self_model_layer1_2_relu_1,)                                {}
+call_module    self_model_layer1_2_bn3           self_model_layer1_2_bn3                                     (self_model_layer1_2_conv3,)                                 {}
+call_function  iadd_2                            <built-in function iadd>                                    (self_model_layer1_2_bn3, self_model_layer1_1_relu_2)        {}
+call_module    self_model_layer1_2_relu_2        self_model_layer1_2_relu                                    (iadd_2,)                                                    {}
+call_module    self_model_layer2_0_conv1         self_model_layer2_0_conv1                                   (self_model_layer1_2_relu_2,)                                {}
+call_module    self_model_layer2_0_bn1           self_model_layer2_0_bn1                                     (self_model_layer2_0_conv1,)                                 {}
+call_module    self_model_layer2_0_relu          self_model_layer2_0_relu                                    (self_model_layer2_0_bn1,)                                   {}
+call_module    self_model_layer2_0_conv2         self_model_layer2_0_conv2                                   (self_model_layer2_0_relu,)                                  {}
+call_module    self_model_layer2_0_bn2           self_model_layer2_0_bn2                                     (self_model_layer2_0_conv2,)                                 {}
+call_module    self_model_layer2_0_relu_1        self_model_layer2_0_relu                                    (self_model_layer2_0_bn2,)                                   {}
+call_module    self_model_layer2_0_conv3         self_model_layer2_0_conv3                                   (self_model_layer2_0_relu_1,)                                {}
+call_module    self_model_layer2_0_bn3           self_model_layer2_0_bn3                                     (self_model_layer2_0_conv3,)                                 {}
+call_module    self_model_layer2_0_downsample_0  self_model_layer2_0_downsample_0                            (self_model_layer1_2_relu_2,)                                {}
+call_module    self_model_layer2_0_downsample_1  self_model_layer2_0_downsample_1                            (self_model_layer2_0_downsample_0,)                          {}
+call_function  iadd_3                            <built-in function iadd>                                    (self_model_layer2_0_bn3, self_model_layer2_0_downsample_1)  {}
+call_module    self_model_layer2_0_relu_2        self_model_layer2_0_relu                                    (iadd_3,)                                                    {}
+call_module    self_model_layer2_1_conv1         self_model_layer2_1_conv1                                   (self_model_layer2_0_relu_2,)                                {}
+call_module    self_model_layer2_1_bn1           self_model_layer2_1_bn1                                     (self_model_layer2_1_conv1,)                                 {}
+call_module    self_model_layer2_1_relu          self_model_layer2_1_relu                                    (self_model_layer2_1_bn1,)                                   {}
+call_module    self_model_layer2_1_conv2         self_model_layer2_1_conv2                                   (self_model_layer2_1_relu,)                                  {}
+call_module    self_model_layer2_1_bn2           self_model_layer2_1_bn2                                     (self_model_layer2_1_conv2,)                                 {}
+call_module    self_model_layer2_1_relu_1        self_model_layer2_1_relu                                    (self_model_layer2_1_bn2,)                                   {}
+call_module    self_model_layer2_1_conv3         self_model_layer2_1_conv3                                   (self_model_layer2_1_relu_1,)                                {}
+call_module    self_model_layer2_1_bn3           self_model_layer2_1_bn3                                     (self_model_layer2_1_conv3,)                                 {}
+call_function  iadd_4                            <built-in function iadd>                                    (self_model_layer2_1_bn3, self_model_layer2_0_relu_2)        {}
+call_module    self_model_layer2_1_relu_2        self_model_layer2_1_relu                                    (iadd_4,)                                                    {}
+call_module    self_model_layer2_2_conv1         self_model_layer2_2_conv1                                   (self_model_layer2_1_relu_2,)                                {}
+call_module    self_model_layer2_2_bn1           self_model_layer2_2_bn1                                     (self_model_layer2_2_conv1,)                                 {}
+call_module    self_model_layer2_2_relu          self_model_layer2_2_relu                                    (self_model_layer2_2_bn1,)                                   {}
+call_module    self_model_layer2_2_conv2         self_model_layer2_2_conv2                                   (self_model_layer2_2_relu,)                                  {}
+call_module    self_model_layer2_2_bn2           self_model_layer2_2_bn2                                     (self_model_layer2_2_conv2,)                                 {}
+call_module    self_model_layer2_2_relu_1        self_model_layer2_2_relu                                    (self_model_layer2_2_bn2,)                                   {}
+call_module    self_model_layer2_2_conv3         self_model_layer2_2_conv3                                   (self_model_layer2_2_relu_1,)                                {}
+call_module    self_model_layer2_2_bn3           self_model_layer2_2_bn3                                     (self_model_layer2_2_conv3,)                                 {}
+call_function  iadd_5                            <built-in function iadd>                                    (self_model_layer2_2_bn3, self_model_layer2_1_relu_2)        {}
+call_module    self_model_layer2_2_relu_2        self_model_layer2_2_relu                                    (iadd_5,)                                                    {}
+call_module    self_model_layer2_3_conv1         self_model_layer2_3_conv1                                   (self_model_layer2_2_relu_2,)                                {}
+call_module    self_model_layer2_3_bn1           self_model_layer2_3_bn1                                     (self_model_layer2_3_conv1,)                                 {}
+call_module    self_model_layer2_3_relu          self_model_layer2_3_relu                                    (self_model_layer2_3_bn1,)                                   {}
+call_module    self_model_layer2_3_conv2         self_model_layer2_3_conv2                                   (self_model_layer2_3_relu,)                                  {}
+call_module    self_model_layer2_3_bn2           self_model_layer2_3_bn2                                     (self_model_layer2_3_conv2,)                                 {}
+call_module    self_model_layer2_3_relu_1        self_model_layer2_3_relu                                    (self_model_layer2_3_bn2,)                                   {}
+call_module    self_model_layer2_3_conv3         self_model_layer2_3_conv3                                   (self_model_layer2_3_relu_1,)                                {}
+call_module    self_model_layer2_3_bn3           self_model_layer2_3_bn3                                     (self_model_layer2_3_conv3,)                                 {}
+call_function  iadd_6                            <built-in function iadd>                                    (self_model_layer2_3_bn3, self_model_layer2_2_relu_2)        {}
+call_module    self_model_layer2_3_relu_2        self_model_layer2_3_relu                                    (iadd_6,)                                                    {}
+call_module    self_model_layer2_4_conv1         self_model_layer2_4_conv1                                   (self_model_layer2_3_relu_2,)                                {}
+call_module    self_model_layer2_4_bn1           self_model_layer2_4_bn1                                     (self_model_layer2_4_conv1,)                                 {}
+call_module    self_model_layer2_4_relu          self_model_layer2_4_relu                                    (self_model_layer2_4_bn1,)                                   {}
+call_module    self_model_layer2_4_conv2         self_model_layer2_4_conv2                                   (self_model_layer2_4_relu,)                                  {}
+call_module    self_model_layer2_4_bn2           self_model_layer2_4_bn2                                     (self_model_layer2_4_conv2,)                                 {}
+call_module    self_model_layer2_4_relu_1        self_model_layer2_4_relu                                    (self_model_layer2_4_bn2,)                                   {}
+call_module    self_model_layer2_4_conv3         self_model_layer2_4_conv3                                   (self_model_layer2_4_relu_1,)                                {}
+call_module    self_model_layer2_4_bn3           self_model_layer2_4_bn3                                     (self_model_layer2_4_conv3,)                                 {}
+call_function  iadd_7                            <built-in function iadd>                                    (self_model_layer2_4_bn3, self_model_layer2_3_relu_2)        {}
+call_module    self_model_layer2_4_relu_2        self_model_layer2_4_relu                                    (iadd_7,)                                                    {}
+call_module    self_model_layer2_5_conv1         self_model_layer2_5_conv1                                   (self_model_layer2_4_relu_2,)                                {}
+call_module    self_model_layer2_5_bn1           self_model_layer2_5_bn1                                     (self_model_layer2_5_conv1,)                                 {}
+call_module    self_model_layer2_5_relu          self_model_layer2_5_relu                                    (self_model_layer2_5_bn1,)                                   {}
+call_module    self_model_layer2_5_conv2         self_model_layer2_5_conv2                                   (self_model_layer2_5_relu,)                                  {}
+call_module    self_model_layer2_5_bn2           self_model_layer2_5_bn2                                     (self_model_layer2_5_conv2,)                                 {}
+call_module    self_model_layer2_5_relu_1        self_model_layer2_5_relu                                    (self_model_layer2_5_bn2,)                                   {}
+call_module    self_model_layer2_5_conv3         self_model_layer2_5_conv3                                   (self_model_layer2_5_relu_1,)                                {}
+call_module    self_model_layer2_5_bn3           self_model_layer2_5_bn3                                     (self_model_layer2_5_conv3,)                                 {}
+call_function  iadd_8                            <built-in function iadd>                                    (self_model_layer2_5_bn3, self_model_layer2_4_relu_2)        {}
+call_module    self_model_layer2_5_relu_2        self_model_layer2_5_relu                                    (iadd_8,)                                                    {}
+call_module    self_model_layer2_6_conv1         self_model_layer2_6_conv1                                   (self_model_layer2_5_relu_2,)                                {}
+call_module    self_model_layer2_6_bn1           self_model_layer2_6_bn1                                     (self_model_layer2_6_conv1,)                                 {}
+call_module    self_model_layer2_6_relu          self_model_layer2_6_relu                                    (self_model_layer2_6_bn1,)                                   {}
+call_module    self_model_layer2_6_conv2         self_model_layer2_6_conv2                                   (self_model_layer2_6_relu,)                                  {}
+call_module    self_model_layer2_6_bn2           self_model_layer2_6_bn2                                     (self_model_layer2_6_conv2,)                                 {}
+call_module    self_model_layer2_6_relu_1        self_model_layer2_6_relu                                    (self_model_layer2_6_bn2,)                                   {}
+call_module    self_model_layer2_6_conv3         self_model_layer2_6_conv3                                   (self_model_layer2_6_relu_1,)                                {}
+call_module    self_model_layer2_6_bn3           self_model_layer2_6_bn3                                     (self_model_layer2_6_conv3,)                                 {}
+call_function  iadd_9                            <built-in function iadd>                                    (self_model_layer2_6_bn3, self_model_layer2_5_relu_2)        {}
+call_module    self_model_layer2_6_relu_2        self_model_layer2_6_relu                                    (iadd_9,)                                                    {}
+call_module    self_model_layer2_7_conv1         self_model_layer2_7_conv1                                   (self_model_layer2_6_relu_2,)                                {}
+call_module    self_model_layer2_7_bn1           self_model_layer2_7_bn1                                     (self_model_layer2_7_conv1,)                                 {}
+call_module    self_model_layer2_7_relu          self_model_layer2_7_relu                                    (self_model_layer2_7_bn1,)                                   {}
+call_module    self_model_layer2_7_conv2         self_model_layer2_7_conv2                                   (self_model_layer2_7_relu,)                                  {}
+call_module    self_model_layer2_7_bn2           self_model_layer2_7_bn2                                     (self_model_layer2_7_conv2,)                                 {}
+call_module    self_model_layer2_7_relu_1        self_model_layer2_7_relu                                    (self_model_layer2_7_bn2,)                                   {}
+call_module    self_model_layer2_7_conv3         self_model_layer2_7_conv3                                   (self_model_layer2_7_relu_1,)                                {}
+call_module    self_model_layer2_7_bn3           self_model_layer2_7_bn3                                     (self_model_layer2_7_conv3,)                                 {}
+call_function  iadd_10                           <built-in function iadd>                                    (self_model_layer2_7_bn3, self_model_layer2_6_relu_2)        {}
+call_module    self_model_layer2_7_relu_2        self_model_layer2_7_relu                                    (iadd_10,)                                                   {}
+call_module    self_model_layer3_0_conv1         self_model_layer3_0_conv1                                   (self_model_layer2_7_relu_2,)                                {}
+call_module    self_model_layer3_0_bn1           self_model_layer3_0_bn1                                     (self_model_layer3_0_conv1,)                                 {}
+call_module    self_model_layer3_0_relu          self_model_layer3_0_relu                                    (self_model_layer3_0_bn1,)                                   {}
+call_module    self_model_layer3_0_conv2         self_model_layer3_0_conv2                                   (self_model_layer3_0_relu,)                                  {}
+call_module    self_model_layer3_0_bn2           self_model_layer3_0_bn2                                     (self_model_layer3_0_conv2,)                                 {}
+call_module    self_model_layer3_0_relu_1        self_model_layer3_0_relu                                    (self_model_layer3_0_bn2,)                                   {}
+call_module    self_model_layer3_0_conv3         self_model_layer3_0_conv3                                   (self_model_layer3_0_relu_1,)                                {}
+call_module    self_model_layer3_0_bn3           self_model_layer3_0_bn3                                     (self_model_layer3_0_conv3,)                                 {}
+call_module    self_model_layer3_0_downsample_0  self_model_layer3_0_downsample_0                            (self_model_layer2_7_relu_2,)                                {}
+call_module    self_model_layer3_0_downsample_1  self_model_layer3_0_downsample_1                            (self_model_layer3_0_downsample_0,)                          {}
+call_function  iadd_11                           <built-in function iadd>                                    (self_model_layer3_0_bn3, self_model_layer3_0_downsample_1)  {}
+call_module    self_model_layer3_0_relu_2        self_model_layer3_0_relu                                    (iadd_11,)                                                   {}
+call_module    self_model_layer3_1_conv1         self_model_layer3_1_conv1                                   (self_model_layer3_0_relu_2,)                                {}
+call_module    self_model_layer3_1_bn1           self_model_layer3_1_bn1                                     (self_model_layer3_1_conv1,)                                 {}
+call_module    self_model_layer3_1_relu          self_model_layer3_1_relu                                    (self_model_layer3_1_bn1,)                                   {}
+call_module    self_model_layer3_1_conv2         self_model_layer3_1_conv2                                   (self_model_layer3_1_relu,)                                  {}
+call_module    self_model_layer3_1_bn2           self_model_layer3_1_bn2                                     (self_model_layer3_1_conv2,)                                 {}
+call_module    self_model_layer3_1_relu_1        self_model_layer3_1_relu                                    (self_model_layer3_1_bn2,)                                   {}
+call_module    self_model_layer3_1_conv3         self_model_layer3_1_conv3                                   (self_model_layer3_1_relu_1,)                                {}
+call_module    self_model_layer3_1_bn3           self_model_layer3_1_bn3                                     (self_model_layer3_1_conv3,)                                 {}
+call_function  iadd_12                           <built-in function iadd>                                    (self_model_layer3_1_bn3, self_model_layer3_0_relu_2)        {}
+call_module    self_model_layer3_1_relu_2        self_model_layer3_1_relu                                    (iadd_12,)                                                   {}
+call_module    self_model_layer3_2_conv1         self_model_layer3_2_conv1                                   (self_model_layer3_1_relu_2,)                                {}
+call_module    self_model_layer3_2_bn1           self_model_layer3_2_bn1                                     (self_model_layer3_2_conv1,)                                 {}
+call_module    self_model_layer3_2_relu          self_model_layer3_2_relu                                    (self_model_layer3_2_bn1,)                                   {}
+call_module    self_model_layer3_2_conv2         self_model_layer3_2_conv2                                   (self_model_layer3_2_relu,)                                  {}
+call_module    self_model_layer3_2_bn2           self_model_layer3_2_bn2                                     (self_model_layer3_2_conv2,)                                 {}
+call_module    self_model_layer3_2_relu_1        self_model_layer3_2_relu                                    (self_model_layer3_2_bn2,)                                   {}
+call_module    self_model_layer3_2_conv3         self_model_layer3_2_conv3                                   (self_model_layer3_2_relu_1,)                                {}
+call_module    self_model_layer3_2_bn3           self_model_layer3_2_bn3                                     (self_model_layer3_2_conv3,)                                 {}
+call_function  iadd_13                           <built-in function iadd>                                    (self_model_layer3_2_bn3, self_model_layer3_1_relu_2)        {}
+call_module    self_model_layer3_2_relu_2        self_model_layer3_2_relu                                    (iadd_13,)                                                   {}
+call_module    self_model_layer3_3_conv1         self_model_layer3_3_conv1                                   (self_model_layer3_2_relu_2,)                                {}
+call_module    self_model_layer3_3_bn1           self_model_layer3_3_bn1                                     (self_model_layer3_3_conv1,)                                 {}
+call_module    self_model_layer3_3_relu          self_model_layer3_3_relu                                    (self_model_layer3_3_bn1,)                                   {}
+call_module    self_model_layer3_3_conv2         self_model_layer3_3_conv2                                   (self_model_layer3_3_relu,)                                  {}
+call_module    self_model_layer3_3_bn2           self_model_layer3_3_bn2                                     (self_model_layer3_3_conv2,)                                 {}
+call_module    self_model_layer3_3_relu_1        self_model_layer3_3_relu                                    (self_model_layer3_3_bn2,)                                   {}
+call_module    self_model_layer3_3_conv3         self_model_layer3_3_conv3                                   (self_model_layer3_3_relu_1,)                                {}
+call_module    self_model_layer3_3_bn3           self_model_layer3_3_bn3                                     (self_model_layer3_3_conv3,)                                 {}
+call_function  iadd_14                           <built-in function iadd>                                    (self_model_layer3_3_bn3, self_model_layer3_2_relu_2)        {}
+call_module    self_model_layer3_3_relu_2        self_model_layer3_3_relu                                    (iadd_14,)                                                   {}
+call_module    self_model_layer3_4_conv1         self_model_layer3_4_conv1                                   (self_model_layer3_3_relu_2,)                                {}
+call_module    self_model_layer3_4_bn1           self_model_layer3_4_bn1                                     (self_model_layer3_4_conv1,)                                 {}
+call_module    self_model_layer3_4_relu          self_model_layer3_4_relu                                    (self_model_layer3_4_bn1,)                                   {}
+call_module    self_model_layer3_4_conv2         self_model_layer3_4_conv2                                   (self_model_layer3_4_relu,)                                  {}
+call_module    self_model_layer3_4_bn2           self_model_layer3_4_bn2                                     (self_model_layer3_4_conv2,)                                 {}
+call_module    self_model_layer3_4_relu_1        self_model_layer3_4_relu                                    (self_model_layer3_4_bn2,)                                   {}
+call_module    self_model_layer3_4_conv3         self_model_layer3_4_conv3                                   (self_model_layer3_4_relu_1,)                                {}
+call_module    self_model_layer3_4_bn3           self_model_layer3_4_bn3                                     (self_model_layer3_4_conv3,)                                 {}
+call_function  iadd_15                           <built-in function iadd>                                    (self_model_layer3_4_bn3, self_model_layer3_3_relu_2)        {}
+call_module    self_model_layer3_4_relu_2        self_model_layer3_4_relu                                    (iadd_15,)                                                   {}
+call_module    self_model_layer3_5_conv1         self_model_layer3_5_conv1                                   (self_model_layer3_4_relu_2,)                                {}
+call_module    self_model_layer3_5_bn1           self_model_layer3_5_bn1                                     (self_model_layer3_5_conv1,)                                 {}
+call_module    self_model_layer3_5_relu          self_model_layer3_5_relu                                    (self_model_layer3_5_bn1,)                                   {}
+call_module    self_model_layer3_5_conv2         self_model_layer3_5_conv2                                   (self_model_layer3_5_relu,)                                  {}
+call_module    self_model_layer3_5_bn2           self_model_layer3_5_bn2                                     (self_model_layer3_5_conv2,)                                 {}
+call_module    self_model_layer3_5_relu_1        self_model_layer3_5_relu                                    (self_model_layer3_5_bn2,)                                   {}
+call_module    self_model_layer3_5_conv3         self_model_layer3_5_conv3                                   (self_model_layer3_5_relu_1,)                                {}
+call_module    self_model_layer3_5_bn3           self_model_layer3_5_bn3                                     (self_model_layer3_5_conv3,)                                 {}
+call_function  iadd_16                           <built-in function iadd>                                    (self_model_layer3_5_bn3, self_model_layer3_4_relu_2)        {}
+call_module    self_model_layer3_5_relu_2        self_model_layer3_5_relu                                    (iadd_16,)                                                   {}
+call_module    self_model_layer3_6_conv1         self_model_layer3_6_conv1                                   (self_model_layer3_5_relu_2,)                                {}
+call_module    self_model_layer3_6_bn1           self_model_layer3_6_bn1                                     (self_model_layer3_6_conv1,)                                 {}
+call_module    self_model_layer3_6_relu          self_model_layer3_6_relu                                    (self_model_layer3_6_bn1,)                                   {}
+call_module    self_model_layer3_6_conv2         self_model_layer3_6_conv2                                   (self_model_layer3_6_relu,)                                  {}
+call_module    self_model_layer3_6_bn2           self_model_layer3_6_bn2                                     (self_model_layer3_6_conv2,)                                 {}
+call_module    self_model_layer3_6_relu_1        self_model_layer3_6_relu                                    (self_model_layer3_6_bn2,)                                   {}
+call_module    self_model_layer3_6_conv3         self_model_layer3_6_conv3                                   (self_model_layer3_6_relu_1,)                                {}
+call_module    self_model_layer3_6_bn3           self_model_layer3_6_bn3                                     (self_model_layer3_6_conv3,)                                 {}
+call_function  iadd_17                           <built-in function iadd>                                    (self_model_layer3_6_bn3, self_model_layer3_5_relu_2)        {}
+call_module    self_model_layer3_6_relu_2        self_model_layer3_6_relu                                    (iadd_17,)                                                   {}
+call_module    self_model_layer3_7_conv1         self_model_layer3_7_conv1                                   (self_model_layer3_6_relu_2,)                                {}
+call_module    self_model_layer3_7_bn1           self_model_layer3_7_bn1                                     (self_model_layer3_7_conv1,)                                 {}
+call_module    self_model_layer3_7_relu          self_model_layer3_7_relu                                    (self_model_layer3_7_bn1,)                                   {}
+call_module    self_model_layer3_7_conv2         self_model_layer3_7_conv2                                   (self_model_layer3_7_relu,)                                  {}
+call_module    self_model_layer3_7_bn2           self_model_layer3_7_bn2                                     (self_model_layer3_7_conv2,)                                 {}
+call_module    self_model_layer3_7_relu_1        self_model_layer3_7_relu                                    (self_model_layer3_7_bn2,)                                   {}
+call_module    self_model_layer3_7_conv3         self_model_layer3_7_conv3                                   (self_model_layer3_7_relu_1,)                                {}
+call_module    self_model_layer3_7_bn3           self_model_layer3_7_bn3                                     (self_model_layer3_7_conv3,)                                 {}
+call_function  iadd_18                           <built-in function iadd>                                    (self_model_layer3_7_bn3, self_model_layer3_6_relu_2)        {}
+call_module    self_model_layer3_7_relu_2        self_model_layer3_7_relu                                    (iadd_18,)                                                   {}
+call_module    self_model_layer3_8_conv1         self_model_layer3_8_conv1                                   (self_model_layer3_7_relu_2,)                                {}
+call_module    self_model_layer3_8_bn1           self_model_layer3_8_bn1                                     (self_model_layer3_8_conv1,)                                 {}
+call_module    self_model_layer3_8_relu          self_model_layer3_8_relu                                    (self_model_layer3_8_bn1,)                                   {}
+call_module    self_model_layer3_8_conv2         self_model_layer3_8_conv2                                   (self_model_layer3_8_relu,)                                  {}
+call_module    self_model_layer3_8_bn2           self_model_layer3_8_bn2                                     (self_model_layer3_8_conv2,)                                 {}
+call_module    self_model_layer3_8_relu_1        self_model_layer3_8_relu                                    (self_model_layer3_8_bn2,)                                   {}
+call_module    self_model_layer3_8_conv3         self_model_layer3_8_conv3                                   (self_model_layer3_8_relu_1,)                                {}
+call_module    self_model_layer3_8_bn3           self_model_layer3_8_bn3                                     (self_model_layer3_8_conv3,)                                 {}
+call_function  iadd_19                           <built-in function iadd>                                    (self_model_layer3_8_bn3, self_model_layer3_7_relu_2)        {}
+call_module    self_model_layer3_8_relu_2        self_model_layer3_8_relu                                    (iadd_19,)                                                   {}
+call_module    self_model_layer3_9_conv1         self_model_layer3_9_conv1                                   (self_model_layer3_8_relu_2,)                                {}
+call_module    self_model_layer3_9_bn1           self_model_layer3_9_bn1                                     (self_model_layer3_9_conv1,)                                 {}
+call_module    self_model_layer3_9_relu          self_model_layer3_9_relu                                    (self_model_layer3_9_bn1,)                                   {}
+call_module    self_model_layer3_9_conv2         self_model_layer3_9_conv2                                   (self_model_layer3_9_relu,)                                  {}
+call_module    self_model_layer3_9_bn2           self_model_layer3_9_bn2                                     (self_model_layer3_9_conv2,)                                 {}
+call_module    self_model_layer3_9_relu_1        self_model_layer3_9_relu                                    (self_model_layer3_9_bn2,)                                   {}
+call_module    self_model_layer3_9_conv3         self_model_layer3_9_conv3                                   (self_model_layer3_9_relu_1,)                                {}
+call_module    self_model_layer3_9_bn3           self_model_layer3_9_bn3                                     (self_model_layer3_9_conv3,)                                 {}
+call_function  iadd_20                           <built-in function iadd>                                    (self_model_layer3_9_bn3, self_model_layer3_8_relu_2)        {}
+call_module    self_model_layer3_9_relu_2        self_model_layer3_9_relu                                    (iadd_20,)                                                   {}
+call_module    self_model_layer3_10_conv1        self_model_layer3_10_conv1                                  (self_model_layer3_9_relu_2,)                                {}
+call_module    self_model_layer3_10_bn1          self_model_layer3_10_bn1                                    (self_model_layer3_10_conv1,)                                {}
+call_module    self_model_layer3_10_relu         self_model_layer3_10_relu                                   (self_model_layer3_10_bn1,)                                  {}
+call_module    self_model_layer3_10_conv2        self_model_layer3_10_conv2                                  (self_model_layer3_10_relu,)                                 {}
+call_module    self_model_layer3_10_bn2          self_model_layer3_10_bn2                                    (self_model_layer3_10_conv2,)                                {}
+call_module    self_model_layer3_10_relu_1       self_model_layer3_10_relu                                   (self_model_layer3_10_bn2,)                                  {}
+call_module    self_model_layer3_10_conv3        self_model_layer3_10_conv3                                  (self_model_layer3_10_relu_1,)                               {}
+call_module    self_model_layer3_10_bn3          self_model_layer3_10_bn3                                    (self_model_layer3_10_conv3,)                                {}
+call_function  iadd_21                           <built-in function iadd>                                    (self_model_layer3_10_bn3, self_model_layer3_9_relu_2)       {}
+call_module    self_model_layer3_10_relu_2       self_model_layer3_10_relu                                   (iadd_21,)                                                   {}
+call_module    self_model_layer3_11_conv1        self_model_layer3_11_conv1                                  (self_model_layer3_10_relu_2,)                               {}
+call_module    self_model_layer3_11_bn1          self_model_layer3_11_bn1                                    (self_model_layer3_11_conv1,)                                {}
+call_module    self_model_layer3_11_relu         self_model_layer3_11_relu                                   (self_model_layer3_11_bn1,)                                  {}
+call_module    self_model_layer3_11_conv2        self_model_layer3_11_conv2                                  (self_model_layer3_11_relu,)                                 {}
+call_module    self_model_layer3_11_bn2          self_model_layer3_11_bn2                                    (self_model_layer3_11_conv2,)                                {}
+call_module    self_model_layer3_11_relu_1       self_model_layer3_11_relu                                   (self_model_layer3_11_bn2,)                                  {}
+call_module    self_model_layer3_11_conv3        self_model_layer3_11_conv3                                  (self_model_layer3_11_relu_1,)                               {}
+call_module    self_model_layer3_11_bn3          self_model_layer3_11_bn3                                    (self_model_layer3_11_conv3,)                                {}
+call_function  iadd_22                           <built-in function iadd>                                    (self_model_layer3_11_bn3, self_model_layer3_10_relu_2)      {}
+call_module    self_model_layer3_11_relu_2       self_model_layer3_11_relu                                   (iadd_22,)                                                   {}
+call_module    self_model_layer3_12_conv1        self_model_layer3_12_conv1                                  (self_model_layer3_11_relu_2,)                               {}
+call_module    self_model_layer3_12_bn1          self_model_layer3_12_bn1                                    (self_model_layer3_12_conv1,)                                {}
+call_module    self_model_layer3_12_relu         self_model_layer3_12_relu                                   (self_model_layer3_12_bn1,)                                  {}
+call_module    self_model_layer3_12_conv2        self_model_layer3_12_conv2                                  (self_model_layer3_12_relu,)                                 {}
+call_module    self_model_layer3_12_bn2          self_model_layer3_12_bn2                                    (self_model_layer3_12_conv2,)                                {}
+call_module    self_model_layer3_12_relu_1       self_model_layer3_12_relu                                   (self_model_layer3_12_bn2,)                                  {}
+call_module    self_model_layer3_12_conv3        self_model_layer3_12_conv3                                  (self_model_layer3_12_relu_1,)                               {}
+call_module    self_model_layer3_12_bn3          self_model_layer3_12_bn3                                    (self_model_layer3_12_conv3,)                                {}
+call_function  iadd_23                           <built-in function iadd>                                    (self_model_layer3_12_bn3, self_model_layer3_11_relu_2)      {}
+call_module    self_model_layer3_12_relu_2       self_model_layer3_12_relu                                   (iadd_23,)                                                   {}
+call_module    self_model_layer3_13_conv1        self_model_layer3_13_conv1                                  (self_model_layer3_12_relu_2,)                               {}
+call_module    self_model_layer3_13_bn1          self_model_layer3_13_bn1                                    (self_model_layer3_13_conv1,)                                {}
+call_module    self_model_layer3_13_relu         self_model_layer3_13_relu                                   (self_model_layer3_13_bn1,)                                  {}
+call_module    self_model_layer3_13_conv2        self_model_layer3_13_conv2                                  (self_model_layer3_13_relu,)                                 {}
+call_module    self_model_layer3_13_bn2          self_model_layer3_13_bn2                                    (self_model_layer3_13_conv2,)                                {}
+call_module    self_model_layer3_13_relu_1       self_model_layer3_13_relu                                   (self_model_layer3_13_bn2,)                                  {}
+call_module    self_model_layer3_13_conv3        self_model_layer3_13_conv3                                  (self_model_layer3_13_relu_1,)                               {}
+call_module    self_model_layer3_13_bn3          self_model_layer3_13_bn3                                    (self_model_layer3_13_conv3,)                                {}
+call_function  iadd_24                           <built-in function iadd>                                    (self_model_layer3_13_bn3, self_model_layer3_12_relu_2)      {}
+call_module    self_model_layer3_13_relu_2       self_model_layer3_13_relu                                   (iadd_24,)                                                   {}
+call_module    self_model_layer3_14_conv1        self_model_layer3_14_conv1                                  (self_model_layer3_13_relu_2,)                               {}
+call_module    self_model_layer3_14_bn1          self_model_layer3_14_bn1                                    (self_model_layer3_14_conv1,)                                {}
+call_module    self_model_layer3_14_relu         self_model_layer3_14_relu                                   (self_model_layer3_14_bn1,)                                  {}
+call_module    self_model_layer3_14_conv2        self_model_layer3_14_conv2                                  (self_model_layer3_14_relu,)                                 {}
+call_module    self_model_layer3_14_bn2          self_model_layer3_14_bn2                                    (self_model_layer3_14_conv2,)                                {}
+call_module    self_model_layer3_14_relu_1       self_model_layer3_14_relu                                   (self_model_layer3_14_bn2,)                                  {}
+call_module    self_model_layer3_14_conv3        self_model_layer3_14_conv3                                  (self_model_layer3_14_relu_1,)                               {}
+call_module    self_model_layer3_14_bn3          self_model_layer3_14_bn3                                    (self_model_layer3_14_conv3,)                                {}
+call_function  iadd_25                           <built-in function iadd>                                    (self_model_layer3_14_bn3, self_model_layer3_13_relu_2)      {}
+call_module    self_model_layer3_14_relu_2       self_model_layer3_14_relu                                   (iadd_25,)                                                   {}
+call_module    self_model_layer3_15_conv1        self_model_layer3_15_conv1                                  (self_model_layer3_14_relu_2,)                               {}
+call_module    self_model_layer3_15_bn1          self_model_layer3_15_bn1                                    (self_model_layer3_15_conv1,)                                {}
+call_module    self_model_layer3_15_relu         self_model_layer3_15_relu                                   (self_model_layer3_15_bn1,)                                  {}
+call_module    self_model_layer3_15_conv2        self_model_layer3_15_conv2                                  (self_model_layer3_15_relu,)                                 {}
+call_module    self_model_layer3_15_bn2          self_model_layer3_15_bn2                                    (self_model_layer3_15_conv2,)                                {}
+call_module    self_model_layer3_15_relu_1       self_model_layer3_15_relu                                   (self_model_layer3_15_bn2,)                                  {}
+call_module    self_model_layer3_15_conv3        self_model_layer3_15_conv3                                  (self_model_layer3_15_relu_1,)                               {}
+call_module    self_model_layer3_15_bn3          self_model_layer3_15_bn3                                    (self_model_layer3_15_conv3,)                                {}
+call_function  iadd_26                           <built-in function iadd>                                    (self_model_layer3_15_bn3, self_model_layer3_14_relu_2)      {}
+call_module    self_model_layer3_15_relu_2       self_model_layer3_15_relu                                   (iadd_26,)                                                   {}
+call_module    self_model_layer3_16_conv1        self_model_layer3_16_conv1                                  (self_model_layer3_15_relu_2,)                               {}
+call_module    self_model_layer3_16_bn1          self_model_layer3_16_bn1                                    (self_model_layer3_16_conv1,)                                {}
+call_module    self_model_layer3_16_relu         self_model_layer3_16_relu                                   (self_model_layer3_16_bn1,)                                  {}
+call_module    self_model_layer3_16_conv2        self_model_layer3_16_conv2                                  (self_model_layer3_16_relu,)                                 {}
+call_module    self_model_layer3_16_bn2          self_model_layer3_16_bn2                                    (self_model_layer3_16_conv2,)                                {}
+call_module    self_model_layer3_16_relu_1       self_model_layer3_16_relu                                   (self_model_layer3_16_bn2,)                                  {}
+call_module    self_model_layer3_16_conv3        self_model_layer3_16_conv3                                  (self_model_layer3_16_relu_1,)                               {}
+call_module    self_model_layer3_16_bn3          self_model_layer3_16_bn3                                    (self_model_layer3_16_conv3,)                                {}
+call_function  iadd_27                           <built-in function iadd>                                    (self_model_layer3_16_bn3, self_model_layer3_15_relu_2)      {}
+call_module    self_model_layer3_16_relu_2       self_model_layer3_16_relu                                   (iadd_27,)                                                   {}
+call_module    self_model_layer3_17_conv1        self_model_layer3_17_conv1                                  (self_model_layer3_16_relu_2,)                               {}
+call_module    self_model_layer3_17_bn1          self_model_layer3_17_bn1                                    (self_model_layer3_17_conv1,)                                {}
+call_module    self_model_layer3_17_relu         self_model_layer3_17_relu                                   (self_model_layer3_17_bn1,)                                  {}
+call_module    self_model_layer3_17_conv2        self_model_layer3_17_conv2                                  (self_model_layer3_17_relu,)                                 {}
+call_module    self_model_layer3_17_bn2          self_model_layer3_17_bn2                                    (self_model_layer3_17_conv2,)                                {}
+call_module    self_model_layer3_17_relu_1       self_model_layer3_17_relu                                   (self_model_layer3_17_bn2,)                                  {}
+call_module    self_model_layer3_17_conv3        self_model_layer3_17_conv3                                  (self_model_layer3_17_relu_1,)                               {}
+call_module    self_model_layer3_17_bn3          self_model_layer3_17_bn3                                    (self_model_layer3_17_conv3,)                                {}
+call_function  iadd_28                           <built-in function iadd>                                    (self_model_layer3_17_bn3, self_model_layer3_16_relu_2)      {}
+call_module    self_model_layer3_17_relu_2       self_model_layer3_17_relu                                   (iadd_28,)                                                   {}
+call_module    self_model_layer3_18_conv1        self_model_layer3_18_conv1                                  (self_model_layer3_17_relu_2,)                               {}
+call_module    self_model_layer3_18_bn1          self_model_layer3_18_bn1                                    (self_model_layer3_18_conv1,)                                {}
+call_module    self_model_layer3_18_relu         self_model_layer3_18_relu                                   (self_model_layer3_18_bn1,)                                  {}
+call_module    self_model_layer3_18_conv2        self_model_layer3_18_conv2                                  (self_model_layer3_18_relu,)                                 {}
+call_module    self_model_layer3_18_bn2          self_model_layer3_18_bn2                                    (self_model_layer3_18_conv2,)                                {}
+call_module    self_model_layer3_18_relu_1       self_model_layer3_18_relu                                   (self_model_layer3_18_bn2,)                                  {}
+call_module    self_model_layer3_18_conv3        self_model_layer3_18_conv3                                  (self_model_layer3_18_relu_1,)                               {}
+call_module    self_model_layer3_18_bn3          self_model_layer3_18_bn3                                    (self_model_layer3_18_conv3,)                                {}
+call_function  iadd_29                           <built-in function iadd>                                    (self_model_layer3_18_bn3, self_model_layer3_17_relu_2)      {}
+call_module    self_model_layer3_18_relu_2       self_model_layer3_18_relu                                   (iadd_29,)                                                   {}
+call_module    self_model_layer3_19_conv1        self_model_layer3_19_conv1                                  (self_model_layer3_18_relu_2,)                               {}
+call_module    self_model_layer3_19_bn1          self_model_layer3_19_bn1                                    (self_model_layer3_19_conv1,)                                {}
+call_module    self_model_layer3_19_relu         self_model_layer3_19_relu                                   (self_model_layer3_19_bn1,)                                  {}
+call_module    self_model_layer3_19_conv2        self_model_layer3_19_conv2                                  (self_model_layer3_19_relu,)                                 {}
+call_module    self_model_layer3_19_bn2          self_model_layer3_19_bn2                                    (self_model_layer3_19_conv2,)                                {}
+call_module    self_model_layer3_19_relu_1       self_model_layer3_19_relu                                   (self_model_layer3_19_bn2,)                                  {}
+call_module    self_model_layer3_19_conv3        self_model_layer3_19_conv3                                  (self_model_layer3_19_relu_1,)                               {}
+call_module    self_model_layer3_19_bn3          self_model_layer3_19_bn3                                    (self_model_layer3_19_conv3,)                                {}
+call_function  iadd_30                           <built-in function iadd>                                    (self_model_layer3_19_bn3, self_model_layer3_18_relu_2)      {}
+call_module    self_model_layer3_19_relu_2       self_model_layer3_19_relu                                   (iadd_30,)                                                   {}
+call_module    self_model_layer3_20_conv1        self_model_layer3_20_conv1                                  (self_model_layer3_19_relu_2,)                               {}
+call_module    self_model_layer3_20_bn1          self_model_layer3_20_bn1                                    (self_model_layer3_20_conv1,)                                {}
+call_module    self_model_layer3_20_relu         self_model_layer3_20_relu                                   (self_model_layer3_20_bn1,)                                  {}
+call_module    self_model_layer3_20_conv2        self_model_layer3_20_conv2                                  (self_model_layer3_20_relu,)                                 {}
+call_module    self_model_layer3_20_bn2          self_model_layer3_20_bn2                                    (self_model_layer3_20_conv2,)                                {}
+call_module    self_model_layer3_20_relu_1       self_model_layer3_20_relu                                   (self_model_layer3_20_bn2,)                                  {}
+call_module    self_model_layer3_20_conv3        self_model_layer3_20_conv3                                  (self_model_layer3_20_relu_1,)                               {}
+call_module    self_model_layer3_20_bn3          self_model_layer3_20_bn3                                    (self_model_layer3_20_conv3,)                                {}
+call_function  iadd_31                           <built-in function iadd>                                    (self_model_layer3_20_bn3, self_model_layer3_19_relu_2)      {}
+call_module    self_model_layer3_20_relu_2       self_model_layer3_20_relu                                   (iadd_31,)                                                   {}
+call_module    self_model_layer3_21_conv1        self_model_layer3_21_conv1                                  (self_model_layer3_20_relu_2,)                               {}
+call_module    self_model_layer3_21_bn1          self_model_layer3_21_bn1                                    (self_model_layer3_21_conv1,)                                {}
+call_module    self_model_layer3_21_relu         self_model_layer3_21_relu                                   (self_model_layer3_21_bn1,)                                  {}
+call_module    self_model_layer3_21_conv2        self_model_layer3_21_conv2                                  (self_model_layer3_21_relu,)                                 {}
+call_module    self_model_layer3_21_bn2          self_model_layer3_21_bn2                                    (self_model_layer3_21_conv2,)                                {}
+call_module    self_model_layer3_21_relu_1       self_model_layer3_21_relu                                   (self_model_layer3_21_bn2,)                                  {}
+call_module    self_model_layer3_21_conv3        self_model_layer3_21_conv3                                  (self_model_layer3_21_relu_1,)                               {}
+call_module    self_model_layer3_21_bn3          self_model_layer3_21_bn3                                    (self_model_layer3_21_conv3,)                                {}
+call_function  iadd_32                           <built-in function iadd>                                    (self_model_layer3_21_bn3, self_model_layer3_20_relu_2)      {}
+call_module    self_model_layer3_21_relu_2       self_model_layer3_21_relu                                   (iadd_32,)                                                   {}
+call_module    self_model_layer3_22_conv1        self_model_layer3_22_conv1                                  (self_model_layer3_21_relu_2,)                               {}
+call_module    self_model_layer3_22_bn1          self_model_layer3_22_bn1                                    (self_model_layer3_22_conv1,)                                {}
+call_module    self_model_layer3_22_relu         self_model_layer3_22_relu                                   (self_model_layer3_22_bn1,)                                  {}
+call_module    self_model_layer3_22_conv2        self_model_layer3_22_conv2                                  (self_model_layer3_22_relu,)                                 {}
+call_module    self_model_layer3_22_bn2          self_model_layer3_22_bn2                                    (self_model_layer3_22_conv2,)                                {}
+call_module    self_model_layer3_22_relu_1       self_model_layer3_22_relu                                   (self_model_layer3_22_bn2,)                                  {}
+call_module    self_model_layer3_22_conv3        self_model_layer3_22_conv3                                  (self_model_layer3_22_relu_1,)                               {}
+call_module    self_model_layer3_22_bn3          self_model_layer3_22_bn3                                    (self_model_layer3_22_conv3,)                                {}
+call_function  iadd_33                           <built-in function iadd>                                    (self_model_layer3_22_bn3, self_model_layer3_21_relu_2)      {}
+call_module    self_model_layer3_22_relu_2       self_model_layer3_22_relu                                   (iadd_33,)                                                   {}
+call_module    self_model_layer3_23_conv1        self_model_layer3_23_conv1                                  (self_model_layer3_22_relu_2,)                               {}
+call_module    self_model_layer3_23_bn1          self_model_layer3_23_bn1                                    (self_model_layer3_23_conv1,)                                {}
+call_module    self_model_layer3_23_relu         self_model_layer3_23_relu                                   (self_model_layer3_23_bn1,)                                  {}
+call_module    self_model_layer3_23_conv2        self_model_layer3_23_conv2                                  (self_model_layer3_23_relu,)                                 {}
+call_module    self_model_layer3_23_bn2          self_model_layer3_23_bn2                                    (self_model_layer3_23_conv2,)                                {}
+call_module    self_model_layer3_23_relu_1       self_model_layer3_23_relu                                   (self_model_layer3_23_bn2,)                                  {}
+call_module    self_model_layer3_23_conv3        self_model_layer3_23_conv3                                  (self_model_layer3_23_relu_1,)                               {}
+call_module    self_model_layer3_23_bn3          self_model_layer3_23_bn3                                    (self_model_layer3_23_conv3,)                                {}
+call_function  iadd_34                           <built-in function iadd>                                    (self_model_layer3_23_bn3, self_model_layer3_22_relu_2)      {}
+call_module    self_model_layer3_23_relu_2       self_model_layer3_23_relu                                   (iadd_34,)                                                   {}
+call_module    self_model_layer3_24_conv1        self_model_layer3_24_conv1                                  (self_model_layer3_23_relu_2,)                               {}
+call_module    self_model_layer3_24_bn1          self_model_layer3_24_bn1                                    (self_model_layer3_24_conv1,)                                {}
+call_module    self_model_layer3_24_relu         self_model_layer3_24_relu                                   (self_model_layer3_24_bn1,)                                  {}
+call_module    self_model_layer3_24_conv2        self_model_layer3_24_conv2                                  (self_model_layer3_24_relu,)                                 {}
+call_module    self_model_layer3_24_bn2          self_model_layer3_24_bn2                                    (self_model_layer3_24_conv2,)                                {}
+call_module    self_model_layer3_24_relu_1       self_model_layer3_24_relu                                   (self_model_layer3_24_bn2,)                                  {}
+call_module    self_model_layer3_24_conv3        self_model_layer3_24_conv3                                  (self_model_layer3_24_relu_1,)                               {}
+call_module    self_model_layer3_24_bn3          self_model_layer3_24_bn3                                    (self_model_layer3_24_conv3,)                                {}
+call_function  iadd_35                           <built-in function iadd>                                    (self_model_layer3_24_bn3, self_model_layer3_23_relu_2)      {}
+call_module    self_model_layer3_24_relu_2       self_model_layer3_24_relu                                   (iadd_35,)                                                   {}
+call_module    self_model_layer3_25_conv1        self_model_layer3_25_conv1                                  (self_model_layer3_24_relu_2,)                               {}
+call_module    self_model_layer3_25_bn1          self_model_layer3_25_bn1                                    (self_model_layer3_25_conv1,)                                {}
+call_module    self_model_layer3_25_relu         self_model_layer3_25_relu                                   (self_model_layer3_25_bn1,)                                  {}
+call_module    self_model_layer3_25_conv2        self_model_layer3_25_conv2                                  (self_model_layer3_25_relu,)                                 {}
+call_module    self_model_layer3_25_bn2          self_model_layer3_25_bn2                                    (self_model_layer3_25_conv2,)                                {}
+call_module    self_model_layer3_25_relu_1       self_model_layer3_25_relu                                   (self_model_layer3_25_bn2,)                                  {}
+call_module    self_model_layer3_25_conv3        self_model_layer3_25_conv3                                  (self_model_layer3_25_relu_1,)                               {}
+call_module    self_model_layer3_25_bn3          self_model_layer3_25_bn3                                    (self_model_layer3_25_conv3,)                                {}
+call_function  iadd_36                           <built-in function iadd>                                    (self_model_layer3_25_bn3, self_model_layer3_24_relu_2)      {}
+call_module    self_model_layer3_25_relu_2       self_model_layer3_25_relu                                   (iadd_36,)                                                   {}
+call_module    self_model_layer3_26_conv1        self_model_layer3_26_conv1                                  (self_model_layer3_25_relu_2,)                               {}
+call_module    self_model_layer3_26_bn1          self_model_layer3_26_bn1                                    (self_model_layer3_26_conv1,)                                {}
+call_module    self_model_layer3_26_relu         self_model_layer3_26_relu                                   (self_model_layer3_26_bn1,)                                  {}
+call_module    self_model_layer3_26_conv2        self_model_layer3_26_conv2                                  (self_model_layer3_26_relu,)                                 {}
+call_module    self_model_layer3_26_bn2          self_model_layer3_26_bn2                                    (self_model_layer3_26_conv2,)                                {}
+call_module    self_model_layer3_26_relu_1       self_model_layer3_26_relu                                   (self_model_layer3_26_bn2,)                                  {}
+call_module    self_model_layer3_26_conv3        self_model_layer3_26_conv3                                  (self_model_layer3_26_relu_1,)                               {}
+call_module    self_model_layer3_26_bn3          self_model_layer3_26_bn3                                    (self_model_layer3_26_conv3,)                                {}
+call_function  iadd_37                           <built-in function iadd>                                    (self_model_layer3_26_bn3, self_model_layer3_25_relu_2)      {}
+call_module    self_model_layer3_26_relu_2       self_model_layer3_26_relu                                   (iadd_37,)                                                   {}
+call_module    self_model_layer3_27_conv1        self_model_layer3_27_conv1                                  (self_model_layer3_26_relu_2,)                               {}
+call_module    self_model_layer3_27_bn1          self_model_layer3_27_bn1                                    (self_model_layer3_27_conv1,)                                {}
+call_module    self_model_layer3_27_relu         self_model_layer3_27_relu                                   (self_model_layer3_27_bn1,)                                  {}
+call_module    self_model_layer3_27_conv2        self_model_layer3_27_conv2                                  (self_model_layer3_27_relu,)                                 {}
+call_module    self_model_layer3_27_bn2          self_model_layer3_27_bn2                                    (self_model_layer3_27_conv2,)                                {}
+call_module    self_model_layer3_27_relu_1       self_model_layer3_27_relu                                   (self_model_layer3_27_bn2,)                                  {}
+call_module    self_model_layer3_27_conv3        self_model_layer3_27_conv3                                  (self_model_layer3_27_relu_1,)                               {}
+call_module    self_model_layer3_27_bn3          self_model_layer3_27_bn3                                    (self_model_layer3_27_conv3,)                                {}
+call_function  iadd_38                           <built-in function iadd>                                    (self_model_layer3_27_bn3, self_model_layer3_26_relu_2)      {}
+call_module    self_model_layer3_27_relu_2       self_model_layer3_27_relu                                   (iadd_38,)                                                   {}
+call_module    self_model_layer3_28_conv1        self_model_layer3_28_conv1                                  (self_model_layer3_27_relu_2,)                               {}
+call_module    self_model_layer3_28_bn1          self_model_layer3_28_bn1                                    (self_model_layer3_28_conv1,)                                {}
+call_module    self_model_layer3_28_relu         self_model_layer3_28_relu                                   (self_model_layer3_28_bn1,)                                  {}
+call_module    self_model_layer3_28_conv2        self_model_layer3_28_conv2                                  (self_model_layer3_28_relu,)                                 {}
+call_module    self_model_layer3_28_bn2          self_model_layer3_28_bn2                                    (self_model_layer3_28_conv2,)                                {}
+call_module    self_model_layer3_28_relu_1       self_model_layer3_28_relu                                   (self_model_layer3_28_bn2,)                                  {}
+call_module    self_model_layer3_28_conv3        self_model_layer3_28_conv3                                  (self_model_layer3_28_relu_1,)                               {}
+call_module    self_model_layer3_28_bn3          self_model_layer3_28_bn3                                    (self_model_layer3_28_conv3,)                                {}
+call_function  iadd_39                           <built-in function iadd>                                    (self_model_layer3_28_bn3, self_model_layer3_27_relu_2)      {}
+call_module    self_model_layer3_28_relu_2       self_model_layer3_28_relu                                   (iadd_39,)                                                   {}
+call_module    self_model_layer3_29_conv1        self_model_layer3_29_conv1                                  (self_model_layer3_28_relu_2,)                               {}
+call_module    self_model_layer3_29_bn1          self_model_layer3_29_bn1                                    (self_model_layer3_29_conv1,)                                {}
+call_module    self_model_layer3_29_relu         self_model_layer3_29_relu                                   (self_model_layer3_29_bn1,)                                  {}
+call_module    self_model_layer3_29_conv2        self_model_layer3_29_conv2                                  (self_model_layer3_29_relu,)                                 {}
+call_module    self_model_layer3_29_bn2          self_model_layer3_29_bn2                                    (self_model_layer3_29_conv2,)                                {}
+call_module    self_model_layer3_29_relu_1       self_model_layer3_29_relu                                   (self_model_layer3_29_bn2,)                                  {}
+call_module    self_model_layer3_29_conv3        self_model_layer3_29_conv3                                  (self_model_layer3_29_relu_1,)                               {}
+call_module    self_model_layer3_29_bn3          self_model_layer3_29_bn3                                    (self_model_layer3_29_conv3,)                                {}
+call_function  iadd_40                           <built-in function iadd>                                    (self_model_layer3_29_bn3, self_model_layer3_28_relu_2)      {}
+call_module    self_model_layer3_29_relu_2       self_model_layer3_29_relu                                   (iadd_40,)                                                   {}
+call_module    self_model_layer3_30_conv1        self_model_layer3_30_conv1                                  (self_model_layer3_29_relu_2,)                               {}
+call_module    self_model_layer3_30_bn1          self_model_layer3_30_bn1                                    (self_model_layer3_30_conv1,)                                {}
+call_module    self_model_layer3_30_relu         self_model_layer3_30_relu                                   (self_model_layer3_30_bn1,)                                  {}
+call_module    self_model_layer3_30_conv2        self_model_layer3_30_conv2                                  (self_model_layer3_30_relu,)                                 {}
+call_module    self_model_layer3_30_bn2          self_model_layer3_30_bn2                                    (self_model_layer3_30_conv2,)                                {}
+call_module    self_model_layer3_30_relu_1       self_model_layer3_30_relu                                   (self_model_layer3_30_bn2,)                                  {}
+call_module    self_model_layer3_30_conv3        self_model_layer3_30_conv3                                  (self_model_layer3_30_relu_1,)                               {}
+call_module    self_model_layer3_30_bn3          self_model_layer3_30_bn3                                    (self_model_layer3_30_conv3,)                                {}
+call_function  iadd_41                           <built-in function iadd>                                    (self_model_layer3_30_bn3, self_model_layer3_29_relu_2)      {}
+call_module    self_model_layer3_30_relu_2       self_model_layer3_30_relu                                   (iadd_41,)                                                   {}
+call_module    self_model_layer3_31_conv1        self_model_layer3_31_conv1                                  (self_model_layer3_30_relu_2,)                               {}
+call_module    self_model_layer3_31_bn1          self_model_layer3_31_bn1                                    (self_model_layer3_31_conv1,)                                {}
+call_module    self_model_layer3_31_relu         self_model_layer3_31_relu                                   (self_model_layer3_31_bn1,)                                  {}
+call_module    self_model_layer3_31_conv2        self_model_layer3_31_conv2                                  (self_model_layer3_31_relu,)                                 {}
+call_module    self_model_layer3_31_bn2          self_model_layer3_31_bn2                                    (self_model_layer3_31_conv2,)                                {}
+call_module    self_model_layer3_31_relu_1       self_model_layer3_31_relu                                   (self_model_layer3_31_bn2,)                                  {}
+call_module    self_model_layer3_31_conv3        self_model_layer3_31_conv3                                  (self_model_layer3_31_relu_1,)                               {}
+call_module    self_model_layer3_31_bn3          self_model_layer3_31_bn3                                    (self_model_layer3_31_conv3,)                                {}
+call_function  iadd_42                           <built-in function iadd>                                    (self_model_layer3_31_bn3, self_model_layer3_30_relu_2)      {}
+call_module    self_model_layer3_31_relu_2       self_model_layer3_31_relu                                   (iadd_42,)                                                   {}
+call_module    self_model_layer3_32_conv1        self_model_layer3_32_conv1                                  (self_model_layer3_31_relu_2,)                               {}
+call_module    self_model_layer3_32_bn1          self_model_layer3_32_bn1                                    (self_model_layer3_32_conv1,)                                {}
+call_module    self_model_layer3_32_relu         self_model_layer3_32_relu                                   (self_model_layer3_32_bn1,)                                  {}
+call_module    self_model_layer3_32_conv2        self_model_layer3_32_conv2                                  (self_model_layer3_32_relu,)                                 {}
+call_module    self_model_layer3_32_bn2          self_model_layer3_32_bn2                                    (self_model_layer3_32_conv2,)                                {}
+call_module    self_model_layer3_32_relu_1       self_model_layer3_32_relu                                   (self_model_layer3_32_bn2,)                                  {}
+call_module    self_model_layer3_32_conv3        self_model_layer3_32_conv3                                  (self_model_layer3_32_relu_1,)                               {}
+call_module    self_model_layer3_32_bn3          self_model_layer3_32_bn3                                    (self_model_layer3_32_conv3,)                                {}
+call_function  iadd_43                           <built-in function iadd>                                    (self_model_layer3_32_bn3, self_model_layer3_31_relu_2)      {}
+call_module    self_model_layer3_32_relu_2       self_model_layer3_32_relu                                   (iadd_43,)                                                   {}
+call_module    self_model_layer3_33_conv1        self_model_layer3_33_conv1                                  (self_model_layer3_32_relu_2,)                               {}
+call_module    self_model_layer3_33_bn1          self_model_layer3_33_bn1                                    (self_model_layer3_33_conv1,)                                {}
+call_module    self_model_layer3_33_relu         self_model_layer3_33_relu                                   (self_model_layer3_33_bn1,)                                  {}
+call_module    self_model_layer3_33_conv2        self_model_layer3_33_conv2                                  (self_model_layer3_33_relu,)                                 {}
+call_module    self_model_layer3_33_bn2          self_model_layer3_33_bn2                                    (self_model_layer3_33_conv2,)                                {}
+call_module    self_model_layer3_33_relu_1       self_model_layer3_33_relu                                   (self_model_layer3_33_bn2,)                                  {}
+call_module    self_model_layer3_33_conv3        self_model_layer3_33_conv3                                  (self_model_layer3_33_relu_1,)                               {}
+call_module    self_model_layer3_33_bn3          self_model_layer3_33_bn3                                    (self_model_layer3_33_conv3,)                                {}
+call_function  iadd_44                           <built-in function iadd>                                    (self_model_layer3_33_bn3, self_model_layer3_32_relu_2)      {}
+call_module    self_model_layer3_33_relu_2       self_model_layer3_33_relu                                   (iadd_44,)                                                   {}
+call_module    self_model_layer3_34_conv1        self_model_layer3_34_conv1                                  (self_model_layer3_33_relu_2,)                               {}
+call_module    self_model_layer3_34_bn1          self_model_layer3_34_bn1                                    (self_model_layer3_34_conv1,)                                {}
+call_module    self_model_layer3_34_relu         self_model_layer3_34_relu                                   (self_model_layer3_34_bn1,)                                  {}
+call_module    self_model_layer3_34_conv2        self_model_layer3_34_conv2                                  (self_model_layer3_34_relu,)                                 {}
+call_module    self_model_layer3_34_bn2          self_model_layer3_34_bn2                                    (self_model_layer3_34_conv2,)                                {}
+call_module    self_model_layer3_34_relu_1       self_model_layer3_34_relu                                   (self_model_layer3_34_bn2,)                                  {}
+call_module    self_model_layer3_34_conv3        self_model_layer3_34_conv3                                  (self_model_layer3_34_relu_1,)                               {}
+call_module    self_model_layer3_34_bn3          self_model_layer3_34_bn3                                    (self_model_layer3_34_conv3,)                                {}
+call_function  iadd_45                           <built-in function iadd>                                    (self_model_layer3_34_bn3, self_model_layer3_33_relu_2)      {}
+call_module    self_model_layer3_34_relu_2       self_model_layer3_34_relu                                   (iadd_45,)                                                   {}
+call_module    self_model_layer3_35_conv1        self_model_layer3_35_conv1                                  (self_model_layer3_34_relu_2,)                               {}
+call_module    self_model_layer3_35_bn1          self_model_layer3_35_bn1                                    (self_model_layer3_35_conv1,)                                {}
+call_module    self_model_layer3_35_relu         self_model_layer3_35_relu                                   (self_model_layer3_35_bn1,)                                  {}
+call_module    self_model_layer3_35_conv2        self_model_layer3_35_conv2                                  (self_model_layer3_35_relu,)                                 {}
+call_module    self_model_layer3_35_bn2          self_model_layer3_35_bn2                                    (self_model_layer3_35_conv2,)                                {}
+call_module    self_model_layer3_35_relu_1       self_model_layer3_35_relu                                   (self_model_layer3_35_bn2,)                                  {}
+call_module    self_model_layer3_35_conv3        self_model_layer3_35_conv3                                  (self_model_layer3_35_relu_1,)                               {}
+call_module    self_model_layer3_35_bn3          self_model_layer3_35_bn3                                    (self_model_layer3_35_conv3,)                                {}
+call_function  iadd_46                           <built-in function iadd>                                    (self_model_layer3_35_bn3, self_model_layer3_34_relu_2)      {}
+call_module    self_model_layer3_35_relu_2       self_model_layer3_35_relu                                   (iadd_46,)                                                   {}
+call_module    self_model_layer4_0_conv1         self_model_layer4_0_conv1                                   (self_model_layer3_35_relu_2,)                               {}
+call_module    self_model_layer4_0_bn1           self_model_layer4_0_bn1                                     (self_model_layer4_0_conv1,)                                 {}
+call_module    self_model_layer4_0_relu          self_model_layer4_0_relu                                    (self_model_layer4_0_bn1,)                                   {}
+call_module    self_model_layer4_0_conv2         self_model_layer4_0_conv2                                   (self_model_layer4_0_relu,)                                  {}
+call_module    self_model_layer4_0_bn2           self_model_layer4_0_bn2                                     (self_model_layer4_0_conv2,)                                 {}
+call_module    self_model_layer4_0_relu_1        self_model_layer4_0_relu                                    (self_model_layer4_0_bn2,)                                   {}
+call_module    self_model_layer4_0_conv3         self_model_layer4_0_conv3                                   (self_model_layer4_0_relu_1,)                                {}
+call_module    self_model_layer4_0_bn3           self_model_layer4_0_bn3                                     (self_model_layer4_0_conv3,)                                 {}
+call_module    self_model_layer4_0_downsample_0  self_model_layer4_0_downsample_0                            (self_model_layer3_35_relu_2,)                               {}
+call_module    self_model_layer4_0_downsample_1  self_model_layer4_0_downsample_1                            (self_model_layer4_0_downsample_0,)                          {}
+call_function  iadd_47                           <built-in function iadd>                                    (self_model_layer4_0_bn3, self_model_layer4_0_downsample_1)  {}
+call_module    self_model_layer4_0_relu_2        self_model_layer4_0_relu                                    (iadd_47,)                                                   {}
+call_module    self_model_layer4_1_conv1         self_model_layer4_1_conv1                                   (self_model_layer4_0_relu_2,)                                {}
+call_module    self_model_layer4_1_bn1           self_model_layer4_1_bn1                                     (self_model_layer4_1_conv1,)                                 {}
+call_module    self_model_layer4_1_relu          self_model_layer4_1_relu                                    (self_model_layer4_1_bn1,)                                   {}
+call_module    self_model_layer4_1_conv2         self_model_layer4_1_conv2                                   (self_model_layer4_1_relu,)                                  {}
+call_module    self_model_layer4_1_bn2           self_model_layer4_1_bn2                                     (self_model_layer4_1_conv2,)                                 {}
+call_module    self_model_layer4_1_relu_1        self_model_layer4_1_relu                                    (self_model_layer4_1_bn2,)                                   {}
+call_module    self_model_layer4_1_conv3         self_model_layer4_1_conv3                                   (self_model_layer4_1_relu_1,)                                {}
+call_module    self_model_layer4_1_bn3           self_model_layer4_1_bn3                                     (self_model_layer4_1_conv3,)                                 {}
+call_function  iadd_48                           <built-in function iadd>                                    (self_model_layer4_1_bn3, self_model_layer4_0_relu_2)        {}
+call_module    self_model_layer4_1_relu_2        self_model_layer4_1_relu                                    (iadd_48,)                                                   {}
+call_module    self_model_layer4_2_conv1         self_model_layer4_2_conv1                                   (self_model_layer4_1_relu_2,)                                {}
+call_module    self_model_layer4_2_bn1           self_model_layer4_2_bn1                                     (self_model_layer4_2_conv1,)                                 {}
+call_module    self_model_layer4_2_relu          self_model_layer4_2_relu                                    (self_model_layer4_2_bn1,)                                   {}
+call_module    self_model_layer4_2_conv2         self_model_layer4_2_conv2                                   (self_model_layer4_2_relu,)                                  {}
+call_module    self_model_layer4_2_bn2           self_model_layer4_2_bn2                                     (self_model_layer4_2_conv2,)                                 {}
+call_module    self_model_layer4_2_relu_1        self_model_layer4_2_relu                                    (self_model_layer4_2_bn2,)                                   {}
+call_module    self_model_layer4_2_conv3         self_model_layer4_2_conv3                                   (self_model_layer4_2_relu_1,)                                {}
+call_module    self_model_layer4_2_bn3           self_model_layer4_2_bn3                                     (self_model_layer4_2_conv3,)                                 {}
+call_function  iadd_49                           <built-in function iadd>                                    (self_model_layer4_2_bn3, self_model_layer4_1_relu_2)        {}
+call_module    self_model_layer4_2_relu_2        self_model_layer4_2_relu                                    (iadd_49,)                                                   {}
+call_module    self_model_avgpool                self_model_avgpool                                          (self_model_layer4_2_relu_2,)                                {}
+call_function  flatten                           <built-in method flatten of type object at 0x7f486ff08880>  (self_model_avgpool, 1)                                      {}
+call_module    self_model_fc                     self_model_fc                                               (flatten,)                                                   {}
+call_module    self_loss_fn                      self_loss_fn                                                (self_model_fc, label)                                       {}
+output         output                            output                                                      ((self_loss_fn,),)                                           {}
+epoch:1, compile model spend time:274.4094543457031ms
+epoch:1, original model spend time:274.3500671386719ms
+epoch:1, speed up:-0.05938720703125ms
+avg speed up time:-0.05938720703125
+bert_base_uncased:--------------------------------------
+opcode         name                                               target                                                     args                                                                                       kwargs
+-------------  -------------------------------------------------  ---------------------------------------------------------  -----------------------------------------------------------------------------------------  ----------------------------------------
+placeholder    input_ids                                          input_ids                                                  ()                                                                                         {}
+call_function  ones                                               <built-in method ones of type object at 0x7f486ff08880>    ((5, 10),)                                                                                 {'device': device(type='cuda', index=0)}
+get_attr       self_embeddings_token_type_ids                     self_embeddings_token_type_ids                             ()                                                                                         {}
+call_function  getitem                                            <built-in function getitem>                                (self_embeddings_token_type_ids, (slice(None, None, None), slice(None, 10, None)))         {}
+call_method    expand                                             expand                                                     (getitem, 5, 10)                                                                           {}
+call_function  getitem_1                                          <built-in function getitem>                                (ones, (slice(None, None, None), None, None, slice(None, None, None)))                     {}
+call_method    to                                                 to                                                         (getitem_1,)                                                                               {'dtype': torch.float32}
+call_function  sub                                                <built-in function sub>                                    (1.0, to)                                                                                  {}
+call_function  mul                                                <built-in function mul>                                    (sub, -3.4028234663852886e+38)                                                             {}
+get_attr       self_embeddings_position_ids                       self_embeddings_position_ids                               ()                                                                                         {}
+call_function  getitem_2                                          <built-in function getitem>                                (self_embeddings_position_ids, (slice(None, None, None), slice(0, 10, None)))              {}
+call_module    self_embeddings_word_embeddings                    self_embeddings_word_embeddings                            (input_ids,)                                                                               {}
+call_module    self_embeddings_token_type_embeddings              self_embeddings_token_type_embeddings                      (expand,)                                                                                  {}
+call_function  add                                                <built-in function add>                                    (self_embeddings_word_embeddings, self_embeddings_token_type_embeddings)                   {}
+call_module    self_embeddings_position_embeddings                self_embeddings_position_embeddings                        (getitem_2,)                                                                               {}
+call_function  iadd                                               <built-in function iadd>                                   (add, self_embeddings_position_embeddings)                                                 {}
+call_module    self_embeddings_layer_norm                         self_embeddings_LayerNorm                                  (iadd,)                                                                                    {}
+call_module    self_embeddings_dropout                            self_embeddings_dropout                                    (self_embeddings_layer_norm,)                                                              {}
+call_module    self_encoder_layer_0_attention_self_query          self_encoder_layer_0_attention_self_query                  (self_embeddings_dropout,)                                                                 {}
+call_module    self_encoder_layer_0_attention_self_key            self_encoder_layer_0_attention_self_key                    (self_embeddings_dropout,)                                                                 {}
+call_method    view                                               view                                                       (self_encoder_layer_0_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute                                            permute                                                    (view, 0, 2, 1, 3)                                                                         {}
+call_module    self_encoder_layer_0_attention_self_value          self_encoder_layer_0_attention_self_value                  (self_embeddings_dropout,)                                                                 {}
+call_method    view_1                                             view                                                       (self_encoder_layer_0_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_1                                          permute                                                    (view_1, 0, 2, 1, 3)                                                                       {}
+call_method    view_2                                             view                                                       (self_encoder_layer_0_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_2                                          permute                                                    (view_2, 0, 2, 1, 3)                                                                       {}
+call_method    transpose                                          transpose                                                  (permute, -1, -2)                                                                          {}
+call_function  matmul                                             <built-in method matmul of type object at 0x7f486ff08880>  (permute_2, transpose)                                                                     {}
+call_function  truediv                                            <built-in function truediv>                                (matmul, 8.0)                                                                              {}
+call_function  add_1                                              <built-in function add>                                    (truediv, mul)                                                                             {}
+call_function  softmax                                            <function softmax at 0x7f47f6e9b640>                       (add_1,)                                                                                   {'dim': -1}
+call_module    self_encoder_layer_0_attention_self_dropout        self_encoder_layer_0_attention_self_dropout                (softmax,)                                                                                 {}
+call_function  matmul_1                                           <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_0_attention_self_dropout, permute_1)                                   {}
+call_method    permute_3                                          permute                                                    (matmul_1, 0, 2, 1, 3)                                                                     {}
+call_method    contiguous                                         contiguous                                                 (permute_3,)                                                                               {}
+call_method    view_3                                             view                                                       (contiguous, (5, 10, 768))                                                                 {}
+call_module    self_encoder_layer_0_attention_output_dense        self_encoder_layer_0_attention_output_dense                (view_3,)                                                                                  {}
+call_module    self_encoder_layer_0_attention_output_dropout      self_encoder_layer_0_attention_output_dropout              (self_encoder_layer_0_attention_output_dense,)                                             {}
+call_function  add_2                                              <built-in function add>                                    (self_encoder_layer_0_attention_output_dropout, self_embeddings_dropout)                   {}
+call_module    self_encoder_layer_0_attention_output_layer_norm   self_encoder_layer_0_attention_output_LayerNorm            (add_2,)                                                                                   {}
+call_module    self_encoder_layer_0_intermediate_dense            self_encoder_layer_0_intermediate_dense                    (self_encoder_layer_0_attention_output_layer_norm,)                                        {}
+call_function  gelu                                               <built-in function gelu>                                   (self_encoder_layer_0_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_0_output_dense                  self_encoder_layer_0_output_dense                          (gelu,)                                                                                    {}
+call_module    self_encoder_layer_0_output_dropout                self_encoder_layer_0_output_dropout                        (self_encoder_layer_0_output_dense,)                                                       {}
+call_function  add_3                                              <built-in function add>                                    (self_encoder_layer_0_output_dropout, self_encoder_layer_0_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_0_output_layer_norm             self_encoder_layer_0_output_LayerNorm                      (add_3,)                                                                                   {}
+call_module    self_encoder_layer_1_attention_self_query          self_encoder_layer_1_attention_self_query                  (self_encoder_layer_0_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_1_attention_self_key            self_encoder_layer_1_attention_self_key                    (self_encoder_layer_0_output_layer_norm,)                                                  {}
+call_method    view_4                                             view                                                       (self_encoder_layer_1_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_4                                          permute                                                    (view_4, 0, 2, 1, 3)                                                                       {}
+call_module    self_encoder_layer_1_attention_self_value          self_encoder_layer_1_attention_self_value                  (self_encoder_layer_0_output_layer_norm,)                                                  {}
+call_method    view_5                                             view                                                       (self_encoder_layer_1_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_5                                          permute                                                    (view_5, 0, 2, 1, 3)                                                                       {}
+call_method    view_6                                             view                                                       (self_encoder_layer_1_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_6                                          permute                                                    (view_6, 0, 2, 1, 3)                                                                       {}
+call_method    transpose_1                                        transpose                                                  (permute_4, -1, -2)                                                                        {}
+call_function  matmul_2                                           <built-in method matmul of type object at 0x7f486ff08880>  (permute_6, transpose_1)                                                                   {}
+call_function  truediv_1                                          <built-in function truediv>                                (matmul_2, 8.0)                                                                            {}
+call_function  add_4                                              <built-in function add>                                    (truediv_1, mul)                                                                           {}
+call_function  softmax_1                                          <function softmax at 0x7f47f6e9b640>                       (add_4,)                                                                                   {'dim': -1}
+call_module    self_encoder_layer_1_attention_self_dropout        self_encoder_layer_1_attention_self_dropout                (softmax_1,)                                                                               {}
+call_function  matmul_3                                           <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_1_attention_self_dropout, permute_5)                                   {}
+call_method    permute_7                                          permute                                                    (matmul_3, 0, 2, 1, 3)                                                                     {}
+call_method    contiguous_1                                       contiguous                                                 (permute_7,)                                                                               {}
+call_method    view_7                                             view                                                       (contiguous_1, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_1_attention_output_dense        self_encoder_layer_1_attention_output_dense                (view_7,)                                                                                  {}
+call_module    self_encoder_layer_1_attention_output_dropout      self_encoder_layer_1_attention_output_dropout              (self_encoder_layer_1_attention_output_dense,)                                             {}
+call_function  add_5                                              <built-in function add>                                    (self_encoder_layer_1_attention_output_dropout, self_encoder_layer_0_output_layer_norm)    {}
+call_module    self_encoder_layer_1_attention_output_layer_norm   self_encoder_layer_1_attention_output_LayerNorm            (add_5,)                                                                                   {}
+call_module    self_encoder_layer_1_intermediate_dense            self_encoder_layer_1_intermediate_dense                    (self_encoder_layer_1_attention_output_layer_norm,)                                        {}
+call_function  gelu_1                                             <built-in function gelu>                                   (self_encoder_layer_1_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_1_output_dense                  self_encoder_layer_1_output_dense                          (gelu_1,)                                                                                  {}
+call_module    self_encoder_layer_1_output_dropout                self_encoder_layer_1_output_dropout                        (self_encoder_layer_1_output_dense,)                                                       {}
+call_function  add_6                                              <built-in function add>                                    (self_encoder_layer_1_output_dropout, self_encoder_layer_1_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_1_output_layer_norm             self_encoder_layer_1_output_LayerNorm                      (add_6,)                                                                                   {}
+call_module    self_encoder_layer_2_attention_self_query          self_encoder_layer_2_attention_self_query                  (self_encoder_layer_1_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_2_attention_self_key            self_encoder_layer_2_attention_self_key                    (self_encoder_layer_1_output_layer_norm,)                                                  {}
+call_method    view_8                                             view                                                       (self_encoder_layer_2_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_8                                          permute                                                    (view_8, 0, 2, 1, 3)                                                                       {}
+call_module    self_encoder_layer_2_attention_self_value          self_encoder_layer_2_attention_self_value                  (self_encoder_layer_1_output_layer_norm,)                                                  {}
+call_method    view_9                                             view                                                       (self_encoder_layer_2_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_9                                          permute                                                    (view_9, 0, 2, 1, 3)                                                                       {}
+call_method    view_10                                            view                                                       (self_encoder_layer_2_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_10                                         permute                                                    (view_10, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_2                                        transpose                                                  (permute_8, -1, -2)                                                                        {}
+call_function  matmul_4                                           <built-in method matmul of type object at 0x7f486ff08880>  (permute_10, transpose_2)                                                                  {}
+call_function  truediv_2                                          <built-in function truediv>                                (matmul_4, 8.0)                                                                            {}
+call_function  add_7                                              <built-in function add>                                    (truediv_2, mul)                                                                           {}
+call_function  softmax_2                                          <function softmax at 0x7f47f6e9b640>                       (add_7,)                                                                                   {'dim': -1}
+call_module    self_encoder_layer_2_attention_self_dropout        self_encoder_layer_2_attention_self_dropout                (softmax_2,)                                                                               {}
+call_function  matmul_5                                           <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_2_attention_self_dropout, permute_9)                                   {}
+call_method    permute_11                                         permute                                                    (matmul_5, 0, 2, 1, 3)                                                                     {}
+call_method    contiguous_2                                       contiguous                                                 (permute_11,)                                                                              {}
+call_method    view_11                                            view                                                       (contiguous_2, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_2_attention_output_dense        self_encoder_layer_2_attention_output_dense                (view_11,)                                                                                 {}
+call_module    self_encoder_layer_2_attention_output_dropout      self_encoder_layer_2_attention_output_dropout              (self_encoder_layer_2_attention_output_dense,)                                             {}
+call_function  add_8                                              <built-in function add>                                    (self_encoder_layer_2_attention_output_dropout, self_encoder_layer_1_output_layer_norm)    {}
+call_module    self_encoder_layer_2_attention_output_layer_norm   self_encoder_layer_2_attention_output_LayerNorm            (add_8,)                                                                                   {}
+call_module    self_encoder_layer_2_intermediate_dense            self_encoder_layer_2_intermediate_dense                    (self_encoder_layer_2_attention_output_layer_norm,)                                        {}
+call_function  gelu_2                                             <built-in function gelu>                                   (self_encoder_layer_2_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_2_output_dense                  self_encoder_layer_2_output_dense                          (gelu_2,)                                                                                  {}
+call_module    self_encoder_layer_2_output_dropout                self_encoder_layer_2_output_dropout                        (self_encoder_layer_2_output_dense,)                                                       {}
+call_function  add_9                                              <built-in function add>                                    (self_encoder_layer_2_output_dropout, self_encoder_layer_2_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_2_output_layer_norm             self_encoder_layer_2_output_LayerNorm                      (add_9,)                                                                                   {}
+call_module    self_encoder_layer_3_attention_self_query          self_encoder_layer_3_attention_self_query                  (self_encoder_layer_2_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_3_attention_self_key            self_encoder_layer_3_attention_self_key                    (self_encoder_layer_2_output_layer_norm,)                                                  {}
+call_method    view_12                                            view                                                       (self_encoder_layer_3_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_12                                         permute                                                    (view_12, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_3_attention_self_value          self_encoder_layer_3_attention_self_value                  (self_encoder_layer_2_output_layer_norm,)                                                  {}
+call_method    view_13                                            view                                                       (self_encoder_layer_3_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_13                                         permute                                                    (view_13, 0, 2, 1, 3)                                                                      {}
+call_method    view_14                                            view                                                       (self_encoder_layer_3_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_14                                         permute                                                    (view_14, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_3                                        transpose                                                  (permute_12, -1, -2)                                                                       {}
+call_function  matmul_6                                           <built-in method matmul of type object at 0x7f486ff08880>  (permute_14, transpose_3)                                                                  {}
+call_function  truediv_3                                          <built-in function truediv>                                (matmul_6, 8.0)                                                                            {}
+call_function  add_10                                             <built-in function add>                                    (truediv_3, mul)                                                                           {}
+call_function  softmax_3                                          <function softmax at 0x7f47f6e9b640>                       (add_10,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_3_attention_self_dropout        self_encoder_layer_3_attention_self_dropout                (softmax_3,)                                                                               {}
+call_function  matmul_7                                           <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_3_attention_self_dropout, permute_13)                                  {}
+call_method    permute_15                                         permute                                                    (matmul_7, 0, 2, 1, 3)                                                                     {}
+call_method    contiguous_3                                       contiguous                                                 (permute_15,)                                                                              {}
+call_method    view_15                                            view                                                       (contiguous_3, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_3_attention_output_dense        self_encoder_layer_3_attention_output_dense                (view_15,)                                                                                 {}
+call_module    self_encoder_layer_3_attention_output_dropout      self_encoder_layer_3_attention_output_dropout              (self_encoder_layer_3_attention_output_dense,)                                             {}
+call_function  add_11                                             <built-in function add>                                    (self_encoder_layer_3_attention_output_dropout, self_encoder_layer_2_output_layer_norm)    {}
+call_module    self_encoder_layer_3_attention_output_layer_norm   self_encoder_layer_3_attention_output_LayerNorm            (add_11,)                                                                                  {}
+call_module    self_encoder_layer_3_intermediate_dense            self_encoder_layer_3_intermediate_dense                    (self_encoder_layer_3_attention_output_layer_norm,)                                        {}
+call_function  gelu_3                                             <built-in function gelu>                                   (self_encoder_layer_3_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_3_output_dense                  self_encoder_layer_3_output_dense                          (gelu_3,)                                                                                  {}
+call_module    self_encoder_layer_3_output_dropout                self_encoder_layer_3_output_dropout                        (self_encoder_layer_3_output_dense,)                                                       {}
+call_function  add_12                                             <built-in function add>                                    (self_encoder_layer_3_output_dropout, self_encoder_layer_3_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_3_output_layer_norm             self_encoder_layer_3_output_LayerNorm                      (add_12,)                                                                                  {}
+call_module    self_encoder_layer_4_attention_self_query          self_encoder_layer_4_attention_self_query                  (self_encoder_layer_3_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_4_attention_self_key            self_encoder_layer_4_attention_self_key                    (self_encoder_layer_3_output_layer_norm,)                                                  {}
+call_method    view_16                                            view                                                       (self_encoder_layer_4_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_16                                         permute                                                    (view_16, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_4_attention_self_value          self_encoder_layer_4_attention_self_value                  (self_encoder_layer_3_output_layer_norm,)                                                  {}
+call_method    view_17                                            view                                                       (self_encoder_layer_4_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_17                                         permute                                                    (view_17, 0, 2, 1, 3)                                                                      {}
+call_method    view_18                                            view                                                       (self_encoder_layer_4_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_18                                         permute                                                    (view_18, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_4                                        transpose                                                  (permute_16, -1, -2)                                                                       {}
+call_function  matmul_8                                           <built-in method matmul of type object at 0x7f486ff08880>  (permute_18, transpose_4)                                                                  {}
+call_function  truediv_4                                          <built-in function truediv>                                (matmul_8, 8.0)                                                                            {}
+call_function  add_13                                             <built-in function add>                                    (truediv_4, mul)                                                                           {}
+call_function  softmax_4                                          <function softmax at 0x7f47f6e9b640>                       (add_13,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_4_attention_self_dropout        self_encoder_layer_4_attention_self_dropout                (softmax_4,)                                                                               {}
+call_function  matmul_9                                           <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_4_attention_self_dropout, permute_17)                                  {}
+call_method    permute_19                                         permute                                                    (matmul_9, 0, 2, 1, 3)                                                                     {}
+call_method    contiguous_4                                       contiguous                                                 (permute_19,)                                                                              {}
+call_method    view_19                                            view                                                       (contiguous_4, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_4_attention_output_dense        self_encoder_layer_4_attention_output_dense                (view_19,)                                                                                 {}
+call_module    self_encoder_layer_4_attention_output_dropout      self_encoder_layer_4_attention_output_dropout              (self_encoder_layer_4_attention_output_dense,)                                             {}
+call_function  add_14                                             <built-in function add>                                    (self_encoder_layer_4_attention_output_dropout, self_encoder_layer_3_output_layer_norm)    {}
+call_module    self_encoder_layer_4_attention_output_layer_norm   self_encoder_layer_4_attention_output_LayerNorm            (add_14,)                                                                                  {}
+call_module    self_encoder_layer_4_intermediate_dense            self_encoder_layer_4_intermediate_dense                    (self_encoder_layer_4_attention_output_layer_norm,)                                        {}
+call_function  gelu_4                                             <built-in function gelu>                                   (self_encoder_layer_4_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_4_output_dense                  self_encoder_layer_4_output_dense                          (gelu_4,)                                                                                  {}
+call_module    self_encoder_layer_4_output_dropout                self_encoder_layer_4_output_dropout                        (self_encoder_layer_4_output_dense,)                                                       {}
+call_function  add_15                                             <built-in function add>                                    (self_encoder_layer_4_output_dropout, self_encoder_layer_4_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_4_output_layer_norm             self_encoder_layer_4_output_LayerNorm                      (add_15,)                                                                                  {}
+call_module    self_encoder_layer_5_attention_self_query          self_encoder_layer_5_attention_self_query                  (self_encoder_layer_4_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_5_attention_self_key            self_encoder_layer_5_attention_self_key                    (self_encoder_layer_4_output_layer_norm,)                                                  {}
+call_method    view_20                                            view                                                       (self_encoder_layer_5_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_20                                         permute                                                    (view_20, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_5_attention_self_value          self_encoder_layer_5_attention_self_value                  (self_encoder_layer_4_output_layer_norm,)                                                  {}
+call_method    view_21                                            view                                                       (self_encoder_layer_5_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_21                                         permute                                                    (view_21, 0, 2, 1, 3)                                                                      {}
+call_method    view_22                                            view                                                       (self_encoder_layer_5_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_22                                         permute                                                    (view_22, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_5                                        transpose                                                  (permute_20, -1, -2)                                                                       {}
+call_function  matmul_10                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_22, transpose_5)                                                                  {}
+call_function  truediv_5                                          <built-in function truediv>                                (matmul_10, 8.0)                                                                           {}
+call_function  add_16                                             <built-in function add>                                    (truediv_5, mul)                                                                           {}
+call_function  softmax_5                                          <function softmax at 0x7f47f6e9b640>                       (add_16,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_5_attention_self_dropout        self_encoder_layer_5_attention_self_dropout                (softmax_5,)                                                                               {}
+call_function  matmul_11                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_5_attention_self_dropout, permute_21)                                  {}
+call_method    permute_23                                         permute                                                    (matmul_11, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_5                                       contiguous                                                 (permute_23,)                                                                              {}
+call_method    view_23                                            view                                                       (contiguous_5, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_5_attention_output_dense        self_encoder_layer_5_attention_output_dense                (view_23,)                                                                                 {}
+call_module    self_encoder_layer_5_attention_output_dropout      self_encoder_layer_5_attention_output_dropout              (self_encoder_layer_5_attention_output_dense,)                                             {}
+call_function  add_17                                             <built-in function add>                                    (self_encoder_layer_5_attention_output_dropout, self_encoder_layer_4_output_layer_norm)    {}
+call_module    self_encoder_layer_5_attention_output_layer_norm   self_encoder_layer_5_attention_output_LayerNorm            (add_17,)                                                                                  {}
+call_module    self_encoder_layer_5_intermediate_dense            self_encoder_layer_5_intermediate_dense                    (self_encoder_layer_5_attention_output_layer_norm,)                                        {}
+call_function  gelu_5                                             <built-in function gelu>                                   (self_encoder_layer_5_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_5_output_dense                  self_encoder_layer_5_output_dense                          (gelu_5,)                                                                                  {}
+call_module    self_encoder_layer_5_output_dropout                self_encoder_layer_5_output_dropout                        (self_encoder_layer_5_output_dense,)                                                       {}
+call_function  add_18                                             <built-in function add>                                    (self_encoder_layer_5_output_dropout, self_encoder_layer_5_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_5_output_layer_norm             self_encoder_layer_5_output_LayerNorm                      (add_18,)                                                                                  {}
+call_module    self_encoder_layer_6_attention_self_query          self_encoder_layer_6_attention_self_query                  (self_encoder_layer_5_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_6_attention_self_key            self_encoder_layer_6_attention_self_key                    (self_encoder_layer_5_output_layer_norm,)                                                  {}
+call_method    view_24                                            view                                                       (self_encoder_layer_6_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_24                                         permute                                                    (view_24, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_6_attention_self_value          self_encoder_layer_6_attention_self_value                  (self_encoder_layer_5_output_layer_norm,)                                                  {}
+call_method    view_25                                            view                                                       (self_encoder_layer_6_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_25                                         permute                                                    (view_25, 0, 2, 1, 3)                                                                      {}
+call_method    view_26                                            view                                                       (self_encoder_layer_6_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_26                                         permute                                                    (view_26, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_6                                        transpose                                                  (permute_24, -1, -2)                                                                       {}
+call_function  matmul_12                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_26, transpose_6)                                                                  {}
+call_function  truediv_6                                          <built-in function truediv>                                (matmul_12, 8.0)                                                                           {}
+call_function  add_19                                             <built-in function add>                                    (truediv_6, mul)                                                                           {}
+call_function  softmax_6                                          <function softmax at 0x7f47f6e9b640>                       (add_19,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_6_attention_self_dropout        self_encoder_layer_6_attention_self_dropout                (softmax_6,)                                                                               {}
+call_function  matmul_13                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_6_attention_self_dropout, permute_25)                                  {}
+call_method    permute_27                                         permute                                                    (matmul_13, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_6                                       contiguous                                                 (permute_27,)                                                                              {}
+call_method    view_27                                            view                                                       (contiguous_6, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_6_attention_output_dense        self_encoder_layer_6_attention_output_dense                (view_27,)                                                                                 {}
+call_module    self_encoder_layer_6_attention_output_dropout      self_encoder_layer_6_attention_output_dropout              (self_encoder_layer_6_attention_output_dense,)                                             {}
+call_function  add_20                                             <built-in function add>                                    (self_encoder_layer_6_attention_output_dropout, self_encoder_layer_5_output_layer_norm)    {}
+call_module    self_encoder_layer_6_attention_output_layer_norm   self_encoder_layer_6_attention_output_LayerNorm            (add_20,)                                                                                  {}
+call_module    self_encoder_layer_6_intermediate_dense            self_encoder_layer_6_intermediate_dense                    (self_encoder_layer_6_attention_output_layer_norm,)                                        {}
+call_function  gelu_6                                             <built-in function gelu>                                   (self_encoder_layer_6_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_6_output_dense                  self_encoder_layer_6_output_dense                          (gelu_6,)                                                                                  {}
+call_module    self_encoder_layer_6_output_dropout                self_encoder_layer_6_output_dropout                        (self_encoder_layer_6_output_dense,)                                                       {}
+call_function  add_21                                             <built-in function add>                                    (self_encoder_layer_6_output_dropout, self_encoder_layer_6_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_6_output_layer_norm             self_encoder_layer_6_output_LayerNorm                      (add_21,)                                                                                  {}
+call_module    self_encoder_layer_7_attention_self_query          self_encoder_layer_7_attention_self_query                  (self_encoder_layer_6_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_7_attention_self_key            self_encoder_layer_7_attention_self_key                    (self_encoder_layer_6_output_layer_norm,)                                                  {}
+call_method    view_28                                            view                                                       (self_encoder_layer_7_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_28                                         permute                                                    (view_28, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_7_attention_self_value          self_encoder_layer_7_attention_self_value                  (self_encoder_layer_6_output_layer_norm,)                                                  {}
+call_method    view_29                                            view                                                       (self_encoder_layer_7_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_29                                         permute                                                    (view_29, 0, 2, 1, 3)                                                                      {}
+call_method    view_30                                            view                                                       (self_encoder_layer_7_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_30                                         permute                                                    (view_30, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_7                                        transpose                                                  (permute_28, -1, -2)                                                                       {}
+call_function  matmul_14                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_30, transpose_7)                                                                  {}
+call_function  truediv_7                                          <built-in function truediv>                                (matmul_14, 8.0)                                                                           {}
+call_function  add_22                                             <built-in function add>                                    (truediv_7, mul)                                                                           {}
+call_function  softmax_7                                          <function softmax at 0x7f47f6e9b640>                       (add_22,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_7_attention_self_dropout        self_encoder_layer_7_attention_self_dropout                (softmax_7,)                                                                               {}
+call_function  matmul_15                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_7_attention_self_dropout, permute_29)                                  {}
+call_method    permute_31                                         permute                                                    (matmul_15, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_7                                       contiguous                                                 (permute_31,)                                                                              {}
+call_method    view_31                                            view                                                       (contiguous_7, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_7_attention_output_dense        self_encoder_layer_7_attention_output_dense                (view_31,)                                                                                 {}
+call_module    self_encoder_layer_7_attention_output_dropout      self_encoder_layer_7_attention_output_dropout              (self_encoder_layer_7_attention_output_dense,)                                             {}
+call_function  add_23                                             <built-in function add>                                    (self_encoder_layer_7_attention_output_dropout, self_encoder_layer_6_output_layer_norm)    {}
+call_module    self_encoder_layer_7_attention_output_layer_norm   self_encoder_layer_7_attention_output_LayerNorm            (add_23,)                                                                                  {}
+call_module    self_encoder_layer_7_intermediate_dense            self_encoder_layer_7_intermediate_dense                    (self_encoder_layer_7_attention_output_layer_norm,)                                        {}
+call_function  gelu_7                                             <built-in function gelu>                                   (self_encoder_layer_7_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_7_output_dense                  self_encoder_layer_7_output_dense                          (gelu_7,)                                                                                  {}
+call_module    self_encoder_layer_7_output_dropout                self_encoder_layer_7_output_dropout                        (self_encoder_layer_7_output_dense,)                                                       {}
+call_function  add_24                                             <built-in function add>                                    (self_encoder_layer_7_output_dropout, self_encoder_layer_7_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_7_output_layer_norm             self_encoder_layer_7_output_LayerNorm                      (add_24,)                                                                                  {}
+call_module    self_encoder_layer_8_attention_self_query          self_encoder_layer_8_attention_self_query                  (self_encoder_layer_7_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_8_attention_self_key            self_encoder_layer_8_attention_self_key                    (self_encoder_layer_7_output_layer_norm,)                                                  {}
+call_method    view_32                                            view                                                       (self_encoder_layer_8_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_32                                         permute                                                    (view_32, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_8_attention_self_value          self_encoder_layer_8_attention_self_value                  (self_encoder_layer_7_output_layer_norm,)                                                  {}
+call_method    view_33                                            view                                                       (self_encoder_layer_8_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_33                                         permute                                                    (view_33, 0, 2, 1, 3)                                                                      {}
+call_method    view_34                                            view                                                       (self_encoder_layer_8_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_34                                         permute                                                    (view_34, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_8                                        transpose                                                  (permute_32, -1, -2)                                                                       {}
+call_function  matmul_16                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_34, transpose_8)                                                                  {}
+call_function  truediv_8                                          <built-in function truediv>                                (matmul_16, 8.0)                                                                           {}
+call_function  add_25                                             <built-in function add>                                    (truediv_8, mul)                                                                           {}
+call_function  softmax_8                                          <function softmax at 0x7f47f6e9b640>                       (add_25,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_8_attention_self_dropout        self_encoder_layer_8_attention_self_dropout                (softmax_8,)                                                                               {}
+call_function  matmul_17                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_8_attention_self_dropout, permute_33)                                  {}
+call_method    permute_35                                         permute                                                    (matmul_17, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_8                                       contiguous                                                 (permute_35,)                                                                              {}
+call_method    view_35                                            view                                                       (contiguous_8, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_8_attention_output_dense        self_encoder_layer_8_attention_output_dense                (view_35,)                                                                                 {}
+call_module    self_encoder_layer_8_attention_output_dropout      self_encoder_layer_8_attention_output_dropout              (self_encoder_layer_8_attention_output_dense,)                                             {}
+call_function  add_26                                             <built-in function add>                                    (self_encoder_layer_8_attention_output_dropout, self_encoder_layer_7_output_layer_norm)    {}
+call_module    self_encoder_layer_8_attention_output_layer_norm   self_encoder_layer_8_attention_output_LayerNorm            (add_26,)                                                                                  {}
+call_module    self_encoder_layer_8_intermediate_dense            self_encoder_layer_8_intermediate_dense                    (self_encoder_layer_8_attention_output_layer_norm,)                                        {}
+call_function  gelu_8                                             <built-in function gelu>                                   (self_encoder_layer_8_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_8_output_dense                  self_encoder_layer_8_output_dense                          (gelu_8,)                                                                                  {}
+call_module    self_encoder_layer_8_output_dropout                self_encoder_layer_8_output_dropout                        (self_encoder_layer_8_output_dense,)                                                       {}
+call_function  add_27                                             <built-in function add>                                    (self_encoder_layer_8_output_dropout, self_encoder_layer_8_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_8_output_layer_norm             self_encoder_layer_8_output_LayerNorm                      (add_27,)                                                                                  {}
+call_module    self_encoder_layer_9_attention_self_query          self_encoder_layer_9_attention_self_query                  (self_encoder_layer_8_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_9_attention_self_key            self_encoder_layer_9_attention_self_key                    (self_encoder_layer_8_output_layer_norm,)                                                  {}
+call_method    view_36                                            view                                                       (self_encoder_layer_9_attention_self_key, (5, 10, 12, 64))                                 {}
+call_method    permute_36                                         permute                                                    (view_36, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_9_attention_self_value          self_encoder_layer_9_attention_self_value                  (self_encoder_layer_8_output_layer_norm,)                                                  {}
+call_method    view_37                                            view                                                       (self_encoder_layer_9_attention_self_value, (5, 10, 12, 64))                               {}
+call_method    permute_37                                         permute                                                    (view_37, 0, 2, 1, 3)                                                                      {}
+call_method    view_38                                            view                                                       (self_encoder_layer_9_attention_self_query, (5, 10, 12, 64))                               {}
+call_method    permute_38                                         permute                                                    (view_38, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_9                                        transpose                                                  (permute_36, -1, -2)                                                                       {}
+call_function  matmul_18                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_38, transpose_9)                                                                  {}
+call_function  truediv_9                                          <built-in function truediv>                                (matmul_18, 8.0)                                                                           {}
+call_function  add_28                                             <built-in function add>                                    (truediv_9, mul)                                                                           {}
+call_function  softmax_9                                          <function softmax at 0x7f47f6e9b640>                       (add_28,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_9_attention_self_dropout        self_encoder_layer_9_attention_self_dropout                (softmax_9,)                                                                               {}
+call_function  matmul_19                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_9_attention_self_dropout, permute_37)                                  {}
+call_method    permute_39                                         permute                                                    (matmul_19, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_9                                       contiguous                                                 (permute_39,)                                                                              {}
+call_method    view_39                                            view                                                       (contiguous_9, (5, 10, 768))                                                               {}
+call_module    self_encoder_layer_9_attention_output_dense        self_encoder_layer_9_attention_output_dense                (view_39,)                                                                                 {}
+call_module    self_encoder_layer_9_attention_output_dropout      self_encoder_layer_9_attention_output_dropout              (self_encoder_layer_9_attention_output_dense,)                                             {}
+call_function  add_29                                             <built-in function add>                                    (self_encoder_layer_9_attention_output_dropout, self_encoder_layer_8_output_layer_norm)    {}
+call_module    self_encoder_layer_9_attention_output_layer_norm   self_encoder_layer_9_attention_output_LayerNorm            (add_29,)                                                                                  {}
+call_module    self_encoder_layer_9_intermediate_dense            self_encoder_layer_9_intermediate_dense                    (self_encoder_layer_9_attention_output_layer_norm,)                                        {}
+call_function  gelu_9                                             <built-in function gelu>                                   (self_encoder_layer_9_intermediate_dense,)                                                 {}
+call_module    self_encoder_layer_9_output_dense                  self_encoder_layer_9_output_dense                          (gelu_9,)                                                                                  {}
+call_module    self_encoder_layer_9_output_dropout                self_encoder_layer_9_output_dropout                        (self_encoder_layer_9_output_dense,)                                                       {}
+call_function  add_30                                             <built-in function add>                                    (self_encoder_layer_9_output_dropout, self_encoder_layer_9_attention_output_layer_norm)    {}
+call_module    self_encoder_layer_9_output_layer_norm             self_encoder_layer_9_output_LayerNorm                      (add_30,)                                                                                  {}
+call_module    self_encoder_layer_10_attention_self_query         self_encoder_layer_10_attention_self_query                 (self_encoder_layer_9_output_layer_norm,)                                                  {}
+call_module    self_encoder_layer_10_attention_self_key           self_encoder_layer_10_attention_self_key                   (self_encoder_layer_9_output_layer_norm,)                                                  {}
+call_method    view_40                                            view                                                       (self_encoder_layer_10_attention_self_key, (5, 10, 12, 64))                                {}
+call_method    permute_40                                         permute                                                    (view_40, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_10_attention_self_value         self_encoder_layer_10_attention_self_value                 (self_encoder_layer_9_output_layer_norm,)                                                  {}
+call_method    view_41                                            view                                                       (self_encoder_layer_10_attention_self_value, (5, 10, 12, 64))                              {}
+call_method    permute_41                                         permute                                                    (view_41, 0, 2, 1, 3)                                                                      {}
+call_method    view_42                                            view                                                       (self_encoder_layer_10_attention_self_query, (5, 10, 12, 64))                              {}
+call_method    permute_42                                         permute                                                    (view_42, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_10                                       transpose                                                  (permute_40, -1, -2)                                                                       {}
+call_function  matmul_20                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_42, transpose_10)                                                                 {}
+call_function  truediv_10                                         <built-in function truediv>                                (matmul_20, 8.0)                                                                           {}
+call_function  add_31                                             <built-in function add>                                    (truediv_10, mul)                                                                          {}
+call_function  softmax_10                                         <function softmax at 0x7f47f6e9b640>                       (add_31,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_10_attention_self_dropout       self_encoder_layer_10_attention_self_dropout               (softmax_10,)                                                                              {}
+call_function  matmul_21                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_10_attention_self_dropout, permute_41)                                 {}
+call_method    permute_43                                         permute                                                    (matmul_21, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_10                                      contiguous                                                 (permute_43,)                                                                              {}
+call_method    view_43                                            view                                                       (contiguous_10, (5, 10, 768))                                                              {}
+call_module    self_encoder_layer_10_attention_output_dense       self_encoder_layer_10_attention_output_dense               (view_43,)                                                                                 {}
+call_module    self_encoder_layer_10_attention_output_dropout     self_encoder_layer_10_attention_output_dropout             (self_encoder_layer_10_attention_output_dense,)                                            {}
+call_function  add_32                                             <built-in function add>                                    (self_encoder_layer_10_attention_output_dropout, self_encoder_layer_9_output_layer_norm)   {}
+call_module    self_encoder_layer_10_attention_output_layer_norm  self_encoder_layer_10_attention_output_LayerNorm           (add_32,)                                                                                  {}
+call_module    self_encoder_layer_10_intermediate_dense           self_encoder_layer_10_intermediate_dense                   (self_encoder_layer_10_attention_output_layer_norm,)                                       {}
+call_function  gelu_10                                            <built-in function gelu>                                   (self_encoder_layer_10_intermediate_dense,)                                                {}
+call_module    self_encoder_layer_10_output_dense                 self_encoder_layer_10_output_dense                         (gelu_10,)                                                                                 {}
+call_module    self_encoder_layer_10_output_dropout               self_encoder_layer_10_output_dropout                       (self_encoder_layer_10_output_dense,)                                                      {}
+call_function  add_33                                             <built-in function add>                                    (self_encoder_layer_10_output_dropout, self_encoder_layer_10_attention_output_layer_norm)  {}
+call_module    self_encoder_layer_10_output_layer_norm            self_encoder_layer_10_output_LayerNorm                     (add_33,)                                                                                  {}
+call_module    self_encoder_layer_11_attention_self_query         self_encoder_layer_11_attention_self_query                 (self_encoder_layer_10_output_layer_norm,)                                                 {}
+call_module    self_encoder_layer_11_attention_self_key           self_encoder_layer_11_attention_self_key                   (self_encoder_layer_10_output_layer_norm,)                                                 {}
+call_method    view_44                                            view                                                       (self_encoder_layer_11_attention_self_key, (5, 10, 12, 64))                                {}
+call_method    permute_44                                         permute                                                    (view_44, 0, 2, 1, 3)                                                                      {}
+call_module    self_encoder_layer_11_attention_self_value         self_encoder_layer_11_attention_self_value                 (self_encoder_layer_10_output_layer_norm,)                                                 {}
+call_method    view_45                                            view                                                       (self_encoder_layer_11_attention_self_value, (5, 10, 12, 64))                              {}
+call_method    permute_45                                         permute                                                    (view_45, 0, 2, 1, 3)                                                                      {}
+call_method    view_46                                            view                                                       (self_encoder_layer_11_attention_self_query, (5, 10, 12, 64))                              {}
+call_method    permute_46                                         permute                                                    (view_46, 0, 2, 1, 3)                                                                      {}
+call_method    transpose_11                                       transpose                                                  (permute_44, -1, -2)                                                                       {}
+call_function  matmul_22                                          <built-in method matmul of type object at 0x7f486ff08880>  (permute_46, transpose_11)                                                                 {}
+call_function  truediv_11                                         <built-in function truediv>                                (matmul_22, 8.0)                                                                           {}
+call_function  add_34                                             <built-in function add>                                    (truediv_11, mul)                                                                          {}
+call_function  softmax_11                                         <function softmax at 0x7f47f6e9b640>                       (add_34,)                                                                                  {'dim': -1}
+call_module    self_encoder_layer_11_attention_self_dropout       self_encoder_layer_11_attention_self_dropout               (softmax_11,)                                                                              {}
+call_function  matmul_23                                          <built-in method matmul of type object at 0x7f486ff08880>  (self_encoder_layer_11_attention_self_dropout, permute_45)                                 {}
+call_method    permute_47                                         permute                                                    (matmul_23, 0, 2, 1, 3)                                                                    {}
+call_method    contiguous_11                                      contiguous                                                 (permute_47,)                                                                              {}
+call_method    view_47                                            view                                                       (contiguous_11, (5, 10, 768))                                                              {}
+call_module    self_encoder_layer_11_attention_output_dense       self_encoder_layer_11_attention_output_dense               (view_47,)                                                                                 {}
+call_module    self_encoder_layer_11_attention_output_dropout     self_encoder_layer_11_attention_output_dropout             (self_encoder_layer_11_attention_output_dense,)                                            {}
+call_function  add_35                                             <built-in function add>                                    (self_encoder_layer_11_attention_output_dropout, self_encoder_layer_10_output_layer_norm)  {}
+call_module    self_encoder_layer_11_attention_output_layer_norm  self_encoder_layer_11_attention_output_LayerNorm           (add_35,)                                                                                  {}
+call_module    self_encoder_layer_11_intermediate_dense           self_encoder_layer_11_intermediate_dense                   (self_encoder_layer_11_attention_output_layer_norm,)                                       {}
+call_function  gelu_11                                            <built-in function gelu>                                   (self_encoder_layer_11_intermediate_dense,)                                                {}
+call_module    self_encoder_layer_11_output_dense                 self_encoder_layer_11_output_dense                         (gelu_11,)                                                                                 {}
+call_module    self_encoder_layer_11_output_dropout               self_encoder_layer_11_output_dropout                       (self_encoder_layer_11_output_dense,)                                                      {}
+call_function  add_36                                             <built-in function add>                                    (self_encoder_layer_11_output_dropout, self_encoder_layer_11_attention_output_layer_norm)  {}
+call_module    self_encoder_layer_11_output_layer_norm            self_encoder_layer_11_output_LayerNorm                     (add_36,)                                                                                  {}
+call_function  getitem_3                                          <built-in function getitem>                                (self_encoder_layer_11_output_layer_norm, (slice(None, None, None), 0))                    {}
+call_module    self_pooler_dense                                  self_pooler_dense                                          (getitem_3,)                                                                               {}
+call_module    self_pooler_activation                             self_pooler_activation                                     (self_pooler_dense,)                                                                       {}
+output         output                                             output                                                     ((self_encoder_layer_11_output_layer_norm, self_pooler_activation),)                       {}
+opcode       name                   target                 args                      kwargs
+-----------  ---------------------  ---------------------  ------------------------  --------
+placeholder  _stack0_pooler_output  _stack0_pooler_output  ()                        {}
+call_module  self_dropout           self_dropout           (_stack0_pooler_output,)  {}
+call_module  self_classifier        self_classifier        (self_dropout,)           {}
+output       output                 output                 ((self_classifier,),)     {}
+opcode         name            target                                args                kwargs
+-------------  --------------  ------------------------------------  ------------------  -----------
+placeholder    _stack0_logits  _stack0_logits                        ()                  {}
+placeholder    label           label                                 ()                  {}
+call_function  softmax         <function softmax at 0x7f47f6e9b640>  (_stack0_logits,)   {'dim': -1}
+call_module    self_loss_fn    self_loss_fn                          (softmax, label)    {}
+output         output          output                                ((self_loss_fn,),)  {}
+epoch:1, compile model spend time:74.42124938964844ms
+epoch:1, original model spend time:76.8911361694336ms
+epoch:1, speed up:2.4698867797851562ms
+avg speed up time:2.4698867797851562
