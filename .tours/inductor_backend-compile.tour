@@ -1,0 +1,18 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "inductor_backend compile",
+  "steps": [
+    {
+      "file": "torch/_dynamo/backends/inductor.py",
+      "description": "inductor后端进行注册的入口",
+      "line": 5
+    },
+    {
+      "file": "torch/_inductor/compile_fx.py",
+      "description": "inductor compile函数实现的入口",
+      "line": 392,
+      "title": "inductor_compile_fx"
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}
