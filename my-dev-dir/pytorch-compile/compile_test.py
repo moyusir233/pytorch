@@ -1,5 +1,5 @@
 import torch
-from torchvision.models.resnet import resnet152
+from torchvision.models.resnet import resnet152, resnet34
 from torch._dynamo.backends.common import aot_autograd
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
 from typing import Iterator, Generator, Tuple, Callable
@@ -7,8 +7,10 @@ from torch.fx import GraphModule
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
 
-def default_compile_fn(m:torch.nn.Module)->Callable:
+
+def default_compile_fn(m: torch.nn.Module) -> Callable:
     return torch.compile(m, mode="max-autotune")
+
 
 class CudaEventTimer:
     def __init__(self):
@@ -86,9 +88,9 @@ def create_vision_dataloader(batch_size: int, class_num: int, device: torch.devi
                )
 
 
-def compile_vision_model(epoch: int = 10,compile_fn:Callable[[torch.nn.Module],Callable]=default_compile_fn):
+def compile_vision_model(epoch: int = 10, compile_fn: Callable[[torch.nn.Module], Callable] = default_compile_fn):
     device = torch.device("cuda:0")
-    model = resnet152().to(device)
+    model = resnet34().to(device)
     optim = torch.optim.Adam(params=model.parameters())
     loss_fn = torch.nn.CrossEntropyLoss().to(device)
     dataloader = create_vision_dataloader(64, 1000, device)
@@ -134,7 +136,7 @@ def create_language_dataloader(batch_size: int, class_num: int, tokenizer: BertT
         )
 
 
-def compile_language_model(epoch: int = 10,compile_fn:Callable[[torch.nn.Module],Callable]=default_compile_fn):
+def compile_language_model(epoch: int = 10, compile_fn: Callable[[torch.nn.Module], Callable] = default_compile_fn):
     device = torch.device("cuda:0")
     config = BertConfig.from_json_file("./bert_base_uncased_model_config.json")
 
@@ -144,26 +146,25 @@ def compile_language_model(epoch: int = 10,compile_fn:Callable[[torch.nn.Module]
 
     language_model = BertLanguageModel(model, torch.optim.Adam(model.parameters()),
                                        torch.nn.CrossEntropyLoss().to(device))
-    compile_model:GraphModule = compile_fn(language_model)
-    
+    compile_model: GraphModule = compile_fn(language_model)
+
     dataloader = create_language_dataloader(5, 2, tokenizer, device)
 
     benchmark(epoch, dataloader, lambda data, label: language_model.forward(data, label), compile_model)
 
-def print_compile_fn(m:torch.nn.Module)->Callable:
-    def print_fn(gm:GraphModule,inputs):
-        gm.graph.print_tabular()
-        return gm.forward
 
-    backend=print_fn
-    return torch.compile(m,backend=backend)
+def print_compile_fn(m: torch.nn.Module) -> Callable:
+    def print_fn(gm: GraphModule, inputs):
+        gm.graph.print_tabular()
+        return make_boxed_func(gm.forward)
+
+    backend = aot_autograd(fw_compiler=print_fn, bw_compiler=print_fn)
+    return torch.compile(m, backend=backend)
+
 
 if __name__ == '__main__':
     torch.set_float32_matmul_precision("high")
-    config.verbose=True   
+    config.verbose = True
 
-    compile_fn=print_compile_fn
-    print("resnet_152:-------------------------------------------")
-    compile_vision_model(1,compile_fn)
-    print("bert_base_uncased:--------------------------------------")
-    compile_language_model(1,compile_fn)
+    compile_vision_model(1, print_compile_fn)
+    # compile_language_model(10)
