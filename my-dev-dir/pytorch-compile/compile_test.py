@@ -2,10 +2,11 @@ import torch
 from torchvision.models.resnet import resnet152, resnet34
 from torch._dynamo.backends.common import aot_autograd
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
-from typing import Iterator, Generator, Tuple, Callable
-from torch.fx import GraphModule
+from typing import Iterator, Generator, Tuple, Callable, List, Dict, Optional
+from torch.fx import GraphModule, Node
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
+import torch._dynamo as dynamo
 
 
 def default_compile_fn(m: torch.nn.Module) -> Callable:
@@ -88,15 +89,17 @@ def create_vision_dataloader(batch_size: int, class_num: int, device: torch.devi
                )
 
 
-def compile_vision_model(epoch: int = 10, compile_fn: Callable[[torch.nn.Module], Callable] = default_compile_fn):
+def compile_vision_model(epoch: int = 10,
+                         compile_fn: Callable[[torch.nn.Module, Optional[List]], Callable] = default_compile_fn):
     device = torch.device("cuda:0")
-    model = resnet34().to(device)
+    model = resnet152().to(device)
     optim = torch.optim.Adam(params=model.parameters())
     loss_fn = torch.nn.CrossEntropyLoss().to(device)
     dataloader = create_vision_dataloader(64, 1000, device)
 
     vision_model = VisionModel(model, optim, loss_fn)
-    compile_model = compile_fn(vision_model)
+
+    compile_model = compile_fn(vision_model, list(next(dataloader)))
 
     benchmark(epoch, dataloader, lambda data, label: vision_model.forward(data, label), compile_model)
 
@@ -136,29 +139,50 @@ def create_language_dataloader(batch_size: int, class_num: int, tokenizer: BertT
         )
 
 
-def compile_language_model(epoch: int = 10, compile_fn: Callable[[torch.nn.Module], Callable] = default_compile_fn):
+def compile_language_model(epoch: int = 10,
+                           compile_fn: Callable[[torch.nn.Module, Optional[List]], Callable] = default_compile_fn):
     device = torch.device("cuda:0")
     config = BertConfig.from_json_file("./bert_base_uncased_model_config.json")
 
     tokenizer: BertTokenizer = BertTokenizer("./vocab.txt", do_lower_case=True)
+    dataloader = create_language_dataloader(5, 2, tokenizer, device)
+
     model: BertForSequenceClassification = BertForSequenceClassification(config)
     model = model.to(device)
 
     language_model = BertLanguageModel(model, torch.optim.Adam(model.parameters()),
                                        torch.nn.CrossEntropyLoss().to(device))
-    compile_model: GraphModule = compile_fn(language_model)
 
-    dataloader = create_language_dataloader(5, 2, tokenizer, device)
+    compile_model = compile_fn(language_model, list(next(dataloader)))
 
     benchmark(epoch, dataloader, lambda data, label: language_model.forward(data, label), compile_model)
 
 
-def print_compile_fn(m: torch.nn.Module) -> Callable:
-    def print_fn(gm: GraphModule, inputs):
-        gm.graph.print_tabular()
-        return make_boxed_func(gm.forward)
+def graph_printer(gm: GraphModule, flag: str = ""):
+    if not hasattr(graph_printer, "graph_print_count"):
+        graph_printer.__setattr__("graph_print_count", 0)
+    graph_printer.graph_print_count += 1
+    print(
+        "{}graph print count:{}".format("flag:{} ".format(flag) if flag != "" else "", graph_printer.graph_print_count))
+    for node in gm.graph.nodes:
+        print("opcode:{},name:{},target:{},args:{}".format(node.op, node.name, node.target, node.args))
 
-    backend = aot_autograd(fw_compiler=print_fn, bw_compiler=print_fn)
+
+def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callable:
+    if args is not None:
+        explanation, out_guards, graphs, ops_per_graph, break_reasons, explanation_verbose = (
+            dynamo.explain(m, *args)
+        )
+        print(explanation_verbose)
+
+    def create_print_fn(flag: str = "") -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
+        def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
+            graph_printer(gm, flag)
+            return make_boxed_func(gm.forward)
+
+        return print_fn
+
+    backend = aot_autograd(fw_compiler=create_print_fn("forward"), bw_compiler=create_print_fn("backward"))
     return torch.compile(m, backend=backend)
 
 
@@ -166,5 +190,5 @@ if __name__ == '__main__':
     torch.set_float32_matmul_precision("high")
     config.verbose = True
 
-    compile_vision_model(1, print_compile_fn)
-    # compile_language_model(10)
+    # compile_vision_model(1, print_compile_fn)
+    compile_language_model(1, print_compile_fn)

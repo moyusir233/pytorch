@@ -10,13 +10,16 @@ class MyModule(torch.nn.Module):
         self.activate_fn = torch.nn.ReLU()
         self.layer2 = torch.nn.Linear(1024, 10, True, device)
         self.loss = torch.nn.CrossEntropyLoss().to(device)
+        self.optim = torch.optim.Adam(self.parameters())
 
     def forward(self, t: torch.Tensor, l: torch.Tensor) -> torch.Tensor:
+        self.optim.zero_grad()
         output = self.layer1(t)
         output = self.activate_fn(output)
         output = self.layer2(output)
         loss = self.loss(torch.nn.functional.softmax(output, -1), l)
         loss.backward()
+        self.optim.step()
 
 
 def compile_fn(gm: torch.fx.GraphModule, inputs):
