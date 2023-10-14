@@ -1,0 +1,13 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "operator register",
+  "steps": [
+    {
+      "file": "torch/_ops.py",
+      "description": "当调用torch.ops.aten等操作来访问算子时，是通过该实例进行访问的",
+      "line": 648,
+      "title": "ops实例的定义处"
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}

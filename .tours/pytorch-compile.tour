@@ -9,6 +9,18 @@
       "title": "aot_autograd的文档"
     },
     {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "更为完整版的、完成aot_autograd操作的函数，详见下面的注释文档",
+      "line": 2550,
+      "title": "aot_function"
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "专门针对nn.Module，不过底层仍是使用aot_function完成aot_autograd的图处理操作的函数，相当于在aot_function操作之前，针对nn.Module进行了一些预处理操作",
+      "line": 2681,
+      "title": "aot_module"
+    },
+    {
       "file": "torch/_dynamo/backends/common.py",
       "description": "aot_autograd函数可以利用传入的前向传播的计算图来生成相应的反向传播计算图，进而可以用于处理反向传播计算图的编译，详见:\n- https://pytorch.org/docs/stable/dynamo/custom-backends.html#custom-backends-after-aotautograd\n- https://pytorch.org/docs/stable/dynamo/faq.html#frequently-asked-questions",
       "line": 14,
@@ -21,13 +33,30 @@
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
-      "description": "aot_autograd完成编译的主要函数",
-      "line": 2733
+      "description": "aot_autograd完成编译的主要函数，是简化版的aot_module函数，详见下面的注释文档",
+      "line": 2733,
+      "title": "aot_module_simplified"
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
-      "description": "大致来看，是将Module中的所有参数与buffer展平",
+      "description": "解释了aot_autograd尽管是进行aot编译，但仍需要模型的权重为real tensor的原因",
+      "line": 2758
+    },
+    {
+      "file": "torch/_functorch/partitioners.py",
+      "description": "默认划分前向传播与反向传播联合图的函数，主要是将前向传播中需要保存给反向传播使用的中间激活值显式地设置为前向传播计算图的输出",
+      "line": 128,
+      "title": "default_partition"
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "将nn.Module中的所有params与buffer展平，获得nn.Module中所有需要参与计算的\"静态\"张量组成的列表",
       "line": 2775
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "将mod的计算过程包装为函数",
+      "line": 2783
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
@@ -36,14 +65,34 @@
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
+      "description": "创建aot_autograd相关的配置类实例",
+      "line": 2808
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "将mod的参数与buffer，以及额外的传入参数统一为列表",
+      "line": 2818
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
       "description": "创建aot_autograd编译函数的入口",
       "line": 2822
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
-      "description": "产生aot_autograd编译函数的入口",
+      "description": "产生aot_autograd编译函数的入口，flat_fn是包装了模型的计算的函数，flag_args是flat_fn调用即模型计算时所需的参数，aot_config包含了分离前向传播与反向计算图、Node的划分方式等配置信息",
       "line": 2409,
       "title": "create_aot_dispatcher_function:trace前向传播与反向传播的计算图以生成联合计算图,并进行编译优化的函数"
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "约定传入的flag_args中，前aot_config.num_params_buffers个是params与buffer，剩下的是flag_fn的输入",
+      "line": 2424
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "将flat_fn的输入进行转换，主要是将real tensor转换为fake tensor",
+      "line": 2495
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
@@ -52,9 +101,40 @@
     },
     {
       "file": "torch/_functorch/aot_autograd.py",
-      "description": "进行前向传播计算图与反向传播计算图的联合编译",
+      "description": "进行前向传播计算图与反向传播计算图的联合编译，主要是将Torch IR转化为ATen IR，并再进行Functionalization，以及利用划分函数进行前向传播与反向传播联合计算图的划分与优化等",
       "line": 2050,
-      "title": "aot_dispatch_autograd:进行前向传播计算图与反向传播计算图的联合编译"
+      "title": "aot_dispatch_autograd"
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "将flat_fn传入，进行前向传播的Functionalization，并收集前向传播过程中的metadata",
+      "line": 2053
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "处理经过函数化后的forward的计算图的输出，这里的注释提到了输出中包含了怎样的数据",
+      "line": 2063
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "处理图的输入中存在alias的情况",
+      "line": 2071
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "进一步处理编译时所需的metadata",
+      "line": 2081
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "创建经过函数化后的、前向传播与反向传播的联合计算图",
+      "line": 2088
+    },
+    {
+      "file": "torch/_functorch/aot_autograd.py",
+      "description": "创建经过函数化后的fw、bw的联合计算图，注意传入该函数的keep_input_mutations总是False，因此不会执行注释中提到的copy_()操作",
+      "line": 1092,
+      "title": "create_forward_or_joint_functionalized"
     }
   ],
   "ref": "torchv2.0.1_dev"
