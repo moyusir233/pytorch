@@ -7,6 +7,7 @@ from torch.fx import GraphModule, Node
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
 import torch._dynamo as dynamo
+from torch.export import export
 
 
 def default_compile_fn(m: torch.nn.Module) -> Callable:
@@ -70,15 +71,16 @@ class VisionModel(torch.nn.Module):
                  loss_fn: torch.nn.Module, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.model = model
-        self.optim = optim
+        # self.optim = optim
         self.loss_fn = loss_fn
 
     def forward(self, data, label):
-        self.optim.zero_grad()
-        output: torch.Tensor = self.model.forward(data)
-        loss: torch.Tensor = self.loss_fn.forward(output, label)
-        loss.backward()
-        self.optim.step()
+        # self.optim.zero_grad()
+        output: torch.Tensor = self.model(data)
+        loss: torch.Tensor = self.loss_fn(output, label)
+        # loss.backward()
+        # self.optim.step()
+        return loss
 
 
 def create_vision_dataloader(batch_size: int, class_num: int, device: torch.device) -> Generator[
@@ -112,13 +114,13 @@ class BertLanguageModel(torch.nn.Module):
         self.optim = optim
         self.loss_fn = loss_fn
 
-    def forward(self, data: torch.Tensor, label: torch.Tensor):
-        self.optim.zero_grad()
+    def forward(self, data, label):
+        # self.optim.zero_grad()
         output = self.model.forward(data)
         output = torch.nn.functional.softmax(output.logits, dim=-1)
         loss: torch.Tensor = self.loss_fn.forward(output, label)
         loss.backward()
-        self.optim.step()
+        # self.optim.step()
 
 
 def create_language_dataloader(batch_size: int, class_num: int, tokenizer: BertTokenizer, device: torch.device) -> \
@@ -170,10 +172,14 @@ def graph_printer(gm: GraphModule, flag: str = ""):
 
 def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callable:
     if args is not None:
-        explanation, out_guards, graphs, ops_per_graph, break_reasons, explanation_verbose = (
-            dynamo.explain(m, *args)
+        # explanation = dynamo.explain(m)(*args)
+        # print(explanation)
+        args = tuple(args)
+        exported_program: torch.export.ExportedProgram = export(
+            m, args
         )
-        print(explanation_verbose)
+        gm: GraphModule = exported_program.graph_module
+        graph_printer(gm, "exported_join_graph")
 
     def create_print_fn(flag: str = "") -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
