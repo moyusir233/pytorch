@@ -1,13 +1,12 @@
 import torch
-from torchvision.models.resnet import resnet152, resnet34
+from torchvision.models.resnet import resnet152
 from torch._dynamo.backends.common import aot_autograd
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
-from typing import Iterator, Generator, Tuple, Callable, List, Dict, Optional
-from torch.fx import GraphModule, Node
+from typing import Iterator, Generator, Tuple, Callable, List, Optional
+from torch.fx import GraphModule
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
 import torch._dynamo as dynamo
-from torch.export import export
 
 
 def default_compile_fn(m: torch.nn.Module) -> Callable:
@@ -172,14 +171,8 @@ def graph_printer(gm: GraphModule, flag: str = ""):
 
 def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callable:
     if args is not None:
-        # explanation = dynamo.explain(m)(*args)
-        # print(explanation)
-        args = tuple(args)
-        exported_program: torch.export.ExportedProgram = export(
-            m, args
-        )
-        gm: GraphModule = exported_program.graph_module
-        graph_printer(gm, "exported_join_graph")
+        explanation = dynamo.explain(m)(*args)
+        print(explanation)
 
     def create_print_fn(flag: str = "") -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
@@ -196,5 +189,5 @@ if __name__ == '__main__':
     torch.set_float32_matmul_precision("high")
     config.verbose = True
 
-    # compile_vision_model(1, print_compile_fn)
-    compile_language_model(1, print_compile_fn)
+    compile_vision_model(1, print_compile_fn)
+    # compile_language_model(1, print_compile_fn)
