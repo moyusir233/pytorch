@@ -7,6 +7,183 @@
       "description": "当调用torch.ops.aten等操作来访问算子时，是通过该实例进行访问的",
       "line": 648,
       "title": "ops实例的定义处"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "这里创建了_PyOpNamespace实例",
+      "line": 600
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "在fx graph中，都是以与ops.aten.操作类似的形式来访问指定的算子的，因此都是通过调用ops实例的__getattr__方法来获得指定的算子(函数)",
+      "line": 603,
+      "title": "__getattr__方法"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "先检查是否存在于pyop namespace中，如果在，则直接返回",
+      "line": 605
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "如果不在，则新建立一个相应的_OpNamespace的实例，它表示一类算子的namespace，并将其保存在attr中",
+      "line": 609
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "_PyOpNamespace是以\"torch.ops\"进行初始化、_OpNamespace的一个实例",
+      "line": 588,
+      "title": "_PyOpNamespace"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "_OpNamespace类的定义，详见上面与下面的文档注释，本质其是一个包含了若干算子名称和`OpOverloadPacket`键值对的字典",
+      "line": 524,
+      "title": "_OpNamespace"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "介绍了利用_OpNamespace实现将算子动态地绑定到python的流程",
+      "line": 526
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "对应着步骤[#3]",
+      "line": 532
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "_OpNamespace实例上的__getattr__方法[#11]会负责利用torch.get_operation函数来解析访问的算子，然后将新的算子实例也作为类属性设置在类实例上",
+      "line": 536
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "获得相应的算子的过程",
+      "line": 553,
+      "title": "__getattr__方法"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "利用torch._C._jit_get_operation函数来获得算子与重载名",
+      "line": 565
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "在jit处进行算子的注册",
+      "line": 575
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "将算子利用OpOverloadPacket类包装",
+      "line": 577
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "将包装算子的实例保存在类属性中",
+      "line": 581
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/_C/__init__.pyi",
+      "description": "_jit_get_operation的c++ binding的定义处",
+      "line": 253,
+      "title": "_jit_get_operation"
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "_jit_get_operation的binding定义的c++实现处",
+      "line": 1555
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "将算子名转换为符号名，然后获得符号对应的所有算子",
+      "line": 1559
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "将算子的调用过程包装为函数，冰河overload_names组成元组，返回给python侧的OpOverloadPacket",
+      "line": 1579
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "算子的包装类，在fx graph中的call_function操作实际就是调用了该类上的方法，其中包含了一个基本的、未解析，没有与任何具体算子相关联的指针，类似一类算子的虚基类，通过该指针可以访问到其重载的算子(通过__getattr__方法来访问OpOverload类实例，进而)",
+      "line": 418,
+      "title": "OpOverloadPacket"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "调用OpOverloadPacket实例为直接调用其保存的、c++侧返回来的算子",
+      "line": 497,
+      "title": "OpOverloadPacket重载的__call__方法"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "获得算子的重载版本或者类属性",
+      "line": 447,
+      "title": "OpOverloadPacket重载的__getattr__方法"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "正常的获得python object上的属性",
+      "line": 459
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "查询当前算子重载的算子，.default则表示调用自己的原始版本",
+      "line": 474
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "利用c++侧的_get_operation_overload方法来获得算子",
+      "line": 478
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/_C/__init__.pyi",
+      "description": "`_get_operation_overload`的python binding定义处",
+      "line": 254,
+      "title": "_get_operation_overload"
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "_get_operation_overload方法的c++实现处",
+      "line": 1514
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "类似[#18]处的操作，依据符号名查找所有的算子",
+      "line": 1518
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "在获得的算子中搜索相应重载名称的算子，然后包装为函数返回给python侧的OpOverload实例，类似[#19]处的操作",
+      "line": 1524
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "利用c++侧的_get_schema方法获得算子的schema",
+      "line": 481
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/_C/__init__.pyi",
+      "description": "_get_schema方法的python binding定义处",
+      "line": 255,
+      "title": "_get_schema"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "将重载的算子利用OpOverload类封装",
+      "line": 482
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "OpOverload类，fx graph中调用call_function时，除了直接调用了OpOverloadPacket中保存的c++侧算子，也可能是通过__getattr__然后调用了OpOverload实例上的方法。其中包含了指向一个具体重载的算子的指针，以及其父亲OpOverloadPacket object的指针",
+      "line": 238,
+      "title": "OpOverload"
+    },
+    {
+      "file": "torch/_ops.py",
+      "description": "类似[#19]，也是直接利用保存的_op属性来完成调用",
+      "line": 286,
+      "title": "OpOverload重载的__call__方法"
     }
   ],
   "ref": "torchv2.0.1_dev"
