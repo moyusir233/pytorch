@@ -1,24 +1,26 @@
+from typing import Tuple, Dict, Any
+
 import torch
-from torch.fx.node import Argument
 import torch.fx._pytree as fx_pytree
 import torch.utils._pytree as pytree
-from torchvision.models.resnet import resnet152, resnet34
-from torch._dynamo.backends.common import aot_autograd
-from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
-from typing import Iterator, Generator, Tuple, Callable, List, Dict, Optional, Any
-from torch.fx import GraphModule, Node, Interpreter
-from functorch.compile import make_boxed_func
-from torch._dynamo import config
-import torch._dynamo as dynamo
 from torch.export import export
+from torch.fx import GraphModule, Interpreter
+from torch.fx.node import Argument
+from torchvision.models.resnet import resnet152
 
 from compile_test import create_vision_dataloader, VisionModel
 
 
 class PrintOperatorInterpreter(Interpreter):
+    target_type_dict = dict()
+
     def call_function(self, target: 'Target', args: Tuple[Argument, ...], kwargs: Dict[str, Any]) -> Any:
         # target应是OpOverloadPacket或者OpOverload的实例
-        print("target type:{}".format(type(target)))
+        target_type = str(type(target))
+        print("target type:{}".format(target_type))
+        if PrintOperatorInterpreter.target_type_dict.get(target_type) is None:
+            PrintOperatorInterpreter.target_type_dict[target_type] = 0
+        PrintOperatorInterpreter.target_type_dict[target_type] += 1
         for i, item in enumerate(dir(target)):
             if not item.startswith("__"):
                 print("i:{},name:{},\nvalue:\n{}".format(i, item, getattr(target, item)))
@@ -58,9 +60,12 @@ class PrintOperatorInterpreter(Interpreter):
             # NOTE: calling convention is first params, then buffers, then args as user supplied them.
             # See: torch/_functorch/aot_autograd.py#L1034
 
-            res = cls(exported_prog.graph_module).run(
+            print_operator_interpreter = cls(exported_prog.graph_module)
+            res = print_operator_interpreter.run(
                 *ordered_params, *ordered_buffers, *args, enable_io_processing=False
             )
+            print("target_type_dict:")
+            print(PrintOperatorInterpreter.target_type_dict)
 
         if exported_prog.call_spec.out_spec is not None:
             mutation = exported_prog.graph_signature.buffers_to_mutate

@@ -1,12 +1,13 @@
-import torch
-from torchvision.models.resnet import resnet152
-from torch._dynamo.backends.common import aot_autograd
-from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
 from typing import Iterator, Generator, Tuple, Callable, List, Optional
-from torch.fx import GraphModule
+
+import torch
+import torch._dynamo as dynamo
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
-import torch._dynamo as dynamo
+from torch._dynamo.backends.common import aot_autograd
+from torch.fx import GraphModule
+from torchvision.models.resnet import resnet152
+from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
 
 
 def default_compile_fn(m: torch.nn.Module) -> Callable:
@@ -77,7 +78,7 @@ class VisionModel(torch.nn.Module):
         # self.optim.zero_grad()
         output: torch.Tensor = self.model(data)
         loss: torch.Tensor = self.loss_fn(output, label)
-        # loss.backward()
+        loss.backward()
         # self.optim.step()
         return loss
 
@@ -162,17 +163,31 @@ def compile_language_model(epoch: int = 10,
 def graph_printer(gm: GraphModule, flag: str = ""):
     if not hasattr(graph_printer, "graph_print_count"):
         graph_printer.__setattr__("graph_print_count", 0)
+    if not hasattr(graph_printer, "target_type_dict"):
+        graph_printer.__setattr__("target_type_dict", dict())
     graph_printer.graph_print_count += 1
     print(
         "{}graph print count:{}".format("flag:{} ".format(flag) if flag != "" else "", graph_printer.graph_print_count))
     for node in gm.graph.nodes:
-        print("opcode:{},name:{},target:{},args:{}".format(node.op, node.name, node.target, node.args))
+        # print("opcode:{},name:{},target:{},args:{}".format(node.op, node.name, node.target, node.args))
+        if node.op == 'call_function':
+            target = node.target
+            target_type = str(type(target))
+            print("target type:{}".format(target_type))
+            for i, item in enumerate(dir(target)):
+                if not item.startswith("__"):
+                    print("i:{},name:{},\nvalue:\n{}".format(i, item, getattr(target, item)))
+            print("-------------------------------------------")
+            if graph_printer.target_type_dict.get(target_type) is None:
+                graph_printer.target_type_dict[target_type] = 0
+            graph_printer.target_type_dict[target_type] += 1
 
 
 def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callable:
     if args is not None:
-        explanation = dynamo.explain(m)(*args)
-        print(explanation)
+        # explanation = dynamo.explain(m)(*args)
+        # print(explanation)
+        pass
 
     def create_print_fn(flag: str = "") -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
@@ -190,4 +205,6 @@ if __name__ == '__main__':
     config.verbose = True
 
     compile_vision_model(1, print_compile_fn)
+    print("target_type_dict:")
+    print(graph_printer.target_type_dict)
     # compile_language_model(1, print_compile_fn)
