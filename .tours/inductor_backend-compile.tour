@@ -5,13 +5,57 @@
     {
       "file": "torch/_dynamo/backends/inductor.py",
       "description": "inductor后端进行注册的入口",
-      "line": 5
+      "line": 5,
+      "title": "inductor"
     },
     {
       "file": "torch/_inductor/compile_fx.py",
       "description": "inductor compile函数实现的入口",
       "line": 392,
-      "title": "inductor_compile_fx"
+      "title": "compile_fx"
+    },
+    {
+      "file": "torch/_inductor/compile_fx.py",
+      "description": "负责完成前向传播的编译",
+      "line": 424
+    },
+    {
+      "file": "torch/_inductor/compile_fx.py",
+      "description": "与完成前向编译的函数[#3]一致，不过传入了表示为反向传播的标志位",
+      "line": 439
+    },
+    {
+      "file": "torch/_inductor/compile_fx.py",
+      "description": "完成inductor后端编译函数的主要实现处",
+      "line": 131,
+      "title": "compile_fx_inner"
+    },
+    {
+      "file": "torch/_inductor/compile_fx.py",
+      "description": "将gm进行lowering",
+      "line": 169
+    },
+    {
+      "file": "torch/_inductor/graph.py",
+      "description": "继承了torch.fx.Interpreter，通过重写方法来改变Node，因为inductor也是在aot_autograd之后来处理gm，因此主要关注其call_function方法",
+      "line": 63,
+      "title": "GraphLowering"
+    },
+    {
+      "file": "torch/_inductor/graph.py",
+      "description": "call_function函数的实现处",
+      "line": 300,
+      "title": "call_function"
+    },
+    {
+      "file": "torch/_inductor/graph.py",
+      "description": "对于python的内置函数get_item，则直接运行并返回",
+      "line": 302
+    },
+    {
+      "file": "torch/_inductor/graph.py",
+      "description": "直接查表来完成lowering",
+      "line": 333
     }
   ],
   "ref": "torchv2.0.1_dev"

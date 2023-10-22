@@ -1,0 +1,19 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "aten operator impl info",
+  "steps": [
+    {
+      "file": "aten/src/ATen/native/native_functions.yaml",
+      "description": "表示所有算子schema的yaml文件",
+      "line": 1,
+      "title": "native_function.yaml"
+    },
+    {
+      "file": "aten/src/ATen/native/README.md",
+      "description": "关于注册aten算子的readme",
+      "line": 1,
+      "title": "native_function readme"
+    }
+  ],
+  "ref": "torchv2.0.1_dev"
+}

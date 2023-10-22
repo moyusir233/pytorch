@@ -90,7 +90,7 @@
     },
     {
       "file": "torch/csrc/jit/python/init.cpp",
-      "description": "_jit_get_operation的binding定义的c++实现处",
+      "description": "_jit_get_operation的binding定义的c++实现处，负责返回OpOverloadPacket实例中保存的算子及信息",
       "line": 1555
     },
     {
@@ -149,7 +149,7 @@
     },
     {
       "file": "torch/csrc/jit/python/init.cpp",
-      "description": "类似[#18]处的操作，依据符号名查找所有的算子",
+      "description": "类似[#18]处的操作，依据符号名查找所有的算子，负责返回OpOverload实例中保存的算子及相关信息",
       "line": 1518
     },
     {
@@ -167,6 +167,16 @@
       "description": "_get_schema方法的python binding定义处",
       "line": 255,
       "title": "_get_schema"
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "`_get_schema`方法的c++实现处，负责返回OpOverload实例中保存的算子schema",
+      "line": 1494
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "类似[#26]中的操作，将op_name转换为symbol，然后依据symobl查找所有的算子，然后返回符合overload_name的算子的scheam",
+      "line": 1497
     },
     {
       "file": "torch/_ops.py",

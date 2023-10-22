@@ -1,0 +1,357 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "get operator",
+  "steps": [
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "获得算子列表的关键函数",
+      "line": 1518,
+      "title": "getAllOperatorsFor"
+    },
+    {
+      "file": "torch/csrc/jit/runtime/operator.cpp",
+      "description": "getAllOperatorsFor函数的实现处",
+      "line": 393
+    },
+    {
+      "file": "torch/csrc/jit/runtime/operator.cpp",
+      "description": "`getOperators`主要通过静态的`OperatorRegistry`实例以及vector上的查找来实现，整个过程比较简单",
+      "line": 394
+    },
+    {
+      "file": "torch/csrc/jit/runtime/operator.h",
+      "description": "[#1]方法所返回的算法列表中，算子的定义处，是一个对jit算子与c10算子的轻量包装，详见上面的文档注释",
+      "line": 55,
+      "title": "Operator"
+    },
+    {
+      "file": "torch/csrc/jit/python/init.cpp",
+      "description": "调用算子的关键函数",
+      "line": 1529,
+      "title": "_get_operation_for_overload_or_packet"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "description": "`_get_operation_for_overload_or_packet`函数的实现",
+      "line": 736
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "selection": {
+        "start": {
+          "line": 743,
+          "character": 3
+        },
+        "end": {
+          "line": 766,
+          "character": 4
+        }
+      },
+      "description": "对python侧传过来的参数进行处理与收集，主要是判断这些参数是否实现了钩子方法，这里称为重载参数，算子调用前需要先调用这些重载参数所实现的钩子方法，关于重载参数的定义，可见[#11]"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 584,
+          "character": 1
+        },
+        "end": {
+          "line": 602,
+          "character": 2
+        }
+      },
+      "description": "判断python参数的类型是否为重载类型，拥有`__torch_function__`实现的才视作为重载参数",
+      "title": "is_tensor_and_append_overloaded"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "selection": {
+        "start": {
+          "line": 767,
+          "character": 3
+        },
+        "end": {
+          "line": 793,
+          "character": 4
+        }
+      },
+      "description": "如果重载的参数不为空，或者钩子函数还没有处理完毕，则调用的为重载的算子，执行该分支，重载的参数是指其类型实现了`__torch_dispatch__`方法或`__torch_function__`方法，使得当前算子的调用需要先调用这两个钩子函数"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "description": "利用函数`handle_torch_function_no_python_arg_parser`来实现调用，需要转发回python侧去完成了算子钩子函数的调用，详见:\n- https://dev-discuss.pytorch.org/t/what-and-why-is-torch-dispatch/557\n- https://pytorch.org/docs/stable/notes/extending.html#extending-torch-native-api\n- [_python_dispatch.py](torch/utils/_python_dispatch.py)",
+      "line": 785
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "description": "重载的算子处理完毕，则直接调用元算子",
+      "line": 794
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 245,
+          "character": 1
+        },
+        "end": {
+          "line": 252,
+          "character": 34
+        }
+      },
+      "description": "重载参数的定义，即包含了`__torch_funciton__`或`__torch_dispatch__`钩子方法实现的类型的实例，在这些参数上进行算子调用时，需要先调用这些钩子函数",
+      "title": "Note: Overloaded args"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "description": "`handle_torch_function_no_python_arg_parser`函数的实现，处理参数的转换，并转发回python侧进行调用，来进行redispatch与处理钩子函数。其中`torch_api_function`对应着需要调用的函数实例，`args`与`kwargs`为需要传入的参数",
+      "line": 261,
+      "title": "handle_torch_function_no_python_arg_parser"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 269,
+          "character": 3
+        },
+        "end": {
+          "line": 279,
+          "character": 4
+        }
+      },
+      "description": "获得需要调用的钩子函数的名称，默认是`__torch_function_`"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 280,
+          "character": 3
+        },
+        "end": {
+          "line": 289,
+          "character": 50
+        }
+      },
+      "description": "获得重载参数的类型，后续`__torch_dispatch__`或`__torch_function__`函数的调用需要作为参数来传入，参考:https://pytorch.org/docs/stable/notes/extending.html#extending-torch-python-api"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 290,
+          "character": 1
+        },
+        "end": {
+          "line": 291,
+          "character": 32
+        }
+      },
+      "description": "创建表示返回值以及保存当前所使用的DispatchMode实例的指针，关于DispatchMode可见**_python_dispatch.py**"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "description": "判断是否需要处理钩子函数，以及需要处理的钩子函数的类型(torch_function或torch_dispatch)",
+      "line": 293
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 293,
+          "character": 1
+        },
+        "end": {
+          "line": 298,
+          "character": 5
+        }
+      },
+      "description": "依据需要处理的钩子函数的类型，来判断当前是否还有未处理的钩子函数，即栈中是否还有未执行的DispatchMode，详见**_python_dispatch.py**"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 300,
+          "character": 3
+        },
+        "end": {
+          "line": 350,
+          "character": 4
+        }
+      },
+      "description": "如果mode活跃，则说明还有需要调用的钩子函数，进入该分支来进行处理"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 301,
+          "character": 5
+        },
+        "end": {
+          "line": 304,
+          "character": 73
+        }
+      },
+      "description": "创建两个optional gurad，之后利用这些RAII Guard先弹出与暂存当前所使用的钩子mode实例(现在还未初始化)"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 305,
+          "character": 5
+        },
+        "end": {
+          "line": 311,
+          "character": 6
+        }
+      },
+      "description": "依据需要处理的钩子函数的类型，来获得相应的钩子Mode实例，emplace是optinal上重新初始化其包装的类型的实例的方法"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 312,
+          "character": 5
+        },
+        "end": {
+          "line": 325,
+          "character": 79
+        }
+      },
+      "description": "获得钩子Mode实例上的钩子函数实例，并进行检查"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 327,
+          "character": 5
+        },
+        "end": {
+          "line": 349,
+          "character": 6
+        }
+      },
+      "description": "执行钩子函数的调用，这里的调用规范与`__torch_dispatch__`或`__torch_function__`的签名一致"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 351,
+          "character": 3
+        },
+        "end": {
+          "line": 384,
+          "character": 3
+        }
+      },
+      "description": "如果调用钩子Mode实例上的方法没有获得结果，或者未实现，则去调用重载参数上实现的钩子函数"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 377,
+          "character": 7
+        },
+        "end": {
+          "line": 382,
+          "character": 8
+        }
+      },
+      "description": "以找到的，第一个重载参数所实现的，能返回结果的钩子函数的结果来返回，符合[文档](https://pytorch.org/docs/stable/notes/extending.html#operations-on-multiple-types-that-define-torch-function)的说法"
+    },
+    {
+      "file": "torch/csrc/utils/python_arg_parser.cpp",
+      "selection": {
+        "start": {
+          "line": 385,
+          "character": 3
+        },
+        "end": {
+          "line": 412,
+          "character": 4
+        }
+      },
+      "description": "没有可成功调用的钩子函数，则直接报错"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "description": "不需要处理重载参数，即不用处理钩子时，实现直接调用算子的函数，在fx graph里调用时传入的dispatch_key即`dk`总为空，详见[#5]函数的实现",
+      "line": 716,
+      "title": "invokeOperatorFromPython"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "selection": {
+        "start": {
+          "line": 721,
+          "character": 3
+        },
+        "end": {
+          "line": 723,
+          "character": 42
+        }
+      },
+      "description": "将参数处理后组织为栈(其实就是一个vector)"
+    },
+    {
+      "file": "torch/csrc/jit/python/pybind_utils.cpp",
+      "selection": {
+        "start": {
+          "line": 724,
+          "character": 3
+        },
+        "end": {
+          "line": 731,
+          "character": 4
+        }
+      },
+      "description": "利用组织成栈的参数完成算子的调用"
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/include/torch/csrc/jit/runtime/operator.h",
+      "selection": {
+        "start": {
+          "line": 128,
+          "character": 1
+        },
+        "end": {
+          "line": 138,
+          "character": 3
+        }
+      },
+      "description": "算子的调用函数，依据算子是c10算子还是jit算子，来执行不同的分支，**但最终返回的都是`Operatoin`类型**",
+      "title": "getOperation"
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/include/ATen/core/stack.h",
+      "description": "Operation类的定义，是一个`std::function<void(Stack&)>`实例的包装类，被调用时直接调用所保存的函数实例",
+      "line": 17,
+      "title": "Operation"
+    },
+    {
+      "file": "../miniconda3/lib/python3.11/site-packages/torch/include/ATen/core/stack.h",
+      "selection": {
+        "start": {
+          "line": 40,
+          "character": 1
+        },
+        "end": {
+          "line": 42,
+          "character": 4
+        }
+      },
+      "description": "Operation实例被call时即直接调用其保存的函数实例"
+    }
+  ],
+  "ref": "torchv2.0.1_dev",
+  "description": "主要是对aten算子的调用过程进行分析，其中很多部分源码与pytorch的`__torch_function__`以及`__torch_dispatch__`的设计有关，参考资料可见:https://pytorch.org/docs/stable/notes/extending.html#extending-torch-python,https://dev-discuss.pytorch.org/t/what-and-why-is-torch-dispatch/557"
+}
