@@ -68,5 +68,6 @@
       "line": 1611
     }
   ],
-  "ref": "torchv2.0.1_dev"
+  "ref": "torchv2.0.1_dev",
+  "description": "pytorch对nccl库的封装(cpp侧)"
 }

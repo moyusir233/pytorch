@@ -1,0 +1,104 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "register operator from `Dispatcher` to `OperatorRegistry`",
+  "steps": [
+    {
+      "file": "torch/csrc/jit/runtime/operator.cpp",
+      "description": "负责算子注册的类型，python侧查找算子时即通过该类型来实现",
+      "line": 19,
+      "title": "OperatorRegistry"
+    },
+    {
+      "file": "torch/csrc/jit/runtime/operator.cpp",
+      "description": "负责注册算子的函数",
+      "line": 59,
+      "title": "registerOperator"
+    },
+    {
+      "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",
+      "selection": {
+        "start": {
+          "line": 18,
+          "character": 1
+        },
+        "end": {
+          "line": 40,
+          "character": 2
+        }
+      },
+      "description": "上层由`RegisteronListener`来调用[#2]的注册算子的方法",
+      "title": "RegistrationListener"
+    },
+    {
+      "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",
+      "description": "注意这里利用函数`createOperatorFromC10`将`c10::OperatorHandle`转换为了`Operator`类型，然后调用注册的函数",
+      "line": 30
+    },
+    {
+      "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 1
+        },
+        "end": {
+          "line": 16,
+          "character": 2
+        }
+      },
+      "description": "将`c10::OperatorHandle`转换为`Operator`类型，利用了它的构造方法，以及利用了`op`上的`callBoxed`函数来处理`Stack`类型的参数，以符合[`Operation`][call operator in cpp#31]类型的定义",
+      "title": "createOperatorFromC10"
+    },
+    {
+      "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",
+      "selection": {
+        "start": {
+          "line": 42,
+          "character": 1
+        },
+        "end": {
+          "line": 59,
+          "character": 15
+        }
+      },
+      "description": "定义了负责算子注册的Registerer类型，并实例化了它的全局静态变量，看其构造方法，是通过`c10::RegistrationHandleRAII`与在`c10::Dispatcher`处注册listener来实现的",
+      "title": "Registerer"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.h",
+      "description": "`addRegistrationListener`的声明处，是一个算子在dispatcher处注册时，就会被调用的钩子函数",
+      "line": 247,
+      "title": "addRegistrationListener"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 356,
+          "character": 1
+        },
+        "end": {
+          "line": 370,
+          "character": 2
+        }
+      },
+      "description": "[#5]的实现，逻辑比较简单，就是在现在已注册的所有算子上调用listener上实现的钩子方法，并返回一个RAII Guard来完成listener的注销"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 359,
+          "character": 1
+        },
+        "end": {
+          "line": 363,
+          "character": 4
+        }
+      },
+      "description": "遍历保存着已注册算子的`OperatorDef`列表，并将其利用`OperatorHandle`包装，然后传入listener的钩子函数中"
+    }
+  ],
+  "ref": "torchv2.0.1_dev",
+  "description": "分析算子是如何从`Dispatcher`处注册到`OperatorRegistry`处的"
+}

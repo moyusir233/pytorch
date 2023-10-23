@@ -13,7 +13,51 @@
       "description": "关于注册aten算子的readme",
       "line": 1,
       "title": "native_function readme"
+    },
+    {
+      "file": "aten/src/ATen/native/README.md",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 21
+        },
+        "end": {
+          "line": 4,
+          "character": 45
+        }
+      },
+      "description": "所有在yaml文件中声明的算子都由当前目录下的cpp文件进行实现"
+    },
+    {
+      "file": "aten/src/ATen/native/README.md",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 1
+        },
+        "end": {
+          "line": 12,
+          "character": 28
+        }
+      },
+      "description": "算子在c++侧与python侧接口的暴露方式"
+    },
+    {
+      "file": "aten/src/ATen/native/README.md",
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 1
+        },
+        "end": {
+          "line": 15,
+          "character": 1
+        }
+      },
+      "description": "对声明算子的格式进行了详细说明，有需要时可以查阅",
+      "title": "native_function yaml doc"
     }
   ],
-  "ref": "torchv2.0.1_dev"
+  "ref": "torchv2.0.1_dev",
+  "description": "ATen算子的具体实现信息"
 }

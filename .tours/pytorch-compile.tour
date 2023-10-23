@@ -188,5 +188,6 @@
       "title": "CompiledFunction:负责利用编译好后的fw graph与bw graph完成计算"
     }
   ],
-  "ref": "torchv2.0.1_dev"
+  "ref": "torchv2.0.1_dev",
+  "description": "对aot_autograd从前向传播的计算图中trace反向传播的计算图，以及进行函数化的流程进行了解"
 }

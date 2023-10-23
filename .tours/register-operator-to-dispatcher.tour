@@ -1,0 +1,13 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "register operator to `Dispatcher`",
+  "steps": [
+    {
+      "file": "torch/library.h",
+      "description": "实现算子注册主要的宏`TORCH_LIBRARY`，参考:\n- https://zhuanlan.zhihu.com/p/648578629\n- https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html#defining-custom-operators-that-take-or-return-bound-c-classes\n- https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html#registering-the-custom-operator-with-torchscript",
+      "line": 882
+    }
+  ],
+  "ref": "torchv2.0.1_dev",
+  "description": "分析算子是如何利用`TORCH_LIBRARY`等宏注册到`Dispatcher`类型处的，参考:1. https://zhuanlan.zhihu.com/p/648578629 2. https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html 3. https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html"
+}

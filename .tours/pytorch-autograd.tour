@@ -218,5 +218,6 @@
       "line": 888
     }
   ],
-  "ref": "torchv2.0.1_dev"
+  "ref": "torchv2.0.1_dev",
+  "description": "对pytorch实现反向传播的过程进行分析"
 }

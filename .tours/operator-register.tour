@@ -1,6 +1,6 @@
 {
   "$schema": "https://aka.ms/codetour-schema",
-  "title": "operator register",
+  "title": "call operator from python",
   "steps": [
     {
       "file": "torch/_ops.py",
@@ -196,5 +196,6 @@
       "title": "OpOverload重载的__call__方法"
     }
   ],
-  "ref": "torchv2.0.1_dev"
+  "ref": "torchv2.0.1_dev",
+  "description": "对fx graph节点中以\"torch.ops.\"调用算子的方式的完整流程进行分析(python侧)"
 }
