@@ -46,8 +46,57 @@
           "character": 2
         }
       },
-      "description": "将`c10::OperatorHandle`转换为`Operator`类型，利用了它的构造方法，以及利用了`op`上的`callBoxed`函数来处理`Stack`类型的参数，以符合[`Operation`][call operator in cpp#31]类型的定义",
+      "description": "经过[register operator to `Dispatcher`]与[`Dispatcher` internel]的一系列流程，用户注册算子被封装为`OperatorHandle`，然后这里将`c10::OperatorHandle`转换为`Operator`类型，利用了它的构造方法，以及利用了`op`上的`callBoxed`函数来处理`Stack`类型的参数，以符合[`Operation`][call operator in cpp#31]类型的定义，也因此torch.ops算子的调用，实际都是通过`OperatorHandle`的`callBoxed`方法完成的(即`Operation`的调用)",
       "title": "createOperatorFromC10"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.h",
+      "selection": {
+        "start": {
+          "line": 416,
+          "character": 2
+        },
+        "end": {
+          "line": 418,
+          "character": 4
+        }
+      },
+      "description": "`OperatorHandle`的`callBoxed`方法的实现",
+      "title": "OperatorHandle::callBoxed"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.h",
+      "description": "`Dispathcer::callBoxed`方法的实现",
+      "line": 659,
+      "title": "Dispatcher::callBoxed"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.h",
+      "description": "获得包装了用户实现的算子函数的`KernelFunction`实例",
+      "line": 671
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.h",
+      "description": "调用`KernelFunction`上的`callBoxed`方法",
+      "line": 691
+    },
+    {
+      "file": "aten/src/ATen/core/boxing/KernelFunction.h",
+      "description": "`KernelFunction`的定义，详见上面的文档注释",
+      "line": 74,
+      "title": "KernelFunction"
+    },
+    {
+      "file": "aten/src/ATen/core/boxing/KernelFunction.h",
+      "description": "已boxed的方式来调用，详细见上面的文档注释。registry将`OperatorHandle`包装为`Operator`时，`Operation`调用所使用的的实际算子的调用方式，详见[#5]",
+      "line": 107,
+      "title": "KernelFunction::callBoxed"
+    },
+    {
+      "file": "aten/src/ATen/core/boxing/KernelFunction.h",
+      "description": "以直接调用的方式来调用`KernelFunction`，而不将参数组织成`Stack`",
+      "line": 129,
+      "title": "KernelFucntion::call"
     },
     {
       "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",
@@ -100,5 +149,5 @@
     }
   ],
   "ref": "torchv2.0.1_dev",
-  "description": "分析算子是如何从`Dispatcher`处注册到`OperatorRegistry`处的"
+  "description": "分析算子是如何从`Dispatcher`处注册到`OperatorRegistry`处的，以及算子的调用的具体实现"
 }

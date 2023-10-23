@@ -1,0 +1,81 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "`Dispatcher` internel",
+  "steps": [
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "description": "完成算子定义注册的方法实现",
+      "line": 200,
+      "title": "Dispatcher::registerDef"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 204,
+          "character": 3
+        },
+        "end": {
+          "line": 205,
+          "character": 42
+        }
+      },
+      "description": "依据算子名来寻找或者创建算子对应的`OperatorHandle`"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 207,
+          "character": 1
+        },
+        "end": {
+          "line": 210,
+          "character": 92
+        }
+      },
+      "description": "进行检查，并利用`OperatorHandle`完成算子schema的注册"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "description": "调用挂载在`Dispatcher`实例上的钩子函数",
+      "line": 211
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 219,
+          "character": 1
+        },
+        "end": {
+          "line": 221,
+          "character": 6
+        }
+      },
+      "description": "返回一个负责注销算子定义的RAII Guard"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "description": "`Dispatcher`实现算子函数注册的方法",
+      "line": 247,
+      "title": "Dispatcher::registerImpl"
+    },
+    {
+      "file": "aten/src/ATen/core/dispatch/Dispatcher.cpp",
+      "selection": {
+        "start": {
+          "line": 257,
+          "character": 1
+        },
+        "end": {
+          "line": 266,
+          "character": 5
+        }
+      },
+      "description": "寻找到算子对应的`OperatorHandle`，然后完成包装算子函数的`KernelFunction`实例的注册"
+    }
+  ],
+  "ref": "torchv2.0.1_dev",
+  "description": "`TORCH_LIBRARY`等宏最终都将包装后的算子函数指针注册到`Dispatcher`中，`OperatorRegistry`通过挂载钩子函数到`Dispatcher`来实现监听算子的注册过程，并收集相应的算子信息，该tour主要来分析`Dispatcher`完成算子定义注册与实现注册的两个函数"
+}

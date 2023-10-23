@@ -4,8 +4,204 @@
   "steps": [
     {
       "file": "torch/library.h",
-      "description": "实现算子注册主要的宏`TORCH_LIBRARY`，参考:\n- https://zhuanlan.zhihu.com/p/648578629\n- https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html#defining-custom-operators-that-take-or-return-bound-c-classes\n- https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html#registering-the-custom-operator-with-torchscript",
-      "line": 882
+      "description": "关于头文件的文档注释，很详细地介绍了如何为python eager或torch script添加新的算子或者覆盖已有的算子实现，主要是`TORCH_LIBRARY`与`TORCH_LIBRARY_IMPL`两个宏的使用",
+      "line": 5,
+      "title": "library.h"
+    },
+    {
+      "file": "torch/library.h",
+      "description": "实现算子注册主要的宏`TORCH_LIBRARY`，注意这样注册的算子是\"catch-all\"的，即不会依据张量的metadata等信息来dispatch到不同的实现中，可以利用`TORCH_LIBRARY_IMPL`宏来注册依据不同的dispatch key而分发的算子实现。其他信息可参考上面的文档注释以及:\n- https://zhuanlan.zhihu.com/p/648578629\n- https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html#defining-custom-operators-that-take-or-return-bound-c-classes\n- https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html#registering-the-custom-operator-with-torchscript",
+      "line": 882,
+      "title": "TORCH_LIBRARY macro"
+    },
+    {
+      "file": "torch/library.h",
+      "selection": {
+        "start": {
+          "line": 882,
+          "character": 1
+        },
+        "end": {
+          "line": 891,
+          "character": 50
+        }
+      },
+      "description": "`TORCH_LIBRARY` macro进行了如下工作:\n- 声明了静态函数`static void TORCH_LIBRARY_init_##ns(torch::Library&)`\n- 利用上面声明的静态函数的函数指针与`#ns`来创建了`torch::detail::TorchLibraryInit`类型的静态变量`TORCH_LIBRARY_static_init##ns`\n- 将宏剩下部分的花括号作为声明的静态函数进行定义的函数体\n因此实际进行注册的操作是在创建静态变量`TORCH_LIBRARY_static_init##ns`的构造函数中所进行的。`TORCH_LIBRARY_IMPL`的整体操作也类似"
+    },
+    {
+      "file": "torch/library.h",
+      "selection": {
+        "start": {
+          "line": 837,
+          "character": 1
+        },
+        "end": {
+          "line": 853,
+          "character": 1
+        }
+      },
+      "description": "在`TORCH_LIBRARY`宏与`TORCH_LIBRARY_IMPL`宏中，利用了该类型的构造函数与静态变量实例来完成算子注册，参数中的`InitFn`就对应着宏所定义的静态函数。\n该构造函数调用时，利用传入的参数先实例化了`Library`实例，然后将其传入到用户定义的静态注册函数中",
+      "title": "TorchLibraryInit"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 54,
+          "character": 1
+        },
+        "end": {
+          "line": 85,
+          "character": 4
+        }
+      },
+      "description": "`Library`类型的构造函数，不同的`kind_`对应着不同宏调用时的处理分支，分别为`TORCH_LIBRARY`、`TORCH_LIBRARY_IMPL`，`TORCH_LIBRARY_FRAGMENT`宏的调用"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 62,
+          "character": 1
+        },
+        "end": {
+          "line": 69,
+          "character": 10
+        }
+      },
+      "description": "在`Dispatcher`实例上注册算子的命名空间(和算子针对不同后端的实现的注册区分开来)"
+    },
+    {
+      "file": "torch/library.h",
+      "selection": {
+        "start": {
+          "line": 600,
+          "character": 1
+        },
+        "end": {
+          "line": 603,
+          "character": 4
+        }
+      },
+      "description": "`Library`的def函数的实现，在`TORCH_LIBRARY`宏的函数体中就利用该函数完成实际的算子定义操作，详见上面的文档注释",
+      "title": "Library::def"
+    },
+    {
+      "file": "torch/library.h",
+      "selection": {
+        "start": {
+          "line": 625,
+          "character": 1
+        },
+        "end": {
+          "line": 631,
+          "character": 4
+        }
+      },
+      "description": "def的另一个重载的版本，是直接传入算子实现的函数指针来完成的，也是常用的调用方式",
+      "title": "Library::def overload"
+    },
+    {
+      "file": "torch/library.h",
+      "description": "先利用`CppFunction`类对传入的函数指针进行了封装",
+      "line": 627
+    },
+    {
+      "file": "torch/library.h",
+      "description": "用于包装用户自定义的算子函数的类，该类型利用`c10::KernelFunction`来包装了用户的算子函数，擦除了用户算子函数的类型，而使用推断的函数schema来记录该函数的类型，详见上面的文档注释",
+      "line": 105,
+      "title": "CppFunction"
+    },
+    {
+      "file": "torch/library.h",
+      "selection": {
+        "start": {
+          "line": 628,
+          "character": 1
+        },
+        "end": {
+          "line": 629,
+          "character": 57
+        }
+      },
+      "description": "从用户传入的字符串中构造算子函数的名称或者scheam"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 145,
+          "character": 1
+        },
+        "end": {
+          "line": 179,
+          "character": 2
+        }
+      },
+      "description": "完成算子函数定义操作的实现，其中用户传入的算子函数被封装到了传入的`CppFunction`类型的参数中，总的来说包括利用`Dispatcher`完成算子定义的注册以及完成算子实现的注册两步",
+      "title": "Library::_def 注册算子函数的定义与实现"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 146,
+          "character": 1
+        },
+        "end": {
+          "line": 162,
+          "character": 6
+        }
+      },
+      "description": "获得用户算子函数的schema"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "description": "先调用重载版本的_def#[15]来注册schema",
+      "line": 165
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 166,
+          "character": 1
+        },
+        "end": {
+          "line": 177,
+          "character": 5
+        }
+      },
+      "description": "利用dispatcher完成算子实现的注册，使用到了算子名称，`dispatch_key`，被包装为`c10::KernelFunction`、保存在`CppFunciton`实例中的用户的算子实现函数以及函数的签名与schema，还有用于debug的算子实现的文件与行数信息"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 91,
+          "character": 1
+        },
+        "end": {
+          "line": 142,
+          "character": 2
+        }
+      },
+      "description": "注册算子函数的schema",
+      "title": "Library::_def 注册算子函数的schema"
+    },
+    {
+      "file": "aten/src/ATen/core/library.cpp",
+      "selection": {
+        "start": {
+          "line": 129,
+          "character": 1
+        },
+        "end": {
+          "line": 135,
+          "character": 9
+        }
+      },
+      "description": "调用dispatcher上的`registerDef`方法来完成算子函数schema的定义，**注意这里传入了包含算子定义文件与行数的`debugString`，也许会是一个确定算子实现的很有用的信息**"
     }
   ],
   "ref": "torchv2.0.1_dev",
