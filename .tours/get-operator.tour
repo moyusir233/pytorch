@@ -338,18 +338,18 @@
       "title": "Operation"
     },
     {
-      "file": "../miniconda3/lib/python3.11/site-packages/torch/include/ATen/core/stack.h",
+      "file": "aten/src/ATen/core/stack.h",
       "selection": {
         "start": {
           "line": 40,
-          "character": 1
+          "character": 3
         },
         "end": {
           "line": 42,
           "character": 4
         }
       },
-      "description": "Operation实例被call时即直接调用其保存的函数实例"
+      "description": "`Operator`被调用时利用其保存的`Operatrion`来完成算子的调用，这个`Operation`被调用时实际上就是调用了`OperatorHandle`的`callBoxed`方法，详见[register operator from `Dispatcher` to `OperatorRegistry`#5]"
     }
   ],
   "ref": "torchv2.0.1_dev",

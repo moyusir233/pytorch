@@ -88,6 +88,12 @@
     },
     {
       "file": "aten/src/ATen/core/boxing/KernelFunction.h",
+      "description": "从UnboxedFunction来创建`KernelFunction`，这也是`TORCH_LIBRARY`等宏中将用户传入的算子函数包装为`CppFunction`实例中的`KernelFunction`所使用的方法，详见[register operator to `Dispatcher`#10]",
+      "line": 195,
+      "title": "KernelFunction::makeFromUnboxedFunction"
+    },
+    {
+      "file": "aten/src/ATen/core/boxing/KernelFunction.h",
       "description": "已boxed的方式来调用，详细见上面的文档注释。registry将`OperatorHandle`包装为`Operator`时，`Operation`调用所使用的的实际算子的调用方式，详见[#5]",
       "line": 107,
       "title": "KernelFunction::callBoxed"
@@ -97,6 +103,12 @@
       "description": "以直接调用的方式来调用`KernelFunction`，而不将参数组织成`Stack`",
       "line": 129,
       "title": "KernelFucntion::call"
+    },
+    {
+      "file": "aten/src/ATen/core/boxing/BoxedKernel.h",
+      "description": "在`KernelFunciton`内部，用户的算子函数指针又会被转换为`BoxedKernel`类型",
+      "line": 74,
+      "title": "BoxedKernel"
     },
     {
       "file": "torch/csrc/jit/runtime/register_c10_ops.cpp",

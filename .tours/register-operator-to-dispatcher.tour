@@ -205,5 +205,5 @@
     }
   ],
   "ref": "torchv2.0.1_dev",
-  "description": "分析算子是如何利用`TORCH_LIBRARY`等宏注册到`Dispatcher`类型处的，参考:1. https://zhuanlan.zhihu.com/p/648578629 2. https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html 3. https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html"
+  "description": "分析算子是如何利用`TORCH_LIBRARY`等宏以及`Library`类型注册到`Dispatcher`类型处的，参考:1. https://zhuanlan.zhihu.com/p/648578629 2. https://pytorch.org/tutorials/advanced/torch_script_custom_classes.html 3. https://pytorch.org/tutorials/advanced/torch_script_custom_ops.html"
 }
