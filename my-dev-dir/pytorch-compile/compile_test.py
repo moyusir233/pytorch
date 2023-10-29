@@ -2,6 +2,7 @@ from typing import Iterator, Generator, Tuple, Callable, List, Optional
 
 import torch
 import torch._dynamo as dynamo
+from torch._ops import OpOverload
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
 from torch._dynamo.backends.common import aot_autograd
@@ -32,10 +33,12 @@ class CudaEventTimer:
         return self.spend_time
 
 
-def benchmark(epoch: int, dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]],
-              original_model: Callable[[torch.Tensor, torch.Tensor], None],
-              compile_model: Callable[[torch.Tensor, torch.Tensor], None],
-              ):
+def benchmark(
+    epoch: int,
+    dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]],
+    original_model: Callable[[torch.Tensor, torch.Tensor], None],
+    compile_model: Callable[[torch.Tensor, torch.Tensor], None],
+):
     # warm up
     for _ in range(5):
         data, label = next(dataloader)
@@ -52,12 +55,20 @@ def benchmark(epoch: int, dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]
         with timer:
             compile_model(data, label)
         compile_model_spend_time = timer.get_spend_time()
-        print("epoch:{}, compile model spend time:{}ms".format(i + 1, compile_model_spend_time))
+        print(
+            "epoch:{}, compile model spend time:{}ms".format(
+                i + 1, compile_model_spend_time
+            )
+        )
 
         with timer:
             original_model(data, label)
         original_model_spend_time = timer.get_spend_time()
-        print("epoch:{}, original model spend time:{}ms".format(i + 1, original_model_spend_time))
+        print(
+            "epoch:{}, original model spend time:{}ms".format(
+                i + 1, original_model_spend_time
+            )
+        )
 
         speed_up = original_model_spend_time - compile_model_spend_time
         print("epoch:{}, speed up:{}ms".format(i + 1, speed_up))
@@ -67,8 +78,14 @@ def benchmark(epoch: int, dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]
 
 
 class VisionModel(torch.nn.Module):
-    def __init__(self, model: torch.nn.Module, optim: torch.optim.Optimizer,
-                 loss_fn: torch.nn.Module, *args, **kwargs):
+    def __init__(
+        self,
+        model: torch.nn.Module,
+        optim: torch.optim.Optimizer,
+        loss_fn: torch.nn.Module,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.model = model
         # self.optim = optim
@@ -83,16 +100,22 @@ class VisionModel(torch.nn.Module):
         return loss
 
 
-def create_vision_dataloader(batch_size: int, class_num: int, device: torch.device) -> Generator[
-    Tuple[torch.Tensor, torch.Tensor], None, None]:
+def create_vision_dataloader(
+    batch_size: int, class_num: int, device: torch.device
+) -> Generator[Tuple[torch.Tensor, torch.Tensor], None, None]:
     while 1:
-        yield (torch.randn(batch_size, 3, 128, 128).to(torch.float32).to(device),
-               torch.randint(class_num, (batch_size,)).to(device)
-               )
+        yield (
+            torch.randn(batch_size, 3, 128, 128).to(torch.float32).to(device),
+            torch.randint(class_num, (batch_size,)).to(device),
+        )
 
 
-def compile_vision_model(epoch: int = 10,
-                         compile_fn: Callable[[torch.nn.Module, Optional[List]], Callable] = default_compile_fn):
+def compile_vision_model(
+    epoch: int = 10,
+    compile_fn: Callable[
+        [torch.nn.Module, Optional[List]], Callable
+    ] = default_compile_fn,
+):
     device = torch.device("cuda:0")
     model = resnet152().to(device)
     optim = torch.optim.Adam(params=model.parameters())
@@ -103,12 +126,23 @@ def compile_vision_model(epoch: int = 10,
 
     compile_model = compile_fn(vision_model, list(next(dataloader)))
 
-    benchmark(epoch, dataloader, lambda data, label: vision_model.forward(data, label), compile_model)
+    benchmark(
+        epoch,
+        dataloader,
+        lambda data, label: vision_model.forward(data, label),
+        compile_model,
+    )
 
 
 class BertLanguageModel(torch.nn.Module):
-    def __init__(self, model: BertForSequenceClassification, optim: torch.optim.Optimizer, loss_fn: torch.nn.Module,
-                 *args, **kwargs):
+    def __init__(
+        self,
+        model: BertForSequenceClassification,
+        optim: torch.optim.Optimizer,
+        loss_fn: torch.nn.Module,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.model = model
         self.optim = optim
@@ -123,9 +157,9 @@ class BertLanguageModel(torch.nn.Module):
         # self.optim.step()
 
 
-def create_language_dataloader(batch_size: int, class_num: int, tokenizer: BertTokenizer, device: torch.device) -> \
-        Generator[
-            Tuple[torch.Tensor, torch.Tensor], None, None]:
+def create_language_dataloader(
+    batch_size: int, class_num: int, tokenizer: BertTokenizer, device: torch.device
+) -> Generator[Tuple[torch.Tensor, torch.Tensor], None, None]:
     text = "Replace me by any text you'd like."
 
     batch_input = []
@@ -136,13 +170,15 @@ def create_language_dataloader(batch_size: int, class_num: int, tokenizer: BertT
     batch_input = torch.tensor(batch_input).to(device)
 
     while 1:
-        yield (
-            batch_input, torch.randint(class_num, (batch_size,)).to(device)
-        )
+        yield (batch_input, torch.randint(class_num, (batch_size,)).to(device))
 
 
-def compile_language_model(epoch: int = 10,
-                           compile_fn: Callable[[torch.nn.Module, Optional[List]], Callable] = default_compile_fn):
+def compile_language_model(
+    epoch: int = 10,
+    compile_fn: Callable[
+        [torch.nn.Module, Optional[List]], Callable
+    ] = default_compile_fn,
+):
     device = torch.device("cuda:0")
     config = BertConfig.from_json_file("./bert_base_uncased_model_config.json")
 
@@ -152,12 +188,35 @@ def compile_language_model(epoch: int = 10,
     model: BertForSequenceClassification = BertForSequenceClassification(config)
     model = model.to(device)
 
-    language_model = BertLanguageModel(model, torch.optim.Adam(model.parameters()),
-                                       torch.nn.CrossEntropyLoss().to(device))
+    language_model = BertLanguageModel(
+        model,
+        torch.optim.Adam(model.parameters()),
+        torch.nn.CrossEntropyLoss().to(device),
+    )
 
     compile_model = compile_fn(language_model, list(next(dataloader)))
 
-    benchmark(epoch, dataloader, lambda data, label: language_model.forward(data, label), compile_model)
+    benchmark(
+        epoch,
+        dataloader,
+        lambda data, label: language_model.forward(data, label),
+        compile_model,
+    )
+
+
+class GetOperatorInfoInterpreter(Interpreter):
+    def call_function(
+        self, target: "Target", args: Tuple[Argument, ...], kwargs: Dict[str, Any]
+    ) -> Any:
+        if isinstance(target, OpOverload):
+            # 将target替换为hacking的ops
+            namespace, name = target._schema.name.split("::")
+            target = (
+                playground.ops.__getattr__(namespace)
+                .__getattr__(name)
+                .__getattr__(target._overloadname)
+            )
+        return super().call_function(target, args, kwargs)
 
 
 def graph_printer(gm: GraphModule, flag: str = ""):
@@ -167,16 +226,24 @@ def graph_printer(gm: GraphModule, flag: str = ""):
         graph_printer.__setattr__("target_type_dict", dict())
     graph_printer.graph_print_count += 1
     print(
-        "{}graph print count:{}".format("flag:{} ".format(flag) if flag != "" else "", graph_printer.graph_print_count))
+        "{}graph print count:{}".format(
+            "flag:{} ".format(flag) if flag != "" else "",
+            graph_printer.graph_print_count,
+        )
+    )
     for node in gm.graph.nodes:
         # print("opcode:{},name:{},target:{},args:{}".format(node.op, node.name, node.target, node.args))
-        if node.op == 'call_function':
+        if node.op == "call_function":
             target = node.target
             target_type = str(type(target))
             print("target type:{}".format(target_type))
             for i, item in enumerate(dir(target)):
                 if not item.startswith("__"):
-                    print("i:{},name:{},\nvalue:\n{}".format(i, item, getattr(target, item)))
+                    print(
+                        "i:{},name:{},\nvalue:\n{}".format(
+                            i, item, getattr(target, item)
+                        )
+                    )
             print("-------------------------------------------")
             if graph_printer.target_type_dict.get(target_type) is None:
                 graph_printer.target_type_dict[target_type] = 0
@@ -189,18 +256,22 @@ def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callabl
         # print(explanation)
         pass
 
-    def create_print_fn(flag: str = "") -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
+    def create_print_fn(
+        flag: str = "",
+    ) -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
             graph_printer(gm, flag)
             return make_boxed_func(gm.forward)
 
         return print_fn
 
-    backend = aot_autograd(fw_compiler=create_print_fn("forward"), bw_compiler=create_print_fn("backward"))
+    backend = aot_autograd(
+        fw_compiler=create_print_fn("forward"), bw_compiler=create_print_fn("backward")
+    )
     return torch.compile(m, backend=backend)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     torch.set_float32_matmul_precision("high")
     config.verbose = True
 
