@@ -1,12 +1,14 @@
-from typing import Iterator, Generator, Tuple, Callable, List, Optional
+from typing import Iterator, Generator, Tuple, Callable, List, Optional, Dict, Any
 
 import torch
-import torch._dynamo as dynamo
-from torch._ops import OpOverload
+import playground
 from functorch.compile import make_boxed_func
 from torch._dynamo import config
 from torch._dynamo.backends.common import aot_autograd
+from torch._ops import OpOverload
 from torch.fx import GraphModule
+from torch.fx import Interpreter
+from torch.fx.node import Argument
 from torchvision.models.resnet import resnet152
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizer
 
@@ -34,10 +36,10 @@ class CudaEventTimer:
 
 
 def benchmark(
-    epoch: int,
-    dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]],
-    original_model: Callable[[torch.Tensor, torch.Tensor], None],
-    compile_model: Callable[[torch.Tensor, torch.Tensor], None],
+        epoch: int,
+        dataloader: Iterator[Tuple[torch.Tensor, torch.Tensor]],
+        original_model: Callable[[torch.Tensor, torch.Tensor], None],
+        compile_model: Callable[[torch.Tensor, torch.Tensor], None],
 ):
     # warm up
     for _ in range(5):
@@ -79,12 +81,12 @@ def benchmark(
 
 class VisionModel(torch.nn.Module):
     def __init__(
-        self,
-        model: torch.nn.Module,
-        optim: torch.optim.Optimizer,
-        loss_fn: torch.nn.Module,
-        *args,
-        **kwargs,
+            self,
+            model: torch.nn.Module,
+            optim: torch.optim.Optimizer,
+            loss_fn: torch.nn.Module,
+            *args,
+            **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.model = model
@@ -95,13 +97,13 @@ class VisionModel(torch.nn.Module):
         # self.optim.zero_grad()
         output: torch.Tensor = self.model(data)
         loss: torch.Tensor = self.loss_fn(output, label)
-        loss.backward()
+        # loss.backward()
         # self.optim.step()
         return loss
 
 
 def create_vision_dataloader(
-    batch_size: int, class_num: int, device: torch.device
+        batch_size: int, class_num: int, device: torch.device
 ) -> Generator[Tuple[torch.Tensor, torch.Tensor], None, None]:
     while 1:
         yield (
@@ -111,10 +113,10 @@ def create_vision_dataloader(
 
 
 def compile_vision_model(
-    epoch: int = 10,
-    compile_fn: Callable[
-        [torch.nn.Module, Optional[List]], Callable
-    ] = default_compile_fn,
+        epoch: int = 10,
+        compile_fn: Callable[
+            [torch.nn.Module, Optional[List]], Callable
+        ] = default_compile_fn,
 ):
     device = torch.device("cuda:0")
     model = resnet152().to(device)
@@ -136,12 +138,12 @@ def compile_vision_model(
 
 class BertLanguageModel(torch.nn.Module):
     def __init__(
-        self,
-        model: BertForSequenceClassification,
-        optim: torch.optim.Optimizer,
-        loss_fn: torch.nn.Module,
-        *args,
-        **kwargs,
+            self,
+            model: BertForSequenceClassification,
+            optim: torch.optim.Optimizer,
+            loss_fn: torch.nn.Module,
+            *args,
+            **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.model = model
@@ -158,7 +160,7 @@ class BertLanguageModel(torch.nn.Module):
 
 
 def create_language_dataloader(
-    batch_size: int, class_num: int, tokenizer: BertTokenizer, device: torch.device
+        batch_size: int, class_num: int, tokenizer: BertTokenizer, device: torch.device
 ) -> Generator[Tuple[torch.Tensor, torch.Tensor], None, None]:
     text = "Replace me by any text you'd like."
 
@@ -174,10 +176,10 @@ def create_language_dataloader(
 
 
 def compile_language_model(
-    epoch: int = 10,
-    compile_fn: Callable[
-        [torch.nn.Module, Optional[List]], Callable
-    ] = default_compile_fn,
+        epoch: int = 10,
+        compile_fn: Callable[
+            [torch.nn.Module, Optional[List]], Callable
+        ] = default_compile_fn,
 ):
     device = torch.device("cuda:0")
     config = BertConfig.from_json_file("./bert_base_uncased_model_config.json")
@@ -206,7 +208,7 @@ def compile_language_model(
 
 class GetOperatorInfoInterpreter(Interpreter):
     def call_function(
-        self, target: "Target", args: Tuple[Argument, ...], kwargs: Dict[str, Any]
+            self, target: "Target", args: Tuple[Argument, ...], kwargs: Dict[str, Any]
     ) -> Any:
         if isinstance(target, OpOverload):
             # 将target替换为hacking的ops
@@ -217,6 +219,10 @@ class GetOperatorInfoInterpreter(Interpreter):
                 .__getattr__(target._overloadname)
             )
         return super().call_function(target, args, kwargs)
+
+    @classmethod
+    def collect_operator_info(cls, gm: GraphModule, *args, **kwargs):
+        cls(gm).run(*args, **kwargs)
 
 
 def graph_printer(gm: GraphModule, flag: str = ""):
@@ -257,10 +263,11 @@ def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callabl
         pass
 
     def create_print_fn(
-        flag: str = "",
+            flag: str = "",
     ) -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
-            graph_printer(gm, flag)
+            # graph_printer(gm, flag)
+            GetOperatorInfoInterpreter.collect_operator_info(gm, *inputs)
             return make_boxed_func(gm.forward)
 
         return print_fn
@@ -276,6 +283,42 @@ if __name__ == "__main__":
     config.verbose = True
 
     compile_vision_model(1, print_compile_fn)
-    print("target_type_dict:")
-    print(graph_printer.target_type_dict)
+
+    from playground._C import get_operators_info
+
+
+    class Integer:
+        def __init__(self, init: int):
+            self.inner = init
+
+        def add(self, num: int):
+            self.inner += num
+
+        def __str__(self):
+            return str(self.inner)
+
+
+    operator_overloaded_info: Dict[str, Tuple[Integer, List[List]]] = dict()
+    for (op_type, (symbol, overloaded_args)) in get_operators_info():
+        if operator_overloaded_info.get(symbol) is None:
+            operator_overloaded_info[symbol] = (Integer(0), [])
+        if op_type == "Overloaded":
+            operator_overloaded_info[symbol][1].append(overloaded_args)
+        else:
+            operator_overloaded_info[symbol][0].add(1)
+
+    overloaded_op_count = 0
+    non_overloaded_op_count = 0
+    for (symbol, (non_overloaded_count, overloaded_args)) in operator_overloaded_info.items():
+        print("symbol: {}, non overloaded count: {}".format(symbol, non_overloaded_count))
+        print("overloaded args: {}", overloaded_args)
+        if len(overloaded_args) == 0:
+            non_overloaded_op_count += 1
+        else:
+            overloaded_op_count += 1
+
+    print("overloaded op count: {}".format(overloaded_op_count))
+    print("non overloaded op count: {}".format(non_overloaded_op_count))
+    # print("target_type_dict:")
+    # print(graph_printer.target_type_dict)
     # compile_language_model(1, print_compile_fn)
