@@ -1,0 +1,26 @@
+symbol: aten::clone, non overloaded count: 465
+overloaded args: {} []
+symbol: aten::convolution, non overloaded count: 155
+overloaded args: {} []
+symbol: aten::add, non overloaded count: 205
+overloaded args: {} []
+symbol: aten::_native_batch_norm_legit_functional, non overloaded count: 155
+overloaded args: {} []
+symbol: aten::relu, non overloaded count: 151
+overloaded args: {} []
+symbol: aten::max_pool2d_with_indices, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::mean, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::view, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::t, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::addmm, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::_log_softmax, non overloaded count: 1
+overloaded args: {} []
+symbol: aten::nll_loss_forward, non overloaded count: 1
+overloaded args: {} []
+overloaded op count: 0
+non overloaded op count: 12
