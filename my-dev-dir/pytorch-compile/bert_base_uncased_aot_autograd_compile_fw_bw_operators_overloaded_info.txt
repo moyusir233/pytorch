@@ -1,0 +1,76 @@
+symbol: aten::ones, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::slice, non overloaded count: 42
+overloaded args: {} []
+symbol: aten::expand, non overloaded count: 294
+overloaded args: {} []
+symbol: aten::unsqueeze, non overloaded count: 12
+overloaded args: {} []
+symbol: aten::rsub, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::mul, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::embedding, non overloaded count: 18
+overloaded args: {} []
+symbol: aten::add, non overloaded count: 522
+overloaded args: {} []
+symbol: aten::native_layer_norm, non overloaded count: 150
+overloaded args: {} []
+symbol: aten::native_dropout, non overloaded count: 228
+overloaded args: {} []
+symbol: aten::t, non overloaded count: 2220
+overloaded args: {} []
+symbol: aten::view, non overloaded count: 3108
+overloaded args: {} []
+symbol: aten::addmm, non overloaded count: 444
+overloaded args: {} []
+symbol: aten::permute, non overloaded count: 576
+overloaded args: {} []
+symbol: aten::transpose, non overloaded count: 432
+overloaded args: {} []
+symbol: aten::clone, non overloaded count: 576
+overloaded args: {} []
+symbol: aten::_unsafe_view, non overloaded count: 504
+overloaded args: {} []
+symbol: aten::bmm, non overloaded count: 432
+overloaded args: {} []
+symbol: aten::div, non overloaded count: 144
+overloaded args: {} []
+symbol: aten::_softmax, non overloaded count: 78
+overloaded args: {} []
+symbol: aten::gelu, non overloaded count: 72
+overloaded args: {} []
+symbol: aten::select, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::tanh, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::_log_softmax, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::nll_loss_forward, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::nll_loss_backward, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::_log_softmax_backward_data, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::_softmax_backward_data, non overloaded count: 78
+overloaded args: {} []
+symbol: aten::mm, non overloaded count: 888
+overloaded args: {} []
+symbol: aten::sum, non overloaded count: 450
+overloaded args: {} []
+symbol: aten::native_dropout_backward, non overloaded count: 228
+overloaded args: {} []
+symbol: aten::tanh_backward, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::select_backward, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::slice_backward, non overloaded count: 6
+overloaded args: {} []
+symbol: aten::native_layer_norm_backward, non overloaded count: 150
+overloaded args: {} []
+symbol: aten::gelu_backward, non overloaded count: 72
+overloaded args: {} []
+symbol: aten::embedding_dense_backward, non overloaded count: 18
+overloaded args: {} []
+overloaded op count: 0
+non overloaded op count: 37
