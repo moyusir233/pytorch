@@ -97,7 +97,7 @@ class VisionModel(torch.nn.Module):
         # self.optim.zero_grad()
         output: torch.Tensor = self.model(data)
         loss: torch.Tensor = self.loss_fn(output, label)
-        loss.backward()
+        # loss.backward()
         # self.optim.step()
         return loss
 
@@ -210,24 +210,15 @@ class GetOperatorInfoInterpreter(Interpreter):
     def call_function(
             self, target: "Target", args: Tuple[Argument, ...], kwargs: Dict[str, Any]
     ) -> Any:
-        ret = super().call_function(target,args,kwargs)
-
         if isinstance(target, OpOverload):
             # 将target替换为hacking的ops
             namespace, name = target._schema.name.split("::")
-            new_target = (
+            target = (
                 playground.ops.__getattr__(namespace)
                 .__getattr__(name)
                 .__getattr__(target._overloadname)
             )
-            hacking_ret = super().call_function(new_target,args,kwargs)
-            # 随机操作不进行比较
-            if target==torch.ops.aten.native_dropout.default:
-                return ret;
-            if not (repr(ret)==repr(hacking_ret)):
-                print("ret is different with the hacking ret, target: {},new_target: {},\nret:\n{},\n hacking_ret:\n{}".format(target,new_target,ret,hacking_ret))
-
-        return ret
+        return super().call_function(target, args, kwargs)
 
     @classmethod
     def collect_operator_info(cls, gm: GraphModule, *args, **kwargs):
@@ -276,9 +267,8 @@ def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callabl
     ) -> Callable[[GraphModule, List[torch.Tensor]], Callable]:
         def print_fn(gm: GraphModule, inputs: List[torch.Tensor]):
             # graph_printer(gm, flag)
-            # GetOperatorInfoInterpreter.collect_operator_info(gm, *inputs)
-            # 利用interpreter来执行gm
-            return make_boxed_func(GetOperatorInfoInterpreter(gm).run)
+            GetOperatorInfoInterpreter.collect_operator_info(gm, *inputs)
+            return make_boxed_func(gm.forward)
 
         return print_fn
 
@@ -288,7 +278,12 @@ def print_compile_fn(m: torch.nn.Module, args: Optional[List] = None) -> Callabl
     return torch.compile(m, backend=backend)
 
 
-def collect_operators_overloaded_info():
+if __name__ == "__main__":
+    torch.set_float32_matmul_precision("high")
+    config.verbose = True
+
+    compile_vision_model(1, print_compile_fn)
+
     from playground._C import get_operators_info
 
 
@@ -324,16 +319,6 @@ def collect_operators_overloaded_info():
 
     print("overloaded op count: {}".format(overloaded_op_count))
     print("non overloaded op count: {}".format(non_overloaded_op_count))
-
-if __name__ == "__main__":
-    torch.set_float32_matmul_precision("high")
-    config.verbose = True
-
-    # compile_vision_model(1, print_compile_fn)
-    compile_language_model(1,print_compile_fn)
-
-    collect_operators_overloaded_info()
-
     # print("target_type_dict:")
     # print(graph_printer.target_type_dict)
     # compile_language_model(1, print_compile_fn)
