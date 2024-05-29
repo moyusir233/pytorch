@@ -1,0 +1,29 @@
+{
+    "version": 4,
+    "configurePresets": [
+        {
+            "name": "libtorch-cpu-mpi-release",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install",
+                "BUILD_SHARD_LIBS": true,
+                "PYTHON_EXECUTABLE": "/usr/bin/python",
+                "USE_CUDA": false,
+                "USE_C10D_MPI": true,
+                "USE_MPI": true
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "libtorch-cpu-mpi-release",
+            "configurePreset": "libtorch-cpu-mpi-release",
+            "jobs": 8,
+            "targets": [
+                "install"
+            ]
+        }
+    ]
+}
