@@ -9,7 +9,7 @@
                 "CMAKE_BUILD_TYPE": "Release",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install",
                 "BUILD_SHARD_LIBS": true,
-                "PYTHON_EXECUTABLE": "/usr/bin/python",
+                "PYTHON_EXECUTABLE": "/usr/bin/python3",
                 "USE_CUDA": false,
                 "USE_C10D_MPI": true,
                 "USE_MPI": true
@@ -20,7 +20,7 @@
         {
             "name": "libtorch-cpu-mpi-release",
             "configurePreset": "libtorch-cpu-mpi-release",
-            "jobs": 8,
+            "jobs": 4,
             "targets": [
                 "install"
             ]
