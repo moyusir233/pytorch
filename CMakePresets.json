@@ -3,15 +3,35 @@
     "configurePresets": [
         {
             "name": "libtorch-cpu-mpi-release",
-            "binaryDir": "${sourceDir}/build",
+            "binaryDir": "${sourceDir}/target/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/target/${presetName}/install",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "BUILD_SHARD_LIBS": true,
                 "PYTHON_EXECUTABLE": "/usr/bin/python3",
                 "USE_CUDA": false,
                 "USE_C10D_MPI": true,
                 "USE_MPI": true
+            }
+        },
+        {
+            // 参考https://github.com/pytorch/pytorch/blob/main/docs/libtorch.rst
+            // 编译使用的cuda版本11.8, cudnn版本8.6
+            "name": "libtorch-cuda-nccl-release",
+            "binaryDir": "${sourceDir}/target/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/target/${presetName}/install",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "BUILD_SHARD_LIBS": true,
+                "PYTHON_EXECUTABLE": "/usr/bin/python3",
+                "USE_CUDA": true,
+                "USE_C10D_MPI": true,
+                "USE_NCCL": true,
+                "USE_CUDNN": true,
+                // 自动检测cuda arch
+                "CMAKE_CUDA_ARCHITECTURES": "OFF"
             }
         }
     ],
@@ -19,7 +39,15 @@
         {
             "name": "libtorch-cpu-mpi-release",
             "configurePreset": "libtorch-cpu-mpi-release",
-            "jobs": 4,
+            "jobs": 16,
+            "targets": [
+                "install"
+            ]
+        },
+        {
+            "name": "libtorch-cuda-nccl-release",
+            "configurePreset": "libtorch-cuda-nccl-release",
+            "jobs": 16,
             "targets": [
                 "install"
             ]
